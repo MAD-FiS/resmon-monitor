@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0b65041_fdb7e76d",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-04-10T22:38:56Z",
+      "side": 1,
+      "message": "czy to oznacza, że może być jednocześnie podłączonych do 5 sensorów? Ja bym dał minimum 25, żeby dało się podpiąć chociaż jedną dużą salę komputerową",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fecfcf5_d4a41325",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-04-10T22:38:56Z",
+      "side": 1,
+      "message": "nie wiem, czy tu potrzeba aż dwóch nawiasów",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 28
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f27c272_8574732f",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-04-10T22:38:56Z",
+      "side": 1,
+      "message": "to będzie szyfrowane połączenie? jeśli tak, to super",
+      "range": {
+        "startLine": 19,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40044a9a_e91718d3",
+        "filename": "src/Server/test/testServer.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-04-10T22:38:56Z",
+      "side": 1,
+      "message": "z jakiej biblioteki do testów zamierzasz korzystać? Jak Łukasz będzie to wiedział, to może się zająć wdrożeniem tego na Jenkinsie",
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82aa5947_14733d32",
+        "filename": "src/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-04-10T22:38:56Z",
+      "side": 1,
+      "message": "\"reszta operacji monitora\" - co masz na myśli? jakie inne operacje monitora? Chodzi Ci o część REST-ową? Ona będzie działać na HTTP, trzeba by to dograć z Rafałem",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 54
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
