@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35d57cef_5a3adda9",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "proponuję, aby dokumentację dostosować i rozszerzyć (np. opisy pól )  w taki sposób, aby za pomoca pydoc\u0027a wygenerować dokumentację :)",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 93
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b5acb9e_44ecb0a2",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "prosze dodaj spacje po przecinkach",
+      "range": {
+        "startLine": 8,
+        "startChar": 21,
+        "endLine": 8,
+        "endChar": 41
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11bb0d3a_d3b92fd8",
+        "filename": "src/Server/test/testServer.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "prosze umieśc te linijke zaraz pod wszystkimi importami",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 25
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5549379_5840fd69",
+        "filename": "src/Server/test/testServer.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "w jaki sposób odpalić testy (komenda) ?\nmoże nie pisz tego w kodzie, tylko tu na gerricie albo w jakims pliku readme...",
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda0939c_77c0d51d",
+        "filename": "src/main.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "prosze daj ją po wszystkich importach",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 31
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bbde241_9f174845",
+        "filename": "src/main.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "proszę dodaj w ramach pomocy podaj przykład użycia  (jaka komenda, jakie parametry dobrać)",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73339fe2_4e402b6e",
+        "filename": "src/main.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-11T21:39:59Z",
+      "side": 1,
+      "message": "zbyt długa linia; proszę złam ją",
+      "range": {
+        "startLine": 8,
+        "startChar": 98,
+        "endLine": 8,
+        "endChar": 102
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
