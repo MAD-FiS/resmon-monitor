@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "bfb6f628_e2d9b4e2",
+        "filename": "src/Server/test/testServer.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "linijka dodana w celu poprawnego zaimportowania klasy Server, musi byc w tym miejscu",
+      "parentUuid": "11bb0d3a_d3b92fd8",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 25
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5549379_5840fd69",
         "filename": "src/Server/test/testServer.py",
         "patchSetId": 3
@@ -111,6 +135,30 @@
     },
     {
       "key": {
+        "uuid": "b90d7838_3867fb2c",
+        "filename": "src/main.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "linijka dodana w celu poprawnego zaimportowania klasy Server, musi byc w tym miejscu",
+      "parentUuid": "cda0939c_77c0d51d",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 31
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bbde241_9f174845",
         "filename": "src/main.py",
         "patchSetId": 3
@@ -122,6 +170,30 @@
       "writtenOn": "2018-04-11T21:39:59Z",
       "side": 1,
       "message": "proszę dodaj w ramach pomocy podaj przykład użycia  (jaka komenda, jakie parametry dobrać)",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "304396ff18b4ee04af2d413ea61bbef4989bbf1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2eb9eb8_1b2931e8",
+        "filename": "src/main.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "przyklad uzycia jest w linijce ponizej, wyswietli sie on rowniez w przypadku uruchomienia skryptu bez parametrow",
+      "parentUuid": "5bbde241_9f174845",
       "range": {
         "startLine": 7,
         "startChar": 4,
