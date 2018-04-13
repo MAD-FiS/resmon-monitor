@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a45b300_04c5fc0a",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "ok, zmienie - wszystko zalezy tez od wydajnosci systemu na ktorym to bedzie stalo - kazde polaczenie bedzie obslugiwane w osobnym watku",
+      "parentUuid": "f0b65041_fdb7e76d",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fecfcf5_d4a41325",
         "filename": "src/Server/src/Server.py",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "b093c031_c836c732",
+        "filename": "src/Server/src/Server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "tak, transmisja bedzie szyfrowana - na serwerze trzeba wygenerowac certyfikat i dostarczyc go na klienta zeby to ladnie dzialalo",
+      "parentUuid": "1f27c272_8574732f",
+      "range": {
+        "startLine": 19,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40044a9a_e91718d3",
         "filename": "src/Server/test/testServer.py",
         "patchSetId": 2
@@ -88,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "b682c17c_29cfc4ec",
+        "filename": "src/Server/test/testServer.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "prawdopodobnie bedzie to modul unittest",
+      "parentUuid": "40044a9a_e91718d3",
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82aa5947_14733d32",
         "filename": "src/main.py",
         "patchSetId": 2
@@ -99,6 +165,30 @@
       "writtenOn": "2018-04-10T22:38:56Z",
       "side": 1,
       "message": "\"reszta operacji monitora\" - co masz na myśli? jakie inne operacje monitora? Chodzi Ci o część REST-ową? Ona będzie działać na HTTP, trzeba by to dograć z Rafałem",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 54
+      },
+      "revId": "8a6a16c402827fba0387f94a2a527209f8368582",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de3daa2f_2583b899",
+        "filename": "src/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-13T12:57:03Z",
+      "side": 1,
+      "message": "tak, trzeba sie dogadac co do szczegolow",
+      "parentUuid": "82aa5947_14733d32",
       "range": {
         "startLine": 18,
         "startChar": 12,
