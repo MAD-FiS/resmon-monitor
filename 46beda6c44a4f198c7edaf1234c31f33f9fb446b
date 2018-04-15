@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2de6aef6_15cc4dff",
+        "filename": "setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-15T20:48:28Z",
+      "side": 1,
+      "message": "nie wiem czy było to ustalane.\nOsobiście proponowałbym, aby w skryptach bash\u0027owych używać spacji zamiast tabulatorów.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "46beda6c44a4f198c7edaf1234c31f33f9fb446b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14eb869d_23c99f4d",
+        "filename": "setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-15T20:48:28Z",
+      "side": 1,
+      "message": "proszę, spróbuj zapisać do pliku od razu kilka linijek;\nzerknij tu:\nhttps://stackoverflow.com/questions/7875540/how-do-you-write-multiple-line-configuration-file-using-bash-and-use-variables?utm_medium\u003dorganic\u0026utm_source\u003dgoogle_rich_qa\u0026utm_campaign\u003dgoogle_rich_qa",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "46beda6c44a4f198c7edaf1234c31f33f9fb446b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
