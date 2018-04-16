@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6cea2ec_d8c38b10",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-16T08:37:24Z",
+      "side": 1,
+      "message": "usun wiszace spacje",
+      "revId": "449bef0ebdc2efee0952cc8c76797f982acba29a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87af6170_7e9db347",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1013790
+      },
+      "writtenOn": "2018-04-16T08:37:24Z",
+      "side": 1,
+      "message": "na pewno chcemy to interaktywnie robic?",
+      "range": {
+        "startLine": 150,
+        "startChar": 1,
+        "endLine": 150,
+        "endChar": 30
+      },
+      "revId": "449bef0ebdc2efee0952cc8c76797f982acba29a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
