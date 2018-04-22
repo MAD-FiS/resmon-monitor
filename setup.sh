@@ -1,14 +1,26 @@
 #!/bin/bash
 
-wsgiFilename='monitor.wsgi'
-appFiles='swagger_stuff'
+scriptPath="$( cd "$(dirname "$0")" ; pwd -P )"
+
+#load configuration file
+. "$scriptPath/monitor.conf"
+
+echo "Script search path: $scriptPath"
 
 function generateWsgiFile {
-	currentPath=`pwd`
-	echo "import sys" > $wsgiFilename
-	echo "sys.path.insert(0, '$currentPath/$appFiles')" >> $wsgiFilename
-	echo "from monitor_main import app as application" >> $wsgiFilename
+    local wsgiPointedMainFile=$1
+    local wsgiFilename=$2
+    local appFilesDir=$3
+
+    wsgiPath=$scriptPath'/'$wsgiFilename
+
+cat > $wsgiPath << EOL
+import sys > $wsgiPath
+sys.path.insert(0, '$scriptPath/$appFilesDir')
+from $wsgiPointedMainFile import app as application
+EOL
 }
 
-generateWsgiFile
+generateWsgiFile $guiModuleMainFile $guiModuleWsgiFileName $guiModuleApplicationFiles
+generateWsgiFile $sensorModuleMainFile $sensorModuleWsgiFileName $sensorModuleApplicationFiles
 
