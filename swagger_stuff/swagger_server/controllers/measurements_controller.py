@@ -6,16 +6,20 @@ from swagger_server.models.measurement import Measurement  # noqa: E501
 from swagger_server.models.value import Value  # noqa: E501
 from swagger_server import util
 
+from mongoAccess import mongo3
+
 
 def get_measurements():  # noqa: E501
+    db = mongo3.DB('', '', '172.17.0.2', 27017, "test", "myCollection")
+    dbContent = db.select() 
+
     """Get measurements from all hosts
 
      # noqa: E501
 
-
     :rtype: List[InlineResponse200]
     """
-    return 'do some magic!'
+    return str(dbContent)
 
 
 def get_measurements_host(hostname):  # noqa: E501
