@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7608b98c_9fb45257",
+        "filename": "Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "hmm.. może jakaś wersja alpine?\n---\na w przyszłości można pomysleć o tym, aby użyc innego obrazu (jakiś z apache? może jakiś z pythonem?)",
+      "range": {
+        "startLine": 1,
+        "startChar": 12,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00bfeda9_85146f33",
+        "filename": "Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "proszę dodaj jedną spację",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 1
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ba7f140_7d1e3e25",
+        "filename": "Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "pytanie, czy jeśli by skompresować te COPY / RUN do pojedynczych wywołań, to czy pojemnośc obrazu byłaby mniejsza ...",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a475aeec_faddac9f",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "proszę, usuń wszystkie \"czrwone spacje\".\nproszę zamień taby na spacje (1 tab \u003d 4 spacje (czy 2 ?))",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7966a411_65c85dd9",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "co to? dp usuniecia?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffa36514_b43fa91a",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "jeśli tu stosujemy taką konwecje, to należy pamiętać aby w innych miejsach w repo byla sotsowana taka sama konwecja",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 10
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4906c2ce_9f5e96d5",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "w skrypcie widze co najmniej dwie konwecje formatowania konstrukcji warunkowe \"if\".\nProszę, wybierz jedną i trzymaj się jej \n(tu \"then nie w tej samej linii co \"if \"\") :)",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 5
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66aa8021_9beb625e",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "fragment kodu wymieszany z funkcjami. myśle, że można by przyjąć taką konwecję skryptu w bashu:\nPOCZATEK PLIKU\nmiejsce na stałe\n\nmiejsce na funkcje (ułożone alfabetycznie)\n\nmiejsce na kod\nKONIEC PLIKU",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d312cb_b71674c1",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "Co najmniej dwie konwecje formatowania funkcji :)\nProse wybierz jedną.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23a844e_8ee49f3e",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "w skrypcie widze co najmniej dwie konwecje formatowania konstrukcji warunkowe \"if\".\nProszę, wybierz jedną i trzymaj się jej \n(tu \"then w tej samej linii co \"if \"\") :)",
+      "range": {
+        "startLine": 95,
+        "startChar": 57,
+        "endLine": 95,
+        "endChar": 63
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37824dac_fbcb7efe",
+        "filename": "apacheSetup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "pamietaj o wcięciach (2 czy 4 spaceje)",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 4
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55a0c32d_cffe80a8",
+        "filename": "database/mongoAccess/mongo3.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "pytanie jakie narzedzie bierzemy do generowania dokumentacji.\nJeśli pydoc, to proszę dostosuj dokumentacje do tego narzędzia.\nAlbo możemy to na razie zostawić, i ewentualnie w przyszłości wrócić do kwesstii związanej z dokumentacją.",
+      "range": {
+        "startLine": 8,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbd8a9f9_89c5952f",
+        "filename": "database/mongoAccess/mongo3.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "proszę, \"break line\"",
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8e72b88_a05c2655",
+        "filename": "database/mongoAccess/mongo3.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "proszę, skróć linie (break line)",
+      "range": {
+        "startLine": 24,
+        "startChar": 99,
+        "endLine": 24,
+        "endChar": 101
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa2e6ca_45795702",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "fajnie jakby gdzieś było napisane co to za plik, po co on itd.\nmoże jakby zmienić nazwe pliku na inną?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ae11dce_843cd310",
+        "filename": "sensor_receiver/sensor_main.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "prosze usuń spacje",
+      "range": {
+        "startLine": 13,
+        "startChar": 38,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f3a2b9d_12f9153e",
+        "filename": "sensor_receiver/sensor_main.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "diwe konwencje nazywania zmiennych w jednym pliku.\nProszę wybierz jedną i trzymaj sie jej.",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 20
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11b30672_05b7b732",
+        "filename": "setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1013695
+      },
+      "writtenOn": "2018-04-23T21:39:53Z",
+      "side": 1,
+      "message": "definicja funkcji na początek, reszta na końcu?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
