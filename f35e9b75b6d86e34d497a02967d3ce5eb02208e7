@@ -341,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "5350c534_8fceb4b5",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1013783
+      },
+      "writtenOn": "2018-04-24T15:52:38Z",
+      "side": 1,
+      "message": "To jest raczej takie common w pythonowych projektach.",
+      "parentUuid": "3aa2e6ca_45795702",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "f35e9b75b6d86e34d497a02967d3ce5eb02208e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ae11dce_843cd310",
         "filename": "sensor_receiver/sensor_main.py",
         "patchSetId": 1
