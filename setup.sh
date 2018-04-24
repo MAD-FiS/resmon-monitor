@@ -5,7 +5,6 @@ scriptPath="$( cd "$(dirname "$0")" ; pwd -P )"
 #load configuration file
 . "$scriptPath/monitor.conf"
 
-echo "Script search path: $scriptPath"
 
 function generateWsgiFile {
     local wsgiPointedMainFile=$1
@@ -21,6 +20,7 @@ from $wsgiPointedMainFile import app as application
 EOL
 }
 
+echo "Script search path: $scriptPath"
 generateWsgiFile $guiModuleMainFile $guiModuleWsgiFileName $guiModuleApplicationFiles
 generateWsgiFile $sensorModuleMainFile $sensorModuleWsgiFileName $sensorModuleApplicationFiles
 

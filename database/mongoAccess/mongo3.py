@@ -20,8 +20,8 @@ class DB:
         self._base = base if base else "admin"
         self._collection_name = collection if collection else "testCollection"
 
-        #self.client = _pm.MongoClient('mongodb://'+self._user+':'+self._pswd+'@'+self._host+'/'+self._base, port=self._port, serverSelectionTimeoutMS=1000)
-        self.client = _pm.MongoClient('mongodb://'+self._host+'/'+self._base, port=self._port, serverSelectionTimeoutMS=1000)
+        self.client = _pm.MongoClient('mongodb://'+self._host+'/'+self._base, port=self._port, 
+                                        serverSelectionTimeoutMS=1000)
         self.client.server_info()
         self.db = self.client[self._base]
         self.col = self.db[self._collection_name]

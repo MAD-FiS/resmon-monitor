@@ -10,12 +10,12 @@ def app(environ, start_response):
                 "time": currentTime
             })
     outputStr = str(currentTime)
-    output = bytes(outputStr, 'utf-8') 
+    output = bytes(outputStr, 'utf-8')
 
 
-    response_headers = [('Content-type', 'text/plain'),
+    responseHeaders = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]
 
-    start_response(status, response_headers)
+    start_response(status, responseHeaders)
 
     return [output]

@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y apache2 \
     vim \
  && apt-get clean \
  && apt-get autoremove \
-&& rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
