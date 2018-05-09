@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.value import Value  # noqa: F401,E501
+from swagger_server.models.point import Point  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -16,26 +16,31 @@ class Measurement(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, metric_id: str=None, values: List[Value]=None):  # noqa: E501
+    def __init__(self, metric_id: str=None, hostname: str=None, data: List[Point]=None):  # noqa: E501
         """Measurement - a model defined in Swagger
 
         :param metric_id: The metric_id of this Measurement.  # noqa: E501
         :type metric_id: str
-        :param values: The values of this Measurement.  # noqa: E501
-        :type values: List[Value]
+        :param hostname: The hostname of this Measurement.  # noqa: E501
+        :type hostname: str
+        :param data: The data of this Measurement.  # noqa: E501
+        :type data: List[Point]
         """
         self.swagger_types = {
             'metric_id': str,
-            'values': List[Value]
+            'hostname': str,
+            'data': List[Point]
         }
 
         self.attribute_map = {
             'metric_id': 'metric_id',
-            'values': 'values'
+            'hostname': 'hostname',
+            'data': 'data'
         }
 
         self._metric_id = metric_id
-        self._values = values
+        self._hostname = hostname
+        self._data = data
 
     @classmethod
     def from_dict(cls, dikt) -> 'Measurement':
@@ -52,6 +57,7 @@ class Measurement(Model):
     def metric_id(self) -> str:
         """Gets the metric_id of this Measurement.
 
+        Metric slug name e.g. `ram`, `cpu`  # noqa: E501
 
         :return: The metric_id of this Measurement.
         :rtype: str
@@ -62,6 +68,7 @@ class Measurement(Model):
     def metric_id(self, metric_id: str):
         """Sets the metric_id of this Measurement.
 
+        Metric slug name e.g. `ram`, `cpu`  # noqa: E501
 
         :param metric_id: The metric_id of this Measurement.
         :type metric_id: str
@@ -70,22 +77,47 @@ class Measurement(Model):
         self._metric_id = metric_id
 
     @property
-    def values(self) -> List[Value]:
-        """Gets the values of this Measurement.
+    def hostname(self) -> str:
+        """Gets the hostname of this Measurement.
 
+        Target host (domain name)  # noqa: E501
 
-        :return: The values of this Measurement.
-        :rtype: List[Value]
+        :return: The hostname of this Measurement.
+        :rtype: str
         """
-        return self._values
+        return self._hostname
 
-    @values.setter
-    def values(self, values: List[Value]):
-        """Sets the values of this Measurement.
+    @hostname.setter
+    def hostname(self, hostname: str):
+        """Sets the hostname of this Measurement.
 
+        Target host (domain name)  # noqa: E501
 
-        :param values: The values of this Measurement.
-        :type values: List[Value]
+        :param hostname: The hostname of this Measurement.
+        :type hostname: str
         """
 
-        self._values = values
+        self._hostname = hostname
+
+    @property
+    def data(self) -> List[Point]:
+        """Gets the data of this Measurement.
+
+        Actual timeseries  # noqa: E501
+
+        :return: The data of this Measurement.
+        :rtype: List[Point]
+        """
+        return self._data
+
+    @data.setter
+    def data(self, data: List[Point]):
+        """Sets the data of this Measurement.
+
+        Actual timeseries  # noqa: E501
+
+        :param data: The data of this Measurement.
+        :type data: List[Point]
+        """
+
+        self._data = data

@@ -15,26 +15,51 @@ class Metric(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, name: str=None, base: bool=None):  # noqa: E501
+    def __init__(self, metric_id: str=None, description: str=None, complex: bool=None, unit: str=None, moving_window_duration: int=None, interval: int=None, removable: bool=None):  # noqa: E501
         """Metric - a model defined in Swagger
 
-        :param name: The name of this Metric.  # noqa: E501
-        :type name: str
-        :param base: The base of this Metric.  # noqa: E501
-        :type base: bool
+        :param metric_id: The metric_id of this Metric.  # noqa: E501
+        :type metric_id: str
+        :param description: The description of this Metric.  # noqa: E501
+        :type description: str
+        :param complex: The complex of this Metric.  # noqa: E501
+        :type complex: bool
+        :param unit: The unit of this Metric.  # noqa: E501
+        :type unit: str
+        :param moving_window_duration: The moving_window_duration of this Metric.  # noqa: E501
+        :type moving_window_duration: int
+        :param interval: The interval of this Metric.  # noqa: E501
+        :type interval: int
+        :param removable: The removable of this Metric.  # noqa: E501
+        :type removable: bool
         """
         self.swagger_types = {
-            'name': str,
-            'base': bool
+            'metric_id': str,
+            'description': str,
+            'complex': bool,
+            'unit': str,
+            'moving_window_duration': int,
+            'interval': int,
+            'removable': bool
         }
 
         self.attribute_map = {
-            'name': 'name',
-            'base': 'base'
+            'metric_id': 'metric_id',
+            'description': 'description',
+            'complex': 'complex',
+            'unit': 'unit',
+            'moving_window_duration': 'moving_window_duration',
+            'interval': 'interval',
+            'removable': 'removable'
         }
 
-        self._name = name
-        self._base = base
+        self._metric_id = metric_id
+        self._description = description
+        self._complex = complex
+        self._unit = unit
+        self._moving_window_duration = moving_window_duration
+        self._interval = interval
+        self._removable = removable
 
     @classmethod
     def from_dict(cls, dikt) -> 'Metric':
@@ -48,43 +73,170 @@ class Metric(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def name(self) -> str:
-        """Gets the name of this Metric.
+    def metric_id(self) -> str:
+        """Gets the metric_id of this Metric.
 
+        Metric slug name e.g. `ram`, `cpu`  # noqa: E501
 
-        :return: The name of this Metric.
+        :return: The metric_id of this Metric.
         :rtype: str
         """
-        return self._name
+        return self._metric_id
 
-    @name.setter
-    def name(self, name: str):
-        """Sets the name of this Metric.
+    @metric_id.setter
+    def metric_id(self, metric_id: str):
+        """Sets the metric_id of this Metric.
 
+        Metric slug name e.g. `ram`, `cpu`  # noqa: E501
 
-        :param name: The name of this Metric.
-        :type name: str
+        :param metric_id: The metric_id of this Metric.
+        :type metric_id: str
         """
+        if metric_id is None:
+            raise ValueError("Invalid value for `metric_id`, must not be `None`")  # noqa: E501
 
-        self._name = name
+        self._metric_id = metric_id
 
     @property
-    def base(self) -> bool:
-        """Gets the base of this Metric.
+    def description(self) -> str:
+        """Gets the description of this Metric.
 
+        Detailed informations about metric  # noqa: E501
 
-        :return: The base of this Metric.
+        :return: The description of this Metric.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this Metric.
+
+        Detailed informations about metric  # noqa: E501
+
+        :param description: The description of this Metric.
+        :type description: str
+        """
+        if description is None:
+            raise ValueError("Invalid value for `description`, must not be `None`")  # noqa: E501
+
+        self._description = description
+
+    @property
+    def complex(self) -> bool:
+        """Gets the complex of this Metric.
+
+        True if complex (created by user), False otherwise (built-in)  # noqa: E501
+
+        :return: The complex of this Metric.
         :rtype: bool
         """
-        return self._base
+        return self._complex
 
-    @base.setter
-    def base(self, base: bool):
-        """Sets the base of this Metric.
+    @complex.setter
+    def complex(self, complex: bool):
+        """Sets the complex of this Metric.
 
+        True if complex (created by user), False otherwise (built-in)  # noqa: E501
 
-        :param base: The base of this Metric.
-        :type base: bool
+        :param complex: The complex of this Metric.
+        :type complex: bool
+        """
+        if complex is None:
+            raise ValueError("Invalid value for `complex`, must not be `None`")  # noqa: E501
+
+        self._complex = complex
+
+    @property
+    def unit(self) -> str:
+        """Gets the unit of this Metric.
+
+        String that should be appended to chart tooltip / legend eq. `%` or `Mb`  # noqa: E501
+
+        :return: The unit of this Metric.
+        :rtype: str
+        """
+        return self._unit
+
+    @unit.setter
+    def unit(self, unit: str):
+        """Sets the unit of this Metric.
+
+        String that should be appended to chart tooltip / legend eq. `%` or `Mb`  # noqa: E501
+
+        :param unit: The unit of this Metric.
+        :type unit: str
+        """
+        if unit is None:
+            raise ValueError("Invalid value for `unit`, must not be `None`")  # noqa: E501
+
+        self._unit = unit
+
+    @property
+    def moving_window_duration(self) -> int:
+        """Gets the moving_window_duration of this Metric.
+
+        Duration of moving window in seconds  # noqa: E501
+
+        :return: The moving_window_duration of this Metric.
+        :rtype: int
+        """
+        return self._moving_window_duration
+
+    @moving_window_duration.setter
+    def moving_window_duration(self, moving_window_duration: int):
+        """Sets the moving_window_duration of this Metric.
+
+        Duration of moving window in seconds  # noqa: E501
+
+        :param moving_window_duration: The moving_window_duration of this Metric.
+        :type moving_window_duration: int
         """
 
-        self._base = base
+        self._moving_window_duration = moving_window_duration
+
+    @property
+    def interval(self) -> int:
+        """Gets the interval of this Metric.
+
+        Number of seconds between each new point in produced series  # noqa: E501
+
+        :return: The interval of this Metric.
+        :rtype: int
+        """
+        return self._interval
+
+    @interval.setter
+    def interval(self, interval: int):
+        """Sets the interval of this Metric.
+
+        Number of seconds between each new point in produced series  # noqa: E501
+
+        :param interval: The interval of this Metric.
+        :type interval: int
+        """
+
+        self._interval = interval
+
+    @property
+    def removable(self) -> bool:
+        """Gets the removable of this Metric.
+
+        True if metric is owned by logged user  # noqa: E501
+
+        :return: The removable of this Metric.
+        :rtype: bool
+        """
+        return self._removable
+
+    @removable.setter
+    def removable(self, removable: bool):
+        """Sets the removable of this Metric.
+
+        True if metric is owned by logged user  # noqa: E501
+
+        :param removable: The removable of this Metric.
+        :type removable: bool
+        """
+
+        self._removable = removable
