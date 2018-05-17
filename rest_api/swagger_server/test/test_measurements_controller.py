@@ -17,11 +17,11 @@ class TestMeasurementsController(BaseTestCase):
 
         Selected measurements
         """
-        query_string = [('_from', '`now() - 1d`'),
-                        ('to', '`now()`'),
+        query_string = [('start', '2013-10-20T19:20:30+01:00'),
+                        ('end', '2013-10-20T19:20:30+01:00'),
                         ('q', 'No filtering performed - all available metrics and hosts are taken')]
         response = self.client.open(
-            '/measuremets',
+            '/measurements',
             method='GET',
             query_string=query_string)
         self.assert200(response,

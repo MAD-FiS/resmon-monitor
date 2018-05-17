@@ -15,16 +15,17 @@ WORKDIR /app
 
 ADD . /app
 
-COPY ./requirements.txt /app/requirements.txt
-RUN pip3 install --trusted-host pypi.python.org -r /app/requirements.txt
+#COPY ./config/requirements.txt /app/config/requirements.txt
+RUN pip3 install --trusted-host pypi.python.org -r /app/config/requirements.txt
 
-RUN pip3 install -e /app/database/
+RUN pip3 install -e /app/common/database/
+RUN pip3 install -e /app/rest_api/apiUtils/
 
-COPY ./apacheSetup.sh /app/apacheSetup.sh
-RUN bash /app/apacheSetup.sh
+#COPY ./config/apacheSetup.sh /app/config/apacheSetup.sh
+RUN bash /app/config/apacheSetup.sh
 
-COPY ./setup.sh /app/setup.sh
-RUN bash /app/setup.sh
+#COPY ./setup.sh /app/setup.sh
+RUN bash /app/config/wsgiSetup.sh
 
 RUN a2ensite monitorConfig.conf
 RUN a2dissite 000-default.conf

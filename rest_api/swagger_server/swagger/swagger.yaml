@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: "This is simple resource monitor which allows to view how much are\
     \ used all resources on all monitored hosts.\n"
-  version: "0.2.1"
+  version: "0.3.2"
   title: "ResMon - monitorowanie rozproszonych zasobów"
   contact:
     name: "MAD-Team"
@@ -48,10 +48,11 @@ paths:
           description: "Success"
           schema:
             type: "array"
+            description: "Metric model instance"
             items:
               $ref: "#/definitions/Metric"
       x-swagger-router-controller: "swagger_server.controllers.metrics_controller"
-  /measuremets:
+  /measurements:
     get:
       tags:
       - "measurements"
@@ -60,19 +61,18 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "from"
+      - name: "start"
         in: "query"
-        description: "ISO 8601 datetime format with 1s accuracy"
-        required: false
+        description: "ISO 8601 datetime format with 1s accuracy."
+        required: true
         type: "string"
-        default: "`now() - 1d`"
         format: "date-time"
-      - name: "to"
+      - name: "end"
         in: "query"
-        description: "ISO 8601 datetime format with 1s accuracy"
+        description: "ISO 8601 datetime format with 1s accuracy. Default value is\
+          \ current time."
         required: false
         type: "string"
-        default: "`now()`"
         format: "date-time"
       - name: "q"
         in: "query"
@@ -93,6 +93,7 @@ paths:
           description: "Success"
           schema:
             type: "array"
+            description: "Measurement model instance"
             items:
               $ref: "#/definitions/Measurement"
       x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
@@ -124,21 +125,17 @@ paths:
           description: "Success"
           schema:
             type: "array"
+            description: "Hosts models"
             items:
               $ref: "#/definitions/Host"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
-  /hosts/{hostname}/metrics/{metric_id}:
-    put:
+  /hosts/{hostname}/metrics:
+    post:
       tags:
       - "hosts"
       summary: "Add complex metric"
       operationId: "post_metric"
       parameters:
-      - name: "metric_id"
-        in: "path"
-        description: "Metric identyfier"
-        required: true
-        type: "string"
       - name: "hostname"
         in: "path"
         description: "Target host (domain name)"
@@ -157,9 +154,12 @@ paths:
             type: "string"
         400:
           description: "Incorrect metric data"
+        403:
+          description: "If metric already exists, you can't change any field of it"
         404:
-          description: "Unknown metric or hostname"
+          description: "Unknown hostname or metric passed as `parent_id`"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+  /hosts/{hostname}/metrics/{metric_id}:
     delete:
       tags:
       - "hosts"
@@ -168,7 +168,8 @@ paths:
       parameters:
       - name: "metric_id"
         in: "path"
-        description: "Metric identyfier"
+        description: "Metric identyfier. It has the same form as `metric_id` field\
+          \ of `Metric` model"
         required: true
         type: "string"
       - name: "hostname"
@@ -182,6 +183,8 @@ paths:
           schema:
             type: "object"
             properties: {}
+        403:
+          description: "You aren't a creator of complex metric"
         404:
           description: "Unknown metric or hostname"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
@@ -199,7 +202,7 @@ definitions:
         description: "Numerical value corresponding to the metric unit"
     example:
       time: "2000-01-23T04:56:07.000+00:00"
-      value: 0.80082819046101150206595775671303272247314453125
+      value: 0.8008281904610115
   Measurement:
     type: "object"
     properties:
@@ -220,26 +223,26 @@ definitions:
       hostname: "hostname"
       data:
       - time: "2000-01-23T04:56:07.000+00:00"
-        value: 0.80082819046101150206595775671303272247314453125
+        value: 0.8008281904610115
       - time: "2000-01-23T04:56:07.000+00:00"
-        value: 0.80082819046101150206595775671303272247314453125
+        value: 0.8008281904610115
   Metric:
     type: "object"
     required:
-    - "complex"
     - "description"
-    - "metric_id"
     - "unit"
     properties:
-      metric_id:
+      id:
         type: "string"
-        description: "Metric slug name e.g. `ram`, `cpu`"
+        description: "Metric slug name. For basic metrics this is e.g. `ram`, `cpu`.\
+          \ For complex metrics this is concatenation produced as `cpx_{parent_id}_{moving_window_duration}_{interval}`"
       description:
         type: "string"
         description: "Detailed informations about metric"
-      complex:
-        type: "boolean"
-        description: "True if complex (created by user), False otherwise (built-in)"
+      parent_id:
+        type: "string"
+        description: "Id of a metric on which is based the complex metric. For basic\
+          \ metric this value is set as `null`."
       unit:
         type: "string"
         description: "String that should be appended to chart tooltip / legend eq.\
@@ -253,22 +256,30 @@ definitions:
       removable:
         type: "boolean"
         description: "True if metric is owned by logged user"
+      hosts:
+        type: "array"
+        description: "Array of hostnames"
+        items:
+          type: "string"
+          description: "Host name"
     description: "Metric object, when complex = true then moving_window_duration,\
       \ interval and removable need to be provided"
     example:
-      metric_id: "metric_id"
       unit: "unit"
+      parent_id: "parent_id"
       moving_window_duration: 0
       removable: true
-      complex: true
+      hosts:
+      - "hosts"
+      - "hosts"
       description: "description"
       interval: 6
+      id: "id"
   Metadata:
     type: "object"
     required:
     - "id"
     - "name"
-    - "value"
     properties:
       id:
         type: "string"
@@ -280,7 +291,7 @@ definitions:
       value:
         type: "string"
         description: "Value, format or type depends of type but should be string in\
-          \ general"
+          \ general. It has `null` value when metadata value is not specified."
     description: "Host meta information"
     example:
       name: "name"
@@ -318,35 +329,39 @@ definitions:
         id: "id"
         value: "value"
       metrics:
-      - metric_id: "metric_id"
-        unit: "unit"
+      - unit: "unit"
+        parent_id: "parent_id"
         moving_window_duration: 0
         removable: true
-        complex: true
+        hosts:
+        - "hosts"
+        - "hosts"
         description: "description"
         interval: 6
-      - metric_id: "metric_id"
-        unit: "unit"
+        id: "id"
+      - unit: "unit"
+        parent_id: "parent_id"
         moving_window_duration: 0
         removable: true
-        complex: true
+        hosts:
+        - "hosts"
+        - "hosts"
         description: "description"
         interval: 6
+        id: "id"
   payload:
     type: "object"
     required:
     - "description"
     - "interval"
     - "moving_window_duration"
-    - "unit"
     properties:
       description:
         type: "string"
         description: "Detailed informations about metric"
-      unit:
+      parent_id:
         type: "string"
-        description: "String that should be appended to chart tooltip / legend eq.\
-          \ `%` or `Mb`"
+        description: "Id of a metric on which is based the complex metric"
       moving_window_duration:
         type: "integer"
         description: "Duration of moving window in seconds"

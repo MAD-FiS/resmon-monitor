@@ -106,7 +106,7 @@ class Metadata(Model):
     def value(self) -> str:
         """Gets the value of this Metadata.
 
-        Value, format or type depends of type but should be string in general  # noqa: E501
+        Value, format or type depends of type but should be string in general. It has `null` value when metadata value is not specified.  # noqa: E501
 
         :return: The value of this Metadata.
         :rtype: str
@@ -117,12 +117,10 @@ class Metadata(Model):
     def value(self, value: str):
         """Sets the value of this Metadata.
 
-        Value, format or type depends of type but should be string in general  # noqa: E501
+        Value, format or type depends of type but should be string in general. It has `null` value when metadata value is not specified.  # noqa: E501
 
         :param value: The value of this Metadata.
         :type value: str
         """
-        if value is None:
-            raise ValueError("Invalid value for `value`, must not be `None`")  # noqa: E501
 
         self._value = value

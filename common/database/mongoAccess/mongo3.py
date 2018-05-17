@@ -31,9 +31,10 @@ class DB:
         return '\n'.join([str(i) for i in self.col.find()])
 
     def find(self,filtr):
-        '''Method finds element in base
-        filtr - array-lik {'k':v}'''
-        return '\n'.join([str(i) for i in self.col.find_one(filtr)])
+        #'''Method finds element in base
+        #filtr - array-lik {'k':v}'''
+        #return '\n'.join([str(i) for i in self.col.find_one(filtr)])
+        return self.col.find(filtr)
 
     def insert(self, item):
         '''Insert element inside collection

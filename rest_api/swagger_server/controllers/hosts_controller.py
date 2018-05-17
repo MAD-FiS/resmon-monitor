@@ -11,7 +11,7 @@ def delete_metric(metric_id, hostname):  # noqa: E501
 
      # noqa: E501
 
-    :param metric_id: Metric identyfier
+    :param metric_id: Metric identyfier. It has the same form as &#x60;metric_id&#x60; field of &#x60;Metric&#x60; model
     :type metric_id: str
     :param hostname: Target host (domain name)
     :type hostname: str
@@ -34,13 +34,11 @@ def get_hosts(q=None):  # noqa: E501
     return 'do some magic!'
 
 
-def post_metric(metric_id, hostname, payload):  # noqa: E501
+def post_metric(hostname, payload):  # noqa: E501
     """Add complex metric
 
      # noqa: E501
 
-    :param metric_id: Metric identyfier
-    :type metric_id: str
     :param hostname: Target host (domain name)
     :type hostname: str
     :param payload: Complex mertic payload
