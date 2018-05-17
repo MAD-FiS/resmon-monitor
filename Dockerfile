@@ -19,6 +19,7 @@ COPY ./requirements.txt /app/requirements.txt
 RUN pip3 install --trusted-host pypi.python.org -r /app/requirements.txt
 
 RUN pip3 install -e /app/database/
+RUN pip3 install -e /app/apiUtils/
 
 COPY ./apacheSetup.sh /app/apacheSetup.sh
 RUN bash /app/apacheSetup.sh

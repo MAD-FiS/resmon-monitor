@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.host import Host  # noqa: E501
+from swagger_server.models.inline_response2002 import InlineResponse2002  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -44,8 +44,8 @@ class TestHostsController(BaseTestCase):
         """
         payload = Payload()
         response = self.client.open(
-            '/hosts/{hostname}/metrics/{metric_id}'.format(metric_id='metric_id_example', hostname='hostname_example'),
-            method='PUT',
+            '/hosts/{hostname}/metrics'.format(hostname='hostname_example'),
+            method='POST',
             data=json.dumps(payload),
             content_type='application/json')
         self.assert200(response,

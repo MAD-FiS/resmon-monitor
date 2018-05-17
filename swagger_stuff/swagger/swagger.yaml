@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: "This is simple resource monitor which allows to view how much are\
     \ used all resources on all monitored hosts.\n"
-  version: "0.1.0"
+  version: "0.3.1"
   title: "ResMon - monitorowanie rozproszonych zasobów"
   contact:
     name: "MAD-Team"
@@ -11,18 +11,18 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "example.com"
 tags:
-- name: "resources"
-- name: "measurements"
+- name: "hosts"
 - name: "metrics"
+- name: "measurements"
+- name: "metadata"
 paths:
-  /resources:
+  /metadata:
     get:
       tags:
-      - "resources"
-      summary: "Get list of hosts"
-      operationId: "get_hosts"
+      - "metadata"
+      summary: "List of all available hosts metadata"
+      operationId: "get_metadata"
       produces:
       - "application/json"
       parameters: []
@@ -32,80 +32,13 @@ paths:
           schema:
             type: "array"
             items:
-              type: "string"
-      x-swagger-router-controller: "swagger_server.controllers.resources_controller"
-  /measurements:
-    get:
-      tags:
-      - "measurements"
-      summary: "Get measurements from all hosts"
-      operationId: "get_measurements"
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "Success"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/inline_response_200"
-      x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
-  /measurements/{hostname}:
-    get:
-      tags:
-      - "measurements"
-      summary: "Get measurements from particular host"
-      operationId: "get_measurements_host"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "hostname"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Measurement"
-        400:
-          description: "Unknown host"
-      x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
-  /measurements/{hostname}/{metric_id}:
-    get:
-      tags:
-      - "measurements"
-      summary: "Get measurements from particular host of particular metric"
-      operationId: "get_measurements_host_metric"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "hostname"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "metric_id"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Value"
-        400:
-          description: "Unknown host or metric"
-      x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
+              $ref: "#/definitions/Metadata"
+      x-swagger-router-controller: "swagger_server.controllers.metadata_controller"
   /metrics:
     get:
       tags:
       - "metrics"
-      summary: "Get available metrics"
+      summary: "List of metrics"
       operationId: "get_metrics"
       produces:
       - "application/json"
@@ -114,24 +47,97 @@ paths:
         200:
           description: "Success"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/MetricList"
+            $ref: "#/definitions/inline_response_200"
       x-swagger-router-controller: "swagger_server.controllers.metrics_controller"
-  /metric:
-    post:
+  /measurements:
+    get:
       tags:
-      - "metric"
-      summary: "Add complex metric"
-      operationId: "post_metric"
-      consumes:
+      - "measurements"
+      summary: "Selected measurements"
+      operationId: "get_measurements"
+      produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "dummy"
+      - name: "start"
+        in: "query"
+        description: "ISO 8601 datetime format with 1s accuracy."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "end"
+        in: "query"
+        description: "ISO 8601 datetime format with 1s accuracy. Default value is\
+          \ current time."
         required: false
+        type: "string"
+        format: "date-time"
+      - name: "q"
+        in: "query"
+        description: "Filters out used metrics and hosts according to provided keys.\
+          \ String needs to match the following schema: `KEY1:VAL1,KEY2:VAL2;KEY3:VAL4...`.\
+          \ Comma is used to indicate `AND` operation while semicolon relates to `OR`.\
+          \ When `VAL` paramater is wrapped into slashes then regex mode is activated.\
+          \ For example when we query for `metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/`\
+          \ we should receive cpu metric measurements for hosts containing either\
+          \ nix or win as substring in `os` metadata. Note that `AND` operation has\
+          \ higher priority than `OR`. Allowed keys: `metric_id`, `description`, `complex`\
+          \ (metric parameters) and all available host metadata fields."
+        required: false
+        type: "string"
+        default: "No filtering performed - all available metrics and hosts are taken"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+      x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
+  /hosts:
+    get:
+      tags:
+      - "hosts"
+      summary: "Get list of hosts"
+      operationId: "get_hosts"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "q"
+        in: "query"
+        description: "Filters out used metrics and hosts according to provided keys.\
+          \ String needs to match the following schema: `KEY1:VAL1,KEY2:VAL2;KEY3:VAL4...`.\
+          \ Comma is used to indicate `AND` operation while semicolon relates to `OR`.\
+          \ When `VAL` paramater is wrapped into slashes then regex mode is activated.\
+          \ For example when we query for `metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/`\
+          \ we should receive cpu metric measurements for hosts containing either\
+          \ nix or win as substring in `os` metadata. Note that `AND` operation has\
+          \ higher priority than `OR`. Allowed keys: `metric_id`, `description`, `complex`\
+          \ (metric parameters) and all available host metadata fields."
+        required: false
+        type: "string"
+        default: "No filtering performed - all available metrics and hosts are taken"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/inline_response_200_2"
+      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+  /hosts/{hostname}/metrics:
+    post:
+      tags:
+      - "hosts"
+      summary: "Add complex metric"
+      operationId: "post_metric"
+      parameters:
+      - name: "hostname"
+        in: "path"
+        description: "Target host (domain name)"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "payload"
+        description: "Complex mertic payload"
+        required: true
         schema:
-          $ref: "#/definitions/dummy"
+          $ref: "#/definitions/payload"
       responses:
         201:
           description: "metric_id of created complex metric"
@@ -139,112 +145,299 @@ paths:
             type: "string"
         400:
           description: "Incorrect metric data"
-      x-swagger-router-controller: "swagger_server.controllers.metric_controller"
-  /metric/{metric_id}:
+        403:
+          description: "If metric already exists, you can't change any field of it"
+        404:
+          description: "Unknown hostname or metric passed as `parent_id`"
+      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+  /hosts/{hostname}/metrics/{metric_id}:
     delete:
       tags:
-      - "metric"
+      - "hosts"
       summary: "Delete complex metric"
       operationId: "delete_metric"
       parameters:
       - name: "metric_id"
         in: "path"
+        description: "Metric identyfier. It has the same form as `metric_id` field\
+          \ of `Metric` model"
         required: true
-        type: "integer"
+        type: "string"
+      - name: "hostname"
+        in: "path"
+        description: "Target host (domain name)"
+        required: true
+        type: "string"
       responses:
         200:
           description: "Success"
+          schema:
+            type: "object"
+            properties: {}
+        403:
+          description: "You aren't a creator of complex metric"
         404:
-          description: "Unknown metric"
-      x-swagger-router-controller: "swagger_server.controllers.metric_controller"
+          description: "Unknown metric or hostname"
+      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
 definitions:
-  Measurement:
-    type: "object"
-    properties:
-      metric_id:
-        type: "string"
-      values:
-        type: "array"
-        items:
-          $ref: "#/definitions/Value"
-    example:
-      metric_id: "metric_id"
-      values:
-      - time: "2000-01-23T04:56:07.000+00:00"
-        value: 0.8008281904610115
-      - time: "2000-01-23T04:56:07.000+00:00"
-        value: 0.8008281904610115
-  Value:
+  Point:
     type: "object"
     properties:
       time:
         type: "string"
         format: "date-time"
+        description: "ISO 8601 datetime format with 1s accuracy"
       value:
         type: "number"
         format: "double"
+        description: "Numerical value corresponding to the metric unit"
     example:
       time: "2000-01-23T04:56:07.000+00:00"
-      value: 0.8008281904610115
-  MetricList:
+      value: 0.80082819046101150206595775671303272247314453125
+  Measurement:
     type: "object"
     properties:
-      hostname:
-        type: "string"
-      metrics:
-        type: "array"
-        items:
-          $ref: "#/definitions/Metric"
-    example:
-      hostname: "hostname"
-      metrics:
-      - name: "name"
-        base: true
-      - name: "name"
-        base: true
-  Metric:
-    type: "object"
-    properties:
-      name:
-        type: "string"
-      base:
-        type: "boolean"
-    example:
-      name: "name"
-      base: true
-  inline_response_200:
-    properties:
-      hostname:
-        type: "string"
-      measurements:
-        type: "array"
-        items:
-          $ref: "#/definitions/Measurement"
-    example:
-      hostname: "hostname"
-      measurements:
-      - metric_id: "metric_id"
-        values:
-        - time: "2000-01-23T04:56:07.000+00:00"
-          value: 0.8008281904610115
-        - time: "2000-01-23T04:56:07.000+00:00"
-          value: 0.8008281904610115
-      - metric_id: "metric_id"
-        values:
-        - time: "2000-01-23T04:56:07.000+00:00"
-          value: 0.8008281904610115
-        - time: "2000-01-23T04:56:07.000+00:00"
-          value: 0.8008281904610115
-  dummy:
-    type: "object"
-    properties:
-      hostname:
-        type: "string"
       metric_id:
         type: "string"
+        description: "Metric slug name e.g. `ram`, `cpu`"
+      hostname:
+        type: "string"
+        description: "Target host (domain name)"
+      data:
+        type: "array"
+        description: "Actual timeseries"
+        items:
+          $ref: "#/definitions/Point"
+    description: "Measurement object with timeseries to show in line chart"
+    example:
+      metric_id: "metric_id"
+      hostname: "hostname"
+      data:
+      - time: "2000-01-23T04:56:07.000+00:00"
+        value: 0.80082819046101150206595775671303272247314453125
+      - time: "2000-01-23T04:56:07.000+00:00"
+        value: 0.80082819046101150206595775671303272247314453125
+  Metric:
+    type: "object"
+    required:
+    - "description"
+    - "unit"
+    properties:
+      id:
+        type: "string"
+        description: "Metric slug name. For basic metrics this is e.g. `ram`, `cpu`.\
+          \ For complex metrics this is concatenation produced as `cpx_{parent_id}_{moving_window_duration}_{interval}`"
       description:
         type: "string"
-      length:
+        description: "Detailed informations about metric"
+      parent_id:
+        type: "string"
+        description: "Id of a metric on which is based the complex metric. For basic\
+          \ metric this value is set as `null`."
+      unit:
+        type: "string"
+        description: "String that should be appended to chart tooltip / legend eq.\
+          \ `%` or `Mb`"
+      moving_window_duration:
         type: "integer"
-      frequency:
+        description: "Duration of moving window in seconds"
+      interval:
         type: "integer"
+        description: "Number of seconds between each new point in produced series"
+      removable:
+        type: "boolean"
+        description: "True if metric is owned by logged user"
+      hosts:
+        type: "array"
+        description: "Array of hostnames"
+        items:
+          type: "string"
+          description: "Host name"
+    description: "Metric object, when complex = true then moving_window_duration,\
+      \ interval and removable need to be provided"
+    example:
+      unit: "unit"
+      parent_id: "parent_id"
+      moving_window_duration: 0
+      removable: true
+      hosts:
+      - "hosts"
+      - "hosts"
+      description: "description"
+      interval: 6
+      id: "id"
+  Metadata:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier / alias / slug"
+      name:
+        type: "string"
+        description: "Detailed information about this metadata e.g. what kind of values\
+          \ we should expect"
+      value:
+        type: "string"
+        description: "Value, format or type depends of type but should be string in\
+          \ general. It has `null` value when metadata value is not specified."
+    description: "Host meta information"
+    example:
+      name: "name"
+      id: "id"
+      value: "value"
+  Host:
+    type: "object"
+    required:
+    - "hostname"
+    - "metadata"
+    - "metrics"
+    properties:
+      hostname:
+        type: "string"
+        description: "Domain name for host"
+      metrics:
+        type: "array"
+        description: "Array of metrics (both complex and basic)"
+        items:
+          $ref: "#/definitions/Metric"
+      metadata:
+        type: "array"
+        description: "Various host properties eg. os, unit specification"
+        items:
+          $ref: "#/definitions/Metadata"
+    description: "Host object containing domain name, supported metrics and available\
+      \ metadata (e.g. OS)"
+    example:
+      hostname: "hostname"
+      metadata:
+      - name: "name"
+        id: "id"
+        value: "value"
+      - name: "name"
+        id: "id"
+        value: "value"
+      metrics:
+      - unit: "unit"
+        parent_id: "parent_id"
+        moving_window_duration: 0
+        removable: true
+        hosts:
+        - "hosts"
+        - "hosts"
+        description: "description"
+        interval: 6
+        id: "id"
+      - unit: "unit"
+        parent_id: "parent_id"
+        moving_window_duration: 0
+        removable: true
+        hosts:
+        - "hosts"
+        - "hosts"
+        description: "description"
+        interval: 6
+        id: "id"
+  inline_response_200:
+    properties:
+      '[METRIC_ID]':
+        $ref: "#/definitions/Metric"
+    description: "`METRIC_ID` is a id of every metric"
+    example:
+      '[METRIC_ID]':
+        unit: "unit"
+        parent_id: "parent_id"
+        moving_window_duration: 0
+        removable: true
+        hosts:
+        - "hosts"
+        - "hosts"
+        description: "description"
+        interval: 6
+        id: "id"
+  inline_response_200_1_METRIC_ID:
+    properties:
+      '[HOSTNAME]':
+        $ref: "#/definitions/Measurement"
+    description: "`HOSTNAME` is a hostname of every host"
+    example:
+      '[HOSTNAME]':
+        metric_id: "metric_id"
+        hostname: "hostname"
+        data:
+        - time: "2000-01-23T04:56:07.000+00:00"
+          value: 0.80082819046101150206595775671303272247314453125
+        - time: "2000-01-23T04:56:07.000+00:00"
+          value: 0.80082819046101150206595775671303272247314453125
+  inline_response_200_1:
+    properties:
+      '[METRIC_ID]':
+        $ref: "#/definitions/inline_response_200_1_METRIC_ID"
+    description: "`METRIC_ID` is an id of metric"
+    example:
+      '[METRIC_ID]':
+        '[HOSTNAME]':
+          metric_id: "metric_id"
+          hostname: "hostname"
+          data:
+          - time: "2000-01-23T04:56:07.000+00:00"
+            value: 0.80082819046101150206595775671303272247314453125
+          - time: "2000-01-23T04:56:07.000+00:00"
+            value: 0.80082819046101150206595775671303272247314453125
+  inline_response_200_2:
+    properties:
+      '[HOSTNAME]':
+        $ref: "#/definitions/Host"
+    description: "`HOSTNAME` is a hostname of every host"
+    example:
+      '[HOSTNAME]':
+        hostname: "hostname"
+        metadata:
+        - name: "name"
+          id: "id"
+          value: "value"
+        - name: "name"
+          id: "id"
+          value: "value"
+        metrics:
+        - unit: "unit"
+          parent_id: "parent_id"
+          moving_window_duration: 0
+          removable: true
+          hosts:
+          - "hosts"
+          - "hosts"
+          description: "description"
+          interval: 6
+          id: "id"
+        - unit: "unit"
+          parent_id: "parent_id"
+          moving_window_duration: 0
+          removable: true
+          hosts:
+          - "hosts"
+          - "hosts"
+          description: "description"
+          interval: 6
+          id: "id"
+  payload:
+    type: "object"
+    required:
+    - "description"
+    - "interval"
+    - "moving_window_duration"
+    properties:
+      description:
+        type: "string"
+        description: "Detailed informations about metric"
+      parent_id:
+        type: "string"
+        description: "Id of a metric on which is based the complex metric"
+      moving_window_duration:
+        type: "integer"
+        description: "Duration of moving window in seconds"
+      interval:
+        type: "integer"
+        description: "Number of seconds between each new point in produced series"

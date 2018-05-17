@@ -15,13 +15,13 @@ class Payload(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, description: str=None, unit: str=None, moving_window_duration: int=None, interval: int=None):  # noqa: E501
+    def __init__(self, description: str=None, parent_id: str=None, moving_window_duration: int=None, interval: int=None):  # noqa: E501
         """Payload - a model defined in Swagger
 
         :param description: The description of this Payload.  # noqa: E501
         :type description: str
-        :param unit: The unit of this Payload.  # noqa: E501
-        :type unit: str
+        :param parent_id: The parent_id of this Payload.  # noqa: E501
+        :type parent_id: str
         :param moving_window_duration: The moving_window_duration of this Payload.  # noqa: E501
         :type moving_window_duration: int
         :param interval: The interval of this Payload.  # noqa: E501
@@ -29,20 +29,20 @@ class Payload(Model):
         """
         self.swagger_types = {
             'description': str,
-            'unit': str,
+            'parent_id': str,
             'moving_window_duration': int,
             'interval': int
         }
 
         self.attribute_map = {
             'description': 'description',
-            'unit': 'unit',
+            'parent_id': 'parent_id',
             'moving_window_duration': 'moving_window_duration',
             'interval': 'interval'
         }
 
         self._description = description
-        self._unit = unit
+        self._parent_id = parent_id
         self._moving_window_duration = moving_window_duration
         self._interval = interval
 
@@ -83,29 +83,27 @@ class Payload(Model):
         self._description = description
 
     @property
-    def unit(self) -> str:
-        """Gets the unit of this Payload.
+    def parent_id(self) -> str:
+        """Gets the parent_id of this Payload.
 
-        String that should be appended to chart tooltip / legend eq. `%` or `Mb`  # noqa: E501
+        Id of a metric on which is based the complex metric  # noqa: E501
 
-        :return: The unit of this Payload.
+        :return: The parent_id of this Payload.
         :rtype: str
         """
-        return self._unit
+        return self._parent_id
 
-    @unit.setter
-    def unit(self, unit: str):
-        """Sets the unit of this Payload.
+    @parent_id.setter
+    def parent_id(self, parent_id: str):
+        """Sets the parent_id of this Payload.
 
-        String that should be appended to chart tooltip / legend eq. `%` or `Mb`  # noqa: E501
+        Id of a metric on which is based the complex metric  # noqa: E501
 
-        :param unit: The unit of this Payload.
-        :type unit: str
+        :param parent_id: The parent_id of this Payload.
+        :type parent_id: str
         """
-        if unit is None:
-            raise ValueError("Invalid value for `unit`, must not be `None`")  # noqa: E501
 
-        self._unit = unit
+        self._parent_id = parent_id
 
     @property
     def moving_window_duration(self) -> int:
