@@ -3,7 +3,7 @@ import connexion
 
 import swagger_server.encoder
 
-connApp = connexion.App(__name__, specification_dir='./swagger/')
+connApp = connexion.App(__name__, specification_dir='./swagger_server/swagger/')
 connApp.add_api('swagger.yaml', arguments={'title': 'ResMon - monitorowanie rozproszonych zasobów'})
 app = connApp.app
 

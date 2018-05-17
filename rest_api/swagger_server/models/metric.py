@@ -15,15 +15,15 @@ class Metric(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, metric_id: str=None, description: str=None, complex: bool=None, unit: str=None, moving_window_duration: int=None, interval: int=None, removable: bool=None):  # noqa: E501
+    def __init__(self, id: str=None, description: str=None, parent_id: str=None, unit: str=None, moving_window_duration: int=None, interval: int=None, removable: bool=None, hosts: List[str]=None):  # noqa: E501
         """Metric - a model defined in Swagger
 
-        :param metric_id: The metric_id of this Metric.  # noqa: E501
-        :type metric_id: str
+        :param id: The id of this Metric.  # noqa: E501
+        :type id: str
         :param description: The description of this Metric.  # noqa: E501
         :type description: str
-        :param complex: The complex of this Metric.  # noqa: E501
-        :type complex: bool
+        :param parent_id: The parent_id of this Metric.  # noqa: E501
+        :type parent_id: str
         :param unit: The unit of this Metric.  # noqa: E501
         :type unit: str
         :param moving_window_duration: The moving_window_duration of this Metric.  # noqa: E501
@@ -32,34 +32,39 @@ class Metric(Model):
         :type interval: int
         :param removable: The removable of this Metric.  # noqa: E501
         :type removable: bool
+        :param hosts: The hosts of this Metric.  # noqa: E501
+        :type hosts: List[str]
         """
         self.swagger_types = {
-            'metric_id': str,
+            'id': str,
             'description': str,
-            'complex': bool,
+            'parent_id': str,
             'unit': str,
             'moving_window_duration': int,
             'interval': int,
-            'removable': bool
+            'removable': bool,
+            'hosts': List[str]
         }
 
         self.attribute_map = {
-            'metric_id': 'metric_id',
+            'id': 'id',
             'description': 'description',
-            'complex': 'complex',
+            'parent_id': 'parent_id',
             'unit': 'unit',
             'moving_window_duration': 'moving_window_duration',
             'interval': 'interval',
-            'removable': 'removable'
+            'removable': 'removable',
+            'hosts': 'hosts'
         }
 
-        self._metric_id = metric_id
+        self._id = id
         self._description = description
-        self._complex = complex
+        self._parent_id = parent_id
         self._unit = unit
         self._moving_window_duration = moving_window_duration
         self._interval = interval
         self._removable = removable
+        self._hosts = hosts
 
     @classmethod
     def from_dict(cls, dikt) -> 'Metric':
@@ -73,29 +78,27 @@ class Metric(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def metric_id(self) -> str:
-        """Gets the metric_id of this Metric.
+    def id(self) -> str:
+        """Gets the id of this Metric.
 
-        Metric slug name e.g. `ram`, `cpu`  # noqa: E501
+        Metric slug name. For basic metrics this is e.g. `ram`, `cpu`. For complex metrics this is concatenation produced as `cpx_{parent_id}_{moving_window_duration}_{interval}`  # noqa: E501
 
-        :return: The metric_id of this Metric.
+        :return: The id of this Metric.
         :rtype: str
         """
-        return self._metric_id
+        return self._id
 
-    @metric_id.setter
-    def metric_id(self, metric_id: str):
-        """Sets the metric_id of this Metric.
+    @id.setter
+    def id(self, id: str):
+        """Sets the id of this Metric.
 
-        Metric slug name e.g. `ram`, `cpu`  # noqa: E501
+        Metric slug name. For basic metrics this is e.g. `ram`, `cpu`. For complex metrics this is concatenation produced as `cpx_{parent_id}_{moving_window_duration}_{interval}`  # noqa: E501
 
-        :param metric_id: The metric_id of this Metric.
-        :type metric_id: str
+        :param id: The id of this Metric.
+        :type id: str
         """
-        if metric_id is None:
-            raise ValueError("Invalid value for `metric_id`, must not be `None`")  # noqa: E501
 
-        self._metric_id = metric_id
+        self._id = id
 
     @property
     def description(self) -> str:
@@ -123,29 +126,27 @@ class Metric(Model):
         self._description = description
 
     @property
-    def complex(self) -> bool:
-        """Gets the complex of this Metric.
+    def parent_id(self) -> str:
+        """Gets the parent_id of this Metric.
 
-        True if complex (created by user), False otherwise (built-in)  # noqa: E501
+        Id of a metric on which is based the complex metric. For basic metric this value is set as `null`.  # noqa: E501
 
-        :return: The complex of this Metric.
-        :rtype: bool
+        :return: The parent_id of this Metric.
+        :rtype: str
         """
-        return self._complex
+        return self._parent_id
 
-    @complex.setter
-    def complex(self, complex: bool):
-        """Sets the complex of this Metric.
+    @parent_id.setter
+    def parent_id(self, parent_id: str):
+        """Sets the parent_id of this Metric.
 
-        True if complex (created by user), False otherwise (built-in)  # noqa: E501
+        Id of a metric on which is based the complex metric. For basic metric this value is set as `null`.  # noqa: E501
 
-        :param complex: The complex of this Metric.
-        :type complex: bool
+        :param parent_id: The parent_id of this Metric.
+        :type parent_id: str
         """
-        if complex is None:
-            raise ValueError("Invalid value for `complex`, must not be `None`")  # noqa: E501
 
-        self._complex = complex
+        self._parent_id = parent_id
 
     @property
     def unit(self) -> str:
@@ -240,3 +241,26 @@ class Metric(Model):
         """
 
         self._removable = removable
+
+    @property
+    def hosts(self) -> List[str]:
+        """Gets the hosts of this Metric.
+
+        Array of hostnames  # noqa: E501
+
+        :return: The hosts of this Metric.
+        :rtype: List[str]
+        """
+        return self._hosts
+
+    @hosts.setter
+    def hosts(self, hosts: List[str]):
+        """Sets the hosts of this Metric.
+
+        Array of hostnames  # noqa: E501
+
+        :param hosts: The hosts of this Metric.
+        :type hosts: List[str]
+        """
+
+        self._hosts = hosts
