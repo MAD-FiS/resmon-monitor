@@ -3,7 +3,7 @@ import datetime
 import json
 import dateutil.parser
 
-def parse_request(environ):
+def parse_request(environ,db):
 
     try:
         request_body_size = int(environ.get('CONTENT_LENGTH', 0))
@@ -13,21 +13,21 @@ def parse_request(environ):
     request_body = environ['wsgi.input'].read(request_body_size)
     content = request_body.decode('utf-8')
 
-    return json.loads(content)
+    js = json.loads(content)
+    if js['TYPE'] == 'META':
+        db.insert(js)
+    elif js['TYPE'] == 'DATA':
+        for value in js['DATA']:
+            datetime_object = datetime.datetime.strptime(value['DATE'].split(".")[0], \
+                            '%Y-%m-%d %H:%M:%S')
+            value['DATE'] = datetime_object
+            db.insert(value)
 
 def app(environ, start_response):
     status = '200 OK'
     db = mongo3.DB('', '', '172.17.0.2', 27017, "test", "myCollection")
 
-    dataBundle = parse_request(environ)
-    if dataBundle["TYPE"] == "DATA":
-        data = dataBundle["DATA"]
-        for dataSample in data:
-            date = dateutil.parser.parse(dataSample["DATE"])
-            dataSample["DATE"] = date
-            db.insert(dataSample)
-    else:
-        db.insert(dataBundle)
+    parse_request(environ,db)
     response_headers = [('Content-type', 'text/plain')]
 
     start_response(status, response_headers)
