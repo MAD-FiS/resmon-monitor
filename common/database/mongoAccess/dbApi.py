@@ -13,6 +13,7 @@ class dbApi:
     SESSION_PATH=DATA_KEY+'.'+SESSION_KEY
     FROM="$gt"
     TO="$lt"
+    TYPE_KEY="TYPE"
 
     def getSessionIds(self, dataFilter=None):
         sessionIds = []
@@ -32,3 +33,40 @@ class dbApi:
 
     def getAll(self):
         return self.db.select()
+
+    def getAllMetrics(self):
+        dataEntries = self.db.find({self.TYPE_KEY : "META"})
+        entries = {}
+        metrics = []
+        descriptions = {}
+        for entry in dataEntries:
+            for value in entry["DATA"]:
+                if value["TAG"] == "AVAILABLE_FIELDS":
+                    for metric in value:
+                        entries[metric] = value[metric]
+            for metric in entries["DATA"]:
+                if metric["TAG"] == "DATE" or metric["TAG"] == "SESSION_ID":
+                    continue
+                metrics.append(metric["TAG"])
+                descriptions[metric["TAG"]] = metric["DESCRIPTION"]
+
+        return set(metrics), descriptions
+
+    def getHostnameByMetric(self, metric):
+        dataEntries = self.db.find({self.TYPE_KEY : "META"})
+        hostnames = []
+        entries = {}
+        for entry in dataEntries:
+            for value in entry["DATA"]:
+                if value["TAG"] == "NAME":
+                    hostname = value["DATA"]
+                if value["TAG"] == "AVAILABLE_FIELDS":
+                    for met in value:
+                        entries[met] = value[met]
+            for met in entries["DATA"]:
+                if met["TAG"] == metric:
+                    hostnames.append(hostname)
+
+        return list(set(hostnames))
+
+
