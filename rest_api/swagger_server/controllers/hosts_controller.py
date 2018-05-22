@@ -1,9 +1,14 @@
 import connexion
 import six
+import json
 
 from swagger_server.models.host import Host  # noqa: E501
+from swagger_server.models.host import Metric  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server import util
+
+from mongoAccess import dbApi
+from .metrics_controller import get_metrics
 
 
 def delete_metric(metric_id, hostname):  # noqa: E501
@@ -31,7 +36,24 @@ def get_hosts(q=None):  # noqa: E501
 
     :rtype: List[Host]
     """
-    return 'do some magic!'
+
+    api = dbApi.dbApi()
+    if q:
+        hosts = api.getHosts(query = q)
+    else:
+        hosts = api.getHosts(query = "")
+
+    response = []
+    for host in hosts:
+        metrics = get_metrics()
+        metric_objects = []
+        for metric in metrics:
+            metric_objects.append(Metric.from_dict(metric))
+        metrics = []
+        metrics = [m for m in metric_objects if host in m.hosts]
+        response.append((Host(hostname = host, metrics = metrics)).to_dict())
+
+    return response
 
 
 def post_metric(hostname, payload):  # noqa: E501
