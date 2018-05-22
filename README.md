@@ -27,12 +27,6 @@ Next you have run :
 sudo docker run -p 4000:81 -p 4001:82 --link myMongo -it resmonimage
 ```
 
-which will setup container along with interactive terminal. In docker terminal run apache2 server:
-
-```bash
-apache2ctl start
-```
-
 At this stage you should be done with configuration.
 
 
