@@ -36,7 +36,7 @@ class dbApi:
     def findInMeta(self, filtr):
         return self.db.find(filtr, self.META_COLL) 
 
-    def findInMeta2(self, filtr):
+    def findInMeta2(self, filtr=None):
         return self.db.find(filtr, self.META2_COLL) 
     
     def findData(self, filtr):
@@ -44,14 +44,18 @@ class dbApi:
 
     def getSessionIds(self, dataFilter=None):
         #TODO: delete once query metric_id is consitent with database metric_id
-        dbFilter = dataFilter.copy()
-        if dbFilter:
+        if dataFilter:
+            dbFilter = dataFilter.copy()
             if self.METRIC_QUERY_KEY in dbFilter:
                dbFilter[self.METRIC_PATH] = dbFilter[self.METRIC_QUERY_KEY]
                del dbFilter[self.METRIC_QUERY_KEY]
 
-        metaEntries = self.findInMeta2(dbFilter)
-        return [entry[self.SESSION_KEY] for entry in metaEntries]
+            metaEntries = self.findInMeta2(dbFilter)
+            return [entry[self.SESSION_KEY] for entry in metaEntries]
+        else:
+            metaEntries = self.findInMeta2()
+            return [entry[self.SESSION_KEY] for entry in metaEntries]
+
     
     def getMetrics(self, sessionId, metricMatcher=None):
         records = self.findInMeta2({self.SESSION_KEY:sessionId})
@@ -66,7 +70,7 @@ class dbApi:
 
                 for metric in metrics:
                     metricId = metric[self.METRIC_ID_KEY]
-                    if metricsMatcher.match(metricId):
+                    if metricMatcher.match(metricId):
                         matchedMetrics.append(metricId)
 
                 return matchedMetrics

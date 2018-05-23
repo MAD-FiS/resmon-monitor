@@ -1,6 +1,7 @@
 import connexion
 import six
 import datetime
+import pytz
 
 from swagger_server.models.measurement import Measurement  # noqa: E501
 from swagger_server.models.point import Point
@@ -29,7 +30,7 @@ def get_measurements(start, end=None, q=None):  # noqa: E501
     api = dbApi.dbApi()
 
     if not end:
-        end = datetime.datetime.now()
+        end = datetime.datetime.now() 
     else:
         end = util.deserialize_datetime(end)
 
@@ -49,8 +50,6 @@ def get_measurements(start, end=None, q=None):  # noqa: E501
         for sessionId in api.getSessionIds(metaFilter):
             print("sessionId: " + str(sessionId))
             metrics = list()
-
-            print("metric_id" in metaFilter)
 
             if metaFilter and "metric_id" in metaFilter:
                 metricFilter = metaFilter["metric_id"]
