@@ -102,3 +102,6 @@ ENV/
 
 #wsgi
 *.wsgi
+
+# swap files
+*.swp
