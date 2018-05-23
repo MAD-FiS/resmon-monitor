@@ -1,5 +1,6 @@
 import connexion
 import six
+import datetime
 
 from swagger_server.models.measurement import Measurement  # noqa: E501
 from swagger_server import util
@@ -7,7 +8,8 @@ from swagger_server import util
 from mongoAccess import dbApi
 from apiUtils import QueryResolver
 
-
+TIME_IND = 0
+VALUE_IND = 1
 def get_measurements(start, end=None, q=None):  # noqa: E501
     """Selected measurements
 
@@ -23,21 +25,27 @@ def get_measurements(start, end=None, q=None):  # noqa: E501
     :rtype: List[Measurement]
     """
     start = util.deserialize_datetime(start)
-    end = util.deserialize_datetime(end)
-
     api = dbApi.dbApi()
-    resolver = QueryResolver.QueryResolver(q)
+
+    if not end:
+        end = datetime.datetime.now()
+    else:
+        end = util.deserialize_datetime(end)
+
+    if q == "No filtering performed - all available metrics and hosts are taken":
+        q = {}
+    else:
+        resolver = QueryResolver.QueryResolver(q)
+
+
 
     measurements = []
-    for filt in resolver.getFilters():
-        metaFilter = filt[0]
-        metric = filt[1]
-        sessionIds = api.getSessionIds(metaFilter)
-        for sessionId in sessionIds:
+    for metaFilter, metric in resolver.getFilters():
+        for sessionId in api.getSessionIds(metaFilter):
             dataPoints = api.getMeasurements(sessionId, metric, start, end)
-            points = [Point(m[1], m[0]) for m in dataPoints]
-            measurement = Measurement(metric, sessionId, points)
+            points = [Point(point[VALUE_IND], point[TIME_IND]) for point in dataPoints]
 
-            measurements.append(measurement)
+            measurement = Measurement(metric, sessionId, points)
+            measurements.append(measurement.to_dict())
 
     return measurements
