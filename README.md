@@ -16,7 +16,7 @@ Which will download docker container with mongoDb and call it "myMongo".
 
 In directory with monitor project run:
 ```bash
-sudo docker build -t resmonimage .
+sudo docker build --file Dockerfile_user -t resmonimage .
 ```
 Above command will download and build docker image with all dependencies, environmental configuration 
 and will copy application source inside image.
