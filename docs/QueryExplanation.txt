@@ -1,0 +1,66 @@
+przykład 1: metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/
+
+Kolejność odczytywania:
+
+1. dzielę po średnikach, każda z tych części jest połączona operatorem "lub":
+
+(
+    logika zawarta w 'metric_id:cpu,os:/.*nix.*/'
+)
+lub
+(
+    logika zawarta w 'metric_id:cpu,os:/.*win.*/'
+)
+
+2. dzielę po przecinkach, każda z tych części jest połączona operatorem "i":
+
+(
+    logika zawarta w 'metric_id:cpu'
+    i
+    logika zawarta w 'os:/.*nix.*/'
+)
+lub
+(
+    logika zawarta w 'metric_id:cpu'
+    i
+    logika zawarta w 'os:/.*win.*/'
+)
+
+3. dwukropek oddziela klucz - wartość, jeśli wartość jest pomiędzy /(...)/ to mamy regexa:
+
+(
+    parametr 'metric_id' jest dokładnie równy 'cpu'
+    i
+    parametr 'os' spełnia regexa /.*nix.*/
+)
+lub
+(
+    parametr 'metric_id' jest dokładnie równy 'cpu'
+    i
+    parametr 'os' spełnia regexa /.*win.*/
+)
+
+4. odkodowywanie parametrów
+
+- metric_id -> szukaj po id w metrykach
+- metric_description -> szukaj po description w metrykach
+- metric_parent_id -> szukaj po parent_id w metrykach
+- metric_unit -> szukaj po unit w metrykach
+- hostname -> szukaj po hostname
+- gdy dane jest coś innego, to uznaj ten parametr jako parametr z metadata
+
+-----------
+
+przykład 2:
+
+jeśli chcemy wyfiltrować tylko metryki złożone, to możemy to zrobić w ten sposób:
+metric_parent_id:/.+/
+
+jeśli chcemy znaleźć tylko metryki złożone, które powstały z metyki RAM, to możemy zapytać tak:
+metric_parent_id:RAM
+
+jeśli chcemy tylko mieć dane do HOSTNAME1 lub HOSTNAME2, przy czym dla HOSTNAME2 chcemy, by metadata "os" to debian8:
+hostname:HOSTNAME1;hostname:HOSTNAME2,os:debian8
+
+...a gdy nie znamy jaki debian, to można załatwić to regexem:
+hostname:HOSTNAME1;hostname:HOSTNAME2,os:/^debian/
