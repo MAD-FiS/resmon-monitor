@@ -29,14 +29,9 @@ class QueryResolver:
         '''Convert 'and' type conditions to db query'''
         print(str(conditionsList))
         dbFilter = {}
-        metric = "" #TODO: remove metric when no longer needed in resolving data
 
         for condition in conditionsList:
             key, value = condition.split(self.K_V_SEPARATOR)
-
-            #TODO: remove when no longer needed
-            if key == "metric_id":
-                metric = value
 
             regex = self.IS_REG.match(value)
             if regex:
@@ -46,14 +41,14 @@ class QueryResolver:
                 dbFilter[key] = value
 
         print("dbFilter: " + str(dbFilter))
-        print("metric: " + metric)
 
-        #TODO: return only dbFilter
-        return dbFilter, metric
+        return dbFilter
 
     def getFilters(self):
         '''Return list of db filters from owned query'''
         filtersList = []
+        if not self.query:
+            return {}
 
         alternatives = self.query.split(self.OR_SEPARATOR)
         for alt in alternatives:
@@ -61,11 +56,4 @@ class QueryResolver:
             filtersList.append(self.getDbFilter(conjunctions))
 
         return filtersList
-
-
-
-        
-
-
-
 

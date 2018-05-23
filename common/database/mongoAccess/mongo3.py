@@ -4,6 +4,7 @@ import pymongo as _pm
 
 class DB:
     '''Class handling with MongoDB database'''
+
     def __init__(self, user=None, pswd=None, host=None, port=None, base=None):
         '''Initialize class DB with given options:
         user - MongoDB user authorization (default: lucky_pomerange)
@@ -17,17 +18,17 @@ class DB:
         self._host = host if host else "localhost"
         self._port = port
         self._base = base if base else "admin"
-        self._collection_name = collection if collection else "testCollection"
+        #self._collection_name = collection if collection else "testCollection"
 
         self.client = _pm.MongoClient('mongodb://'+self._host+'/'+self._base, port=self._port, 
                                         serverSelectionTimeoutMS=1000)
         self.client.server_info()
         self.db = self.client[self._base]
-        #self.col = self.db[self._collection_name]
 
     def select(self, collName):
         '''Method return all collection elements'''
-        return '\n'.join([str(i) for i in self.db[collName].find())
+        col = self.db[collName]
+        return '\n'.join([str(i) for i in col.find()])
 
     def find(self,filtr, collName):
         '''Method finds elements in base

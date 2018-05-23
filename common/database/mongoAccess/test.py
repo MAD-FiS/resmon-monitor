@@ -2,6 +2,8 @@ import dbApi
 import datetime
 import mongo3
 
+api = dbApi.dbApi()
+
 #db = mongo3.DB('', '', '172.17.0.2', 27017, "test", "myCollection")
 #result = db.find({"TYPE":"META"})
 #for metaEntries in result:
@@ -9,9 +11,8 @@ import mongo3
 #        if entry["TAG"] == "SESSION_ID":
 #            print(entry["DATA"])
 
-#meas = api.getMeasurements("7a387076627b691cba4f7f54b255f70bef0aea68", "RAM_USAGE", datetime.datetime(2018,5,16,13,10,26), datetime.datetime(2018,5,16,13,30,26))
-#print(list(meas))
+meas = api.getMeasurements("349e126d3d13489dd3e797580195b3684f15779e", "RAM_USAGE", datetime.datetime(2010,5,10,00,00,00), datetime.datetime(2018,5,23,14,8,18))
+print(list(meas))
 
-api = dbApi.dbApi()
 sessionIds = api.getSessionIds()
 print(sessionIds)

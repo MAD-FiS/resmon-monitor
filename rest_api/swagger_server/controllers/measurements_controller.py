@@ -3,6 +3,7 @@ import six
 import datetime
 
 from swagger_server.models.measurement import Measurement  # noqa: E501
+from swagger_server.models.point import Point
 from swagger_server import util
 
 from mongoAccess import dbApi
@@ -32,20 +33,42 @@ def get_measurements(start, end=None, q=None):  # noqa: E501
     else:
         end = util.deserialize_datetime(end)
 
+    filters = []
     if q == "No filtering performed - all available metrics and hosts are taken":
-        q = {}
+        filters.append(None)
     else:
-        resolver = QueryResolver.QueryResolver(q)
-
-
-
+        filters = QueryResolver.QueryResolver(q).getFilters()
+        
+    print("start: " + str(start))
+    print("end: " + str(end))
+    print("q: " + str(q))
+    
     measurements = []
-    for metaFilter, metric in resolver.getFilters():
+    for metaFilter in filters:
+        print("metaFilter: " + str(metaFilter))
         for sessionId in api.getSessionIds(metaFilter):
-            dataPoints = api.getMeasurements(sessionId, metric, start, end)
-            points = [Point(point[VALUE_IND], point[TIME_IND]) for point in dataPoints]
+            print("sessionId: " + str(sessionId))
+            metrics = list()
 
-            measurement = Measurement(metric, sessionId, points)
-            measurements.append(measurement.to_dict())
+            print("metric_id" in metaFilter)
 
+            if metaFilter and "metric_id" in metaFilter:
+                metricFilter = metaFilter["metric_id"]
+                print("Metrics filtering with filter: " + str(metricFilter))
+                metrics = api.getMetrics(sessionId, metricFilter)
+            else:
+                print("No metrics filtering, take all metrics")
+                metrics = api.getMetrics(sessionId)
+                
+            for metric in metrics:
+                print(sessionId)
+                print(metric)
+                print(start)
+                print(end)
+                dataPoints = api.getMeasurements(sessionId, metric, start, end)
+                points = [Point(point[VALUE_IND], point[TIME_IND]) for point in dataPoints]
+
+                measurement = Measurement(metric, api.getHostname(sessionId), points)
+                measurements.append(measurement.to_dict())
+                
     return measurements
