@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import re
 from mongoAccess import mongo3
 
 class dbApi:
@@ -68,5 +69,18 @@ class dbApi:
                     hostnames.append(hostname)
 
         return list(set(hostnames))
+
+    def getHosts(self, query):
+        dataEntries = self.db.find({self.TYPE_KEY : "META"})
+        hostnames = []
+        expression = re.compile(".*" + query + ".*")
+        for entry in dataEntries:
+            for value in entry["DATA"]:
+                if value["TAG"] == "NAME" and expression.match(value["DATA"]):
+                    hostnames.append(value["DATA"])
+
+        return list(set(hostnames))
+            
+
 
 
