@@ -4,6 +4,7 @@ import json
 
 from swagger_server.models.host import Host  # noqa: E501
 from swagger_server.models.host import Metric  # noqa: E501
+from swagger_server.models.host import Metadata  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server import util
 
@@ -51,7 +52,8 @@ def get_hosts(q=None):  # noqa: E501
             metric_objects.append(Metric.from_dict(metric))
         metrics = []
         metrics = [m for m in metric_objects if host in m.hosts]
-        response.append((Host(hostname = host, metrics = metrics)).to_dict())
+        metadatas = [Metadata.from_dict(metadata) for metadata in api.getMetadataByHost(host)]
+        response.append((Host(hostname = host, metrics = metrics, metadata = metadatas)).to_dict())
 
     return response
 
