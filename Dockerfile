@@ -27,12 +27,12 @@ RUN bash /app/config/wsgiSetup.sh
 RUN a2ensite monitorConfig.conf
 RUN a2dissite 000-default.conf
 
-CMD apachectl -D FOREGROUND
+#CMD apachectl -D FOREGROUND
 
 EXPOSE 81
 EXPOSE 82
 
-
+ENV TZ=Poland
 ENV NAME World
 
 
