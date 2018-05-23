@@ -66,6 +66,14 @@ echo "
     WSGIScriptAlias $guiModuleRoot $guiModuleWsgiPath
     WSGIDaemonProcess $guiModuleProcessName display-name=monitor_$guiModuleProcessName
     WSGIProcessGroup $guiModuleProcessName
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [R=200,L]
+
+    Header always set Access-Control-Allow-Origin '*'
+    Header always set Access-Control-Allow-Headers 'Content-Type,Accept,Origin,Authorization'
+    Header always set Access-Control-Allow-Methods 'GET,POST,PUT,DELETE,OPTIONS'
 </VirtualHost>
 
 <VirtualHost *:$sensorSidePort>

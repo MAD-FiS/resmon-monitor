@@ -33,6 +33,8 @@ class dbApi:
     METRIC_QUERY_KEY="metric_id"
     NAME_KEY="NAME"
 
+    STANDARD_FIELDS = ["METRICS", "SESSION_ID", "NAME", "AVAILABLE_FIELDS", "SESSION_START_DATE", "DESCRIPTIONS", "_id"]
+    
     def findInMeta(self, filtr):
         return self.db.find(filtr, self.META_COLL) 
 
@@ -133,4 +135,14 @@ class dbApi:
                     hostnames.append(value["DATA"])
 
         return list(set(hostnames))
+
+    def getMetadataByHost(self, host):
+        metadata = list()
+        metaEntries = self.findInMeta2({self.NAME_KEY:host})
+        for entry in metaEntries:
+            for key in entry.keys():
+                if not key in self.STANDARD_FIELDS:
+                    metadata.append({"id":key, "name":key, "value":entry[key]})
+
+        return metadata
 
