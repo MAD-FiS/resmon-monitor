@@ -1,7 +1,7 @@
 import connexion
 import six
 
-from swagger_server.models.metadata import Metadata  # noqa: E501
+from swagger_server.models.metadata_tag import MetadataTag  # noqa: E501
 from swagger_server import util
 
 
@@ -11,6 +11,6 @@ def get_metadata():  # noqa: E501
      # noqa: E501
 
 
-    :rtype: List[Metadata]
+    :rtype: List[MetadataTag]
     """
     return 'do some magic!'
