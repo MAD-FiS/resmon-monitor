@@ -1,32 +1,32 @@
 import re
 
+
 class QueryResolver:
-    '''This class transforms rest queries into mongo DB usable filters'''
+    """This class transforms rest queries into mongo DB usable filters"""
 
     def __init__(self, query):
         self.query = query
 
-    '''This regexp captures regexes in query'''
-    IS_REG=re.compile('/.+/')
+    """This regexp captures regexes in query"""
+    IS_REG = re.compile("/.+/")
 
-    '''Left boundary of pattern matched by regexp'''
+    """Left boundary of pattern matched by regexp"""
     FROM_L_SLASH = 1
 
-    '''Right boundary of pattern matched by regexp'''
+    """Right boundary of pattern matched by regexp"""
     TO_R_SLASH = -1
 
-    '''Means 'or' for separated parts'''
-    OR_SEPARATOR=';'
+    """Means 'or' for separated parts"""
+    OR_SEPARATOR = ";"
 
-    '''Means 'and' for separated parts'''
-    AND_SEPARATOR=',' 
+    """Means 'and' for separated parts"""
+    AND_SEPARATOR = ","
 
-    '''Means 'key value' for separated parts '''
-    K_V_SEPARATOR=':'
+    """Means 'key value' for separated parts """
+    K_V_SEPARATOR = ":"
 
-    
     def getDbFilter(self, conditionsList):
-        '''Convert 'and' type conditions to db query'''
+        """Convert 'and' type conditions to db query"""
         print(str(conditionsList))
         dbFilter = {}
 
@@ -35,7 +35,7 @@ class QueryResolver:
 
             regex = self.IS_REG.match(value)
             if regex:
-                regexStr = regex.group()[self.FROM_L_SLASH:self.TO_R_SLASH]
+                regexStr = regex.group()[self.FROM_L_SLASH : self.TO_R_SLASH]
                 dbFilter[key] = re.compile(regexStr)
             else:
                 dbFilter[key] = value
@@ -45,7 +45,7 @@ class QueryResolver:
         return dbFilter
 
     def getFilters(self):
-        '''Return list of db filters from owned query'''
+        """Return list of db filters from owned query"""
         filtersList = []
         if not self.query:
             return {}
@@ -56,4 +56,3 @@ class QueryResolver:
             filtersList.append(self.getDbFilter(conjunctions))
 
         return filtersList
-
