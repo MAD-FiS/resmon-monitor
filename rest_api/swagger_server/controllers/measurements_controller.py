@@ -26,13 +26,18 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
 
     :rtype: List[Measurement]
     """
-    start = util.deserialize_datetime(start)
     api = dbApi.dbApi()
 
     if not end:
         end = datetime.datetime.now() 
     else:
         end = util.deserialize_datetime(end)
+
+    if not start:
+        start = datetime.datetime.now() - datetime.timedelta(days=1)
+    else:
+        start = util.deserialize_datetime(start)
+
 
     filters = []
     if not q:

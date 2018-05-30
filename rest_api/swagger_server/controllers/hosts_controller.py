@@ -29,7 +29,6 @@ def delete_metric(metric_id, hostname):  # noqa: E501
 
 
 def get_hosts(q=None):  # noqa: E501
-get_hosts(q=None):  # noqa: E501
     """Get list of hosts
 
      # noqa: E501
