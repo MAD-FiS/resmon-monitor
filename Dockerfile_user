@@ -24,6 +24,9 @@ RUN bash /app/config/apacheSetup.sh
 
 RUN bash /app/config/wsgiSetup.sh
 
+RUN a2enmod rewrite
+RUN a2enmod headers
+
 RUN a2ensite monitorConfig.conf
 RUN a2dissite 000-default.conf
 
