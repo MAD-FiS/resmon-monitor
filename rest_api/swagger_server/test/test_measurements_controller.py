@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
+from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.measurement import Measurement  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -19,7 +20,7 @@ class TestMeasurementsController(BaseTestCase):
         """
         query_string = [('start', '2013-10-20T19:20:30+01:00'),
                         ('end', '2013-10-20T19:20:30+01:00'),
-                        ('q', 'No filtering performed - all available metrics and hosts are taken')]
+                        ('q', 'q_example')]
         response = self.client.open(
             '/measurements',
             method='GET',

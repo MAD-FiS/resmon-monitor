@@ -2,20 +2,30 @@
 swagger: "2.0"
 info:
   description: "This is simple resource monitor which allows to view how much are\
-    \ used all resources on all monitored hosts.\n"
-  version: "0.3.2"
-  title: "ResMon - monitorowanie rozproszonych zasobów"
+    \ used all resources on all monitored hosts. Note that we use token authorization\
+    \ with JWT so you need to provide `Authorization` header with `Bearer [TOKEN]`\
+    \ value on each request. You will receive token from auth server on successful\
+    \ sign-in or sign-on action. Make sure monitor uses selected auth server. Monitor\
+    \ should handle CORS with pre-flight, allowing query each path by OPTIONS to get\
+    \ CORS headers.\n"
+  version: "0.4.2"
+  title: "ResMon - distributed resources monitoring"
   contact:
     name: "MAD-Team"
     email: "tbajorek3@gmail.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "tbajorek.pl:4000"
 tags:
 - name: "hosts"
 - name: "metrics"
 - name: "measurements"
 - name: "metadata"
+schemes:
+- "http"
+security:
+- APIKeyHeader: []
 paths:
   /metadata:
     get:
@@ -32,7 +42,20 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Metadata"
+              $ref: "#/definitions/MetadataTag"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              description: "It indicates whether the response can be shared with resources\
+                \ with the given origin"
+            Access-Control-Allow-Headers:
+              type: "string"
+              description: "It is used in response to a preflight request to indicate\
+                \ which HTTP headers can be used during the actual request"
+            Access-Control-Allow-Methods:
+              type: "string"
+              description: "It specifies the method or methods allowed when accessing\
+                \ the resource in response to a preflight request"
       x-swagger-router-controller: "swagger_server.controllers.metadata_controller"
   /metrics:
     get:
@@ -51,6 +74,19 @@ paths:
             description: "Metric model instance"
             items:
               $ref: "#/definitions/Metric"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              description: "It indicates whether the response can be shared with resources\
+                \ with the given origin"
+            Access-Control-Allow-Headers:
+              type: "string"
+              description: "It is used in response to a preflight request to indicate\
+                \ which HTTP headers can be used during the actual request"
+            Access-Control-Allow-Methods:
+              type: "string"
+              description: "It specifies the method or methods allowed when accessing\
+                \ the resource in response to a preflight request"
       x-swagger-router-controller: "swagger_server.controllers.metrics_controller"
   /measurements:
     get:
@@ -63,8 +99,9 @@ paths:
       parameters:
       - name: "start"
         in: "query"
-        description: "ISO 8601 datetime format with 1s accuracy."
-        required: true
+        description: "ISO 8601 datetime format with 1s accuracy. Default value is\
+          \ current time subtracted by 1 day"
+        required: false
         type: "string"
         format: "date-time"
       - name: "end"
@@ -84,10 +121,10 @@ paths:
           \ we should receive cpu metric measurements for hosts containing either\
           \ nix or win as substring in `os` metadata. Note that `AND` operation has\
           \ higher priority than `OR`. Allowed keys: `metric_id`, `description`, `complex`\
-          \ (metric parameters) and all available host metadata fields."
+          \ (metric parameters) and all available host metadata fields. When not provided:\
+          \ No filtering performed - all available metrics and hosts are taken"
         required: false
         type: "string"
-        default: "No filtering performed - all available metrics and hosts are taken"
       responses:
         200:
           description: "Success"
@@ -96,6 +133,23 @@ paths:
             description: "Measurement model instance"
             items:
               $ref: "#/definitions/Measurement"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              description: "It indicates whether the response can be shared with resources\
+                \ with the given origin"
+            Access-Control-Allow-Headers:
+              type: "string"
+              description: "It is used in response to a preflight request to indicate\
+                \ which HTTP headers can be used during the actual request"
+            Access-Control-Allow-Methods:
+              type: "string"
+              description: "It specifies the method or methods allowed when accessing\
+                \ the resource in response to a preflight request"
+        400:
+          description: "Bad request - error in extra parameters"
+          schema:
+            $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
   /hosts:
     get:
@@ -116,10 +170,10 @@ paths:
           \ we should receive cpu metric measurements for hosts containing either\
           \ nix or win as substring in `os` metadata. Note that `AND` operation has\
           \ higher priority than `OR`. Allowed keys: `metric_id`, `description`, `complex`\
-          \ (metric parameters) and all available host metadata fields."
+          \ (metric parameters) and all available host metadata fields. When not provided:\
+          \ No filtering performed - all available metrics and hosts are taken"
         required: false
         type: "string"
-        default: "No filtering performed - all available metrics and hosts are taken"
       responses:
         200:
           description: "Success"
@@ -128,6 +182,23 @@ paths:
             description: "Hosts models"
             items:
               $ref: "#/definitions/Host"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              description: "It indicates whether the response can be shared with resources\
+                \ with the given origin"
+            Access-Control-Allow-Headers:
+              type: "string"
+              description: "It is used in response to a preflight request to indicate\
+                \ which HTTP headers can be used during the actual request"
+            Access-Control-Allow-Methods:
+              type: "string"
+              description: "It specifies the method or methods allowed when accessing\
+                \ the resource in response to a preflight request"
+        400:
+          description: "Bad request - error in extra parameters"
+          schema:
+            $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics:
     post:
@@ -152,12 +223,31 @@ paths:
           description: "metric_id of created complex metric"
           schema:
             type: "string"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              description: "It indicates whether the response can be shared with resources\
+                \ with the given origin"
+            Access-Control-Allow-Headers:
+              type: "string"
+              description: "It is used in response to a preflight request to indicate\
+                \ which HTTP headers can be used during the actual request"
+            Access-Control-Allow-Methods:
+              type: "string"
+              description: "It specifies the method or methods allowed when accessing\
+                \ the resource in response to a preflight request"
         400:
           description: "Incorrect metric data"
+          schema:
+            $ref: "#/definitions/Error"
         403:
           description: "If metric already exists, you can't change any field of it"
+          schema:
+            $ref: "#/definitions/Error"
         404:
           description: "Unknown hostname or metric passed as `parent_id`"
+          schema:
+            $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics/{metric_id}:
     delete:
@@ -183,11 +273,33 @@ paths:
           schema:
             type: "object"
             properties: {}
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              description: "It indicates whether the response can be shared with resources\
+                \ with the given origin"
+            Access-Control-Allow-Headers:
+              type: "string"
+              description: "It is used in response to a preflight request to indicate\
+                \ which HTTP headers can be used during the actual request"
+            Access-Control-Allow-Methods:
+              type: "string"
+              description: "It specifies the method or methods allowed when accessing\
+                \ the resource in response to a preflight request"
         403:
           description: "You aren't a creator of complex metric"
+          schema:
+            $ref: "#/definitions/Error"
         404:
           description: "Unknown metric or hostname"
+          schema:
+            $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+securityDefinitions:
+  APIKeyHeader:
+    type: "apiKey"
+    name: "Anthorization"
+    in: "header"
 definitions:
   Point:
     type: "object"
@@ -202,7 +314,7 @@ definitions:
         description: "Numerical value corresponding to the metric unit"
     example:
       time: "2000-01-23T04:56:07.000+00:00"
-      value: 0.8008281904610115
+      value: 0.80082819046101150206595775671303272247314453125
   Measurement:
     type: "object"
     properties:
@@ -223,9 +335,9 @@ definitions:
       hostname: "hostname"
       data:
       - time: "2000-01-23T04:56:07.000+00:00"
-        value: 0.8008281904610115
+        value: 0.80082819046101150206595775671303272247314453125
       - time: "2000-01-23T04:56:07.000+00:00"
-        value: 0.8008281904610115
+        value: 0.80082819046101150206595775671303272247314453125
   Metric:
     type: "object"
     required:
@@ -297,6 +409,23 @@ definitions:
       name: "name"
       id: "id"
       value: "value"
+  MetadataTag:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier / alias / slug"
+      name:
+        type: "string"
+        description: "Detailed information about this metadata e.g. what kind of values\
+          \ we should expect"
+    description: "Host meta information"
+    example:
+      name: "name"
+      id: "id"
   Host:
     type: "object"
     required:
@@ -349,6 +478,11 @@ definitions:
         description: "description"
         interval: 6
         id: "id"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "string"
   payload:
     type: "object"
     required:
