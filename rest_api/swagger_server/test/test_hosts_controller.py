@@ -20,7 +20,9 @@ class TestHostsController(BaseTestCase):
         Delete complex metric
         """
         response = self.client.open(
-            '/hosts/{hostname}/metrics/{metric_id}'.format(metric_id='metric_id_example', hostname='hostname_example'),
+            '/hosts/{hostname}/metrics/{metric_id}'.format(
+                metric_id='metric_id_example',
+                hostname='hostname_example'),
             method='DELETE')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
