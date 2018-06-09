@@ -19,7 +19,8 @@ class dbApi:
     PASSW = ""
 
     def __init__(self):
-        self.db = mongo3.DB(self.USER, self.PASSW, self.IP, self.PORT, self.NAME)
+        self.db = mongo3.DB(self.USER, self.PASSW,
+                            self.IP, self.PORT, self.NAME)
 
     DATA_KEY = "DATA"
     SESSION_KEY = "SESSION_ID"
@@ -54,7 +55,8 @@ class dbApi:
         return self.db.find(filtr, self.DATA_COLL)
 
     def getSessionIds(self, dataFilter=None):
-        # TODO: delete once query metric_id is consitent with database metric_id
+        # TODO: delete once query metric_id
+        #       is consitent with database metric_id
         if dataFilter:
             dbFilter = dataFilter.copy()
             if self.METRIC_QUERY_KEY in dbFilter:
@@ -120,7 +122,8 @@ class dbApi:
         return set(metrics), descriptions
 
     def getHostname(self, sessionId):
-        return self.findInMeta2({self.SESSION_KEY: sessionId})[0][self.NAME_KEY]
+        return self.findInMeta2(
+            {self.SESSION_KEY: sessionId})[0][self.NAME_KEY]
 
     def getHostnameByMetric(self, metric):
         dataEntries = self.db.find({self.TYPE_KEY: "META"}, self.META_COLL)
@@ -155,7 +158,9 @@ class dbApi:
         metaEntries = self.findInMeta2({self.NAME_KEY: host})
         for entry in metaEntries:
             for key in entry.keys():
-                if not key in self.STANDARD_FIELDS:
-                    metadata.append({"id": key, "name": key, "value": entry[key]})
+                if key not in self.STANDARD_FIELDS:
+                    metadata.append({"id": key,
+                                     "name": key,
+                                     "value": entry[key]})
 
         return metadata
