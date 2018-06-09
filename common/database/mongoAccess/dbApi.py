@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import re
+import json
 from mongoAccess import mongo3
 
 # import mongo3
@@ -102,51 +103,35 @@ class dbApi:
         return self.db.select(self.DATA_COLL)
 
     def getAllMetrics(self):
-        dataEntries = self.db.find({self.TYPE_KEY: "META"}, self.META_COLL)
-        entries = {}
-        metrics = []
-        descriptions = {}
+        dataEntries = self.db.find(None, self.META2_COLL)
+        response = {}
         for entry in dataEntries:
-            for value in entry["DATA"]:
-                if value["TAG"] == "AVAILABLE_FIELDS":
-                    for metric in value:
-                        entries[metric] = value[metric]
-            for metric in entries["DATA"]:
-                if metric["TAG"] == "DATE" or metric["TAG"] == "SESSION_ID":
-                    continue
-                metrics.append(metric["TAG"])
-                descriptions[metric["TAG"]] = metric["DESCRIPTION"]
+            for metric in entry["AVAILABLE_FIELDS"]:
+                response.update({metric["TAG"] : metric["DESCRIPTION"]})
 
-        return set(metrics), descriptions
+        return response
 
     def getHostname(self, sessionId):
         return self.findInMeta2({self.SESSION_KEY: sessionId})[0][self.NAME_KEY]
 
     def getHostnameByMetric(self, metric):
-        dataEntries = self.db.find({self.TYPE_KEY: "META"}, self.META_COLL)
+        dataEntries = self.db.find(None, self.META2_COLL)
         hostnames = []
         entries = {}
         for entry in dataEntries:
-            for value in entry["DATA"]:
-                if value["TAG"] == "NAME":
-                    hostname = value["DATA"]
-                if value["TAG"] == "AVAILABLE_FIELDS":
-                    for met in value:
-                        entries[met] = value[met]
-            for met in entries["DATA"]:
+            for met in entry["AVAILABLE_FIELDS"]:
                 if met["TAG"] == metric:
-                    hostnames.append(hostname)
+                    hostnames.append(entry["NAME"])
 
         return list(set(hostnames))
 
     def getHosts(self, query):
-        dataEntries = self.db.find({self.TYPE_KEY: "META"}, self.META_COLL)
+        dataEntries = self.db.find(None, self.META2_COLL)
         hostnames = []
         expression = re.compile(".*" + query + ".*")
         for entry in dataEntries:
-            for value in entry["DATA"]:
-                if value["TAG"] == "NAME" and expression.match(value["DATA"]):
-                    hostnames.append(value["DATA"])
+            if expression.match(entry["NAME"]):
+                hostnames.append(entry["NAME"])
 
         return list(set(hostnames))
 

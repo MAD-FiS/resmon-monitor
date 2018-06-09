@@ -17,11 +17,12 @@ def get_metrics():  # noqa: E501
     """
 
     api = dbApi.dbApi()
-    metrics, descriptions = api.getAllMetrics()
+    metrics = api.getAllMetrics()
     response = []
-    for metric in metrics:
+
+    for metric in metrics.keys():
         hosts = api.getHostnameByMetric(metric)
-        metric_object = Metric(id = metric, description = descriptions[metric], parent_id = "null", unit = "%", hosts = hosts)
+        metric_object = Metric(id = metric, description = metrics[metric], unit = "%", hosts = hosts)
         response.append(metric_object.to_dict())
 
     return response
