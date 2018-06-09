@@ -28,8 +28,5 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': ['swagger_server=swagger_server.__main__:main']},
-    long_description="""\
-    This is simple resource monitor which allows to view how much are used all resources on all monitored hosts. 
-    """
-)
-
+    long_description="This is simple resource monitor which allows to view "
+                     "how much are used all resources on all monitored hosts.")

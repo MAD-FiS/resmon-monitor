@@ -12,6 +12,8 @@ from apiUtils import QueryResolver
 
 TIME_IND = 0
 VALUE_IND = 1
+
+
 def get_measurements(start=None, end=None, q=None):  # noqa: E501
     """Selected measurements
 
@@ -29,7 +31,7 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
     api = dbApi.dbApi()
 
     if not end:
-        end = datetime.datetime.now() 
+        end = datetime.datetime.now()
     else:
         end = util.deserialize_datetime(end)
 
@@ -38,17 +40,16 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
     else:
         start = util.deserialize_datetime(start)
 
-
     filters = []
     if not q:
         filters.append(None)
     else:
         filters = QueryResolver.QueryResolver(q).getFilters()
-        
+
     print("start: " + str(start))
     print("end: " + str(end))
     print("q: " + str(q))
-    
+
     measurements = []
     for metaFilter in filters:
         print("metaFilter: " + str(metaFilter))
@@ -63,16 +64,18 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
             else:
                 print("No metrics filtering, take all metrics")
                 metrics = api.getMetrics(sessionId)
-                
+
             for metric in metrics:
                 print(sessionId)
                 print(metric)
                 print(start)
                 print(end)
                 dataPoints = api.getMeasurements(sessionId, metric, start, end)
-                points = [Point(point[VALUE_IND], point[TIME_IND]) for point in dataPoints]
+                points = [Point(point[VALUE_IND],
+                          point[TIME_IND]) for point in dataPoints]
 
-                measurement = Measurement(metric, api.getHostname(sessionId), points)
+                measurement = Measurement(metric, api.getHostname(sessionId),
+                                          points)
                 measurements.append(measurement.to_dict())
-                
+
     return measurements
