@@ -35,7 +35,7 @@ class QueryResolver:
 
             regex = self.IS_REG.match(value)
             if regex:
-                regexStr = regex.group()[self.FROM_L_SLASH : self.TO_R_SLASH]
+                regexStr = regex.group()[self.FROM_L_SLASH: self.TO_R_SLASH]
                 dbFilter[key] = re.compile(regexStr)
             else:
                 dbFilter[key] = value

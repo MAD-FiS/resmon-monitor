@@ -18,7 +18,8 @@ class DB:
         self._host = host if host else "localhost"
         self._port = port
         self._base = base if base else "admin"
-        # self._collection_name = collection if collection else "testCollection"
+        # self._collection_name =\
+        #    collection if collection else "testCollection"
 
         self.client = _pm.MongoClient(
             "mongodb://" + self._host + "/" + self._base,
@@ -72,7 +73,7 @@ class DB:
         col.drop()
 
     def __str__(self, collName):
-        """Return String containing information about user, host, port, base, 
+        """Return String containing information about user, host, port, base,
         collection, and database elements"""
         col = self.db[collName]
         out = "User: " + self._user + "\n"
