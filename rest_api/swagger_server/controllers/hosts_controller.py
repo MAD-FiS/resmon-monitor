@@ -9,6 +9,8 @@ from swagger_server.models.host import Metadata  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server import util
 
+from flask_jwt_extended import jwt_required
+
 from mongoAccess import dbApi
 from .metrics_controller import get_metrics
 
@@ -27,7 +29,7 @@ def delete_metric(metric_id, hostname):  # noqa: E501
     """
     return 'do some magic!'
 
-
+@jwt_required
 def get_hosts(q=None):  # noqa: E501
     """Get list of hosts
 

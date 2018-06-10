@@ -17,6 +17,7 @@ function generateWsgiFile {
 cat > $wsgiPath << EOL
 import sys
 sys.path.insert(0, '$appPath/$appFilesDir')
+sys.path.insert(0, '$appPath')
 from $wsgiPointedMainFile import app as application
 EOL
 }

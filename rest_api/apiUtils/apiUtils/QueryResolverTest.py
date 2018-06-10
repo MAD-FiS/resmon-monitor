@@ -13,11 +13,8 @@ class TestResolver(unittest.TestCase):
         filters = resolver.getFilters()
 
         self.assertEqual(len(filters), 2)
-        self.assertEqual(filters[0][0], {"metric_id":"cpu", "os":re.compile(".*nix.*")})
-        self.assertEqual(filters[0][1], "cpu")
-
-        self.assertEqual(filters[1][0], {"metric_id":"cpu", "os":re.compile(".*win.*")})
-        self.assertEqual(filters[1][1], "cpu")
+        self.assertEqual(filters[0], {"metric_id":"cpu", "os":re.compile(".*nix.*")})
+        self.assertEqual(filters[1], {"metric_id":"cpu", "os":re.compile(".*win.*")})
 
 
 if __name__ == '__main__':

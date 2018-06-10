@@ -26,10 +26,10 @@ if [ ! "$(sudo docker ps -q -f name=$mongoDB)" ]; then
     printInfo "Success"
 fi
 
-printInfo "sudo docker build --file Dockerfile_user -t resmonImage ." &&
+printInfo "Running: sudo docker build --file Dockerfile_user -t resmonImage ." &&
 sudo docker build --file Dockerfile_user -t resmonimage . && 
 printInfo "Success" &&
 
-printInfo "sudo docker run -p 4000:81 -p 4001:82 --link mymongo -it resmonimage" &&
+printInfo "Running: sudo docker run -p 4000:81 -p 4001:82 --link mymongo -it resmonimage" &&
 sudo docker run -p 4000:81 -p 4001:82 --link mymongo -it resmonimage && 
 printInfo "Good bye!"
