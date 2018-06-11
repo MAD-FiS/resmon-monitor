@@ -23,8 +23,9 @@ def get_metrics():  # noqa: E501
 
     for metric in metrics.keys():
         hosts = api.getHostnameByMetric(metric)
-        metric_object = Metric(id=metric, description=metrics[metric],
-                               unit="%", hosts=hosts)
+        metric_object = Metric(
+            id=metric, description=metrics[metric], unit="%", hosts=hosts
+        )
         response.append(metric_object.to_dict())
 
     return response
