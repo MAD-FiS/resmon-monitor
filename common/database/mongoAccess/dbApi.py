@@ -2,9 +2,8 @@
 
 import re
 import json
+from datetime import datetime
 from mongoAccess import mongo3
-
-# import mongo3
 
 
 class dbApi:
@@ -13,6 +12,7 @@ class dbApi:
     DATA_COLL = "dataCollection"
     META_COLL = "metaCollection"
     META2_COLL = "meta2Collection"
+    COMPLEX_COLL = "complexMeasurements"
     NAME = "monitorDatabase"
     IP = "172.17.0.2"
     PORT = 27017
@@ -20,8 +20,9 @@ class dbApi:
     PASSW = ""
 
     def __init__(self):
-        self.db = mongo3.DB(self.USER, self.PASSW,
-                            self.IP, self.PORT, self.NAME)
+        self.db = mongo3.DB(
+            self.USER, self.PASSW, self.IP, self.PORT, self.NAME
+        )
 
     DATA_KEY = "DATA"
     SESSION_KEY = "SESSION_ID"
@@ -35,6 +36,11 @@ class dbApi:
     METRIC_PATH = METRICS_KEY + "." + METRIC_ID_KEY
     METRIC_QUERY_KEY = "metric_id"
     NAME_KEY = "NAME"
+    PARENT_ID_KEY = "PARENT_ID"
+    MOVING_WINDOW_KEY = "WINDOW_WIDTH"
+    INTERVAL_KEY = "INTERVAL"
+    LAST_CALC_KEY = "LAST_CALCULATION"
+    DESCRIPTION_KEY = "DESCRIPTION"
 
     STANDARD_FIELDS = [
         "METRICS",
@@ -98,7 +104,11 @@ class dbApi:
             },
             self.DATA_COLL,
         )
-        values = [[v[metricName], str(v[self.TIME_KEY])] for v in dataEntries]
+        values = [
+            [v[metricName], v[self.TIME_KEY]]
+            for v in dataEntries
+            if metricName in v
+        ]
         return values
 
     def getAll(self):
@@ -114,8 +124,9 @@ class dbApi:
         return response
 
     def getHostname(self, sessionId):
-        return self.findInMeta2(
-            {self.SESSION_KEY: sessionId})[0][self.NAME_KEY]
+        return self.findInMeta2({self.SESSION_KEY: sessionId})[0][
+            self.NAME_KEY
+        ]
 
     def getHostnameByMetric(self, metric):
         dataEntries = self.db.find(None, self.META2_COLL)
@@ -144,8 +155,69 @@ class dbApi:
         for entry in metaEntries:
             for key in entry.keys():
                 if key not in self.STANDARD_FIELDS:
-                    metadata.append({"id": key,
-                                     "name": key,
-                                     "value": entry[key]})
-
+                    metadata.append(
+                        {"id": key, "name": key, "value": entry[key]}
+                    )
         return metadata
+
+    def getCpxDefinitions(self):
+        return self.db.find(None, self.COMPLEX_COLL)
+
+    # TODO:Delete all this ugly arguments and
+    # replace with MeasurementDefinition object
+    def insertMeasDefinition(
+        self,
+        hostname,
+        metric_id,
+        parent_id,
+        moving_window,
+        interval,
+        description,
+    ):
+        doc = dict()
+        doc[self.NAME_KEY] = hostname
+        doc[self.METRIC_ID_KEY] = metric_id
+        doc[self.PARENT_ID_KEY] = parent_id
+        doc[self.MOVING_WINDOW_KEY] = moving_window
+        doc[self.INTERVAL_KEY] = interval
+        doc[self.DESCRIPTION_KEY] = description
+        doc[self.LAST_CALC_KEY] = datetime.now()
+        self.db.insert(doc, self.COMPLEX_COLL)
+
+    # TODO:Delete all this ugly arguments and
+    # replace with MeasurementDefinition object
+    def updateMeasDefinition(
+        self,
+        hostname,
+        metric_id,
+        parent_id,
+        moving_window,
+        interval,
+        description,
+        lastCalcTime,
+    ):
+        doc = dict()
+        doc[self.NAME_KEY] = hostname
+        doc[self.METRIC_ID_KEY] = metric_id
+
+        updateFilter = doc.copy()
+
+        doc[self.PARENT_ID_KEY] = parent_id
+        doc[self.MOVING_WINDOW_KEY] = moving_window
+        doc[self.INTERVAL_KEY] = interval
+        doc[self.DESCRIPTION_KEY] = description
+        doc[self.LAST_CALC_KEY] = lastCalcTime
+
+        self.db.update(updateFilter, doc, self.COMPLEX_COLL)
+
+    def insertMeasurements(self, sessionId, metric_id, measurements):
+        measurementsEntries = list()
+
+        for measurement in measurements:
+            dbEntry = {}
+            dbEntry[self.SESSION_KEY] = sessionId
+            dbEntry[metric_id] = measurement[0]
+            dbEntry[self.TIME_KEY] = measurement[1]
+            measurementsEntries.append(dbEntry)
+
+        self.db.insert(measurementsEntries, self.DATA_COLL)
