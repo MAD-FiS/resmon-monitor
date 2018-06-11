@@ -73,6 +73,14 @@ def post_metric(hostname, payload):  # noqa: E501
 
     :rtype: str
     """
+    api = dbApi.dbApi()
     if connexion.request.is_json:
         payload = Payload.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    
+    parent_id = payload["parent_id"]
+    moving_window = payload["moving_window_duration"]
+    interval = payload["interval"]
+    metric_id = "cpx_" + "parent_id" +  "_" + str(moving_window) + "_" + str(interval)
+    api.insertMeasDefinition(hostname, metric_id, parent_id, moving_window, interval, payload["description"])
+
+    return metric_id, 201
