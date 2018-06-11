@@ -71,11 +71,14 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
                 print(start)
                 print(end)
                 dataPoints = api.getMeasurements(sessionId, metric, start, end)
-                points = [Point(point[VALUE_IND],
-                          point[TIME_IND]) for point in dataPoints]
+                points = [
+                    Point(point[VALUE_IND], point[TIME_IND])
+                    for point in dataPoints
+                ]
 
-                measurement = Measurement(metric, api.getHostname(sessionId),
-                                          points)
+                measurement = Measurement(
+                    metric, api.getHostname(sessionId), points
+                )
                 measurements.append(measurement.to_dict())
 
     return measurements

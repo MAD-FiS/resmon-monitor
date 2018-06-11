@@ -13,4 +13,4 @@ def get_metadata():  # noqa: E501
 
     :rtype: List[MetadataTag]
     """
-    return 'do some magic!'
+    return "do some magic!"
