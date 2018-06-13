@@ -2,9 +2,8 @@
 
 import re
 import json
+from datetime import datetime
 from mongoAccess import mongo3
-
-# import mongo3
 
 
 class dbApi:
@@ -12,6 +11,7 @@ class dbApi:
 
     DATA_COLL = "dataCollection"
     META_COLL = "metaCollection"
+    COMPLEX_COLL = "complexMeasurements"
     NAME = "monitorDatabase"
     IP = "172.17.0.2"
     PORT = 27017
@@ -36,6 +36,12 @@ class dbApi:
     METRIC_QUERY_KEY = "metric_id"
     HOSTNAME_KEY = "hostname"
     DESCRIPTION_KEY = "description"
+    PARENT_ID_KEY = "parent_id"
+    MOVING_WINDOW_KEY = "moving_window"
+    INTERVAL_KEY = "interval"
+    LAST_CALC_KEY = "last_calculation"
+    DESCRIPTION_KEY = "description"
+    UNIT_KEY = "unit"
 
     STANDARD_FIELDS = [
         "metrics",
@@ -89,7 +95,11 @@ class dbApi:
             },
             self.DATA_COLL,
         )
-        values = [[v[metricName], str(v[self.TIME_KEY])] for v in dataEntries]
+        values = [
+            [v[metricName], v[self.TIME_KEY]]
+            for v in dataEntries
+            if metricName in v
+        ]
         return values
 
     def getAll(self):
@@ -138,5 +148,91 @@ class dbApi:
                     metadata.append(
                         {"id": key, "name": key, "value": entry[key]}
                     )
-
         return metadata
+
+    def getCpxDefinitions(self):
+        return self.db.find(None, self.COMPLEX_COLL)
+
+    # TODO:Delete all this ugly arguments and
+    # replace with MeasurementDefinition object
+    def insertMeasDefinition(
+        self,
+        hostname,
+        metric_id,
+        parent_id,
+        moving_window,
+        interval,
+        description,
+    ):
+        doc = dict()
+        doc[self.HOSTNAME_KEY] = hostname
+        doc[self.METRIC_ID_KEY] = metric_id
+        doc[self.PARENT_ID_KEY] = parent_id
+        doc[self.MOVING_WINDOW_KEY] = moving_window
+        doc[self.INTERVAL_KEY] = interval
+        doc[self.DESCRIPTION_KEY] = description
+        doc[self.LAST_CALC_KEY] = datetime.now()
+        self.db.insert(doc, self.COMPLEX_COLL)
+
+    def updateMetricInMetadata(
+        self, hostname, metric_id, parent_id, description
+    ):
+        record = self.findInMeta(
+            {self.HOSTNAME_KEY: hostname, self.METRIC_PATH: parent_id}
+        )
+        metrics = record[0][self.METRICS_KEY]
+        unit = ""
+        for metric in metrics:
+            if metric[self.METRIC_ID_KEY] == parent_id:
+                unit = metric[self.UNIT_KEY]
+
+        metricRecord = dict()
+        metricRecord[self.DESCRIPTION_KEY] = description
+        metricRecord[self.METRIC_ID_KEY] = metric_id
+        metricRecord[self.UNIT_KEY] = unit
+
+        metrics.append(metricRecord)
+
+        self.db.update(
+            {self.HOSTNAME_KEY: hostname, self.METRIC_PATH: parent_id},
+            {self.METRICS_KEY: metrics},
+            self.META_COLL,
+        )
+
+    # TODO:Delete all this ugly arguments and
+    # replace with MeasurementDefinition object
+    def updateMeasDefinition(
+        self,
+        hostname,
+        metric_id,
+        parent_id,
+        moving_window,
+        interval,
+        description,
+        lastCalcTime,
+    ):
+        doc = dict()
+        doc[self.HOSTNAME_KEY] = hostname
+        doc[self.METRIC_ID_KEY] = metric_id
+
+        updateFilter = doc.copy()
+
+        doc[self.PARENT_ID_KEY] = parent_id
+        doc[self.MOVING_WINDOW_KEY] = moving_window
+        doc[self.INTERVAL_KEY] = interval
+        doc[self.DESCRIPTION_KEY] = description
+        doc[self.LAST_CALC_KEY] = lastCalcTime
+
+        self.db.update(updateFilter, doc, self.COMPLEX_COLL)
+
+    def insertMeasurements(self, sessionId, metric_id, measurements):
+        measurementsEntries = list()
+
+        for measurement in measurements:
+            dbEntry = {}
+            dbEntry[self.SESSION_KEY] = sessionId
+            dbEntry[metric_id] = measurement[0]
+            dbEntry[self.TIME_KEY] = measurement[1]
+            measurementsEntries.append(dbEntry)
+
+        self.db.insert(measurementsEntries, self.DATA_COLL)
