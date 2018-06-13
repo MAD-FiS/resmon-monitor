@@ -53,7 +53,6 @@ def parse_request(environ, db):
         record = {}
         for entry in js['data']:
             record.update(entry)
-        
         validationErrors = MetaValidator(record).getValidationErrors()
         print(validationErrors)
         if validationErrors:
