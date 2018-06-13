@@ -4,9 +4,6 @@ import re
 import json
 from mongoAccess import mongo3
 
-# import mongo3
-
-
 class dbApi:
     """Wrapper for mongoDB basic access. Used to provide higher level api."""
 
@@ -123,10 +120,8 @@ class dbApi:
     def getHosts(self, query):
         dataEntries = self.findInMeta()
         hostnames = []
-        expression = re.compile(".*" + query + ".*")
         for entry in dataEntries:
-            if expression.match(entry[self.HOSTNAME_KEY]):
-                hostnames.append(entry[self.HOSTNAME_KEY])
+        hostnames.append(entry[self.HOSTNAME_KEY])
 
         return list(set(hostnames))
 
