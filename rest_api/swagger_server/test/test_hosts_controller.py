@@ -7,6 +7,7 @@ from six import BytesIO
 
 from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.host import Host  # noqa: E501
+from swagger_server.models.inline_response201 import InlineResponse201  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -20,9 +21,7 @@ class TestHostsController(BaseTestCase):
         Delete complex metric
         """
         response = self.client.open(
-            '/hosts/{hostname}/metrics/{metric_id}'.format(
-                metric_id='metric_id_example',
-                hostname='hostname_example'),
+            '/hosts/{hostname}/metrics/{metric_id}'.format(metric_id='metric_id_example', hostname='hostname_example'),
             method='DELETE')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
