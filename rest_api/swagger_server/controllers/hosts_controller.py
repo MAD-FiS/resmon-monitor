@@ -6,6 +6,9 @@ from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.host import Host  # noqa: E501
 from swagger_server.models.host import Metric  # noqa: E501
 from swagger_server.models.host import Metadata  # noqa: E501
+from swagger_server.models.inline_response201 import (
+    InlineResponse201
+)  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server import util
 
@@ -25,7 +28,7 @@ def delete_metric(metric_id, hostname):  # noqa: E501
 
     :rtype: object
     """
-    return 'do some magic!'
+    return "do some magic!"
 
 
 def get_hosts(q=None):  # noqa: E501
@@ -53,10 +56,15 @@ def get_hosts(q=None):  # noqa: E501
             metric_objects.append(Metric.from_dict(metric))
         metrics = []
         metrics = [m for m in metric_objects if host in m.hosts]
-        metadatas = [Metadata.from_dict(metadata)
-                     for metadata in api.getMetadataByHost(host)]
-        response.append((Host(hostname=host,
-                              metrics=metrics, metadata=metadatas)).to_dict())
+        metadatas = [
+            Metadata.from_dict(metadata)
+            for metadata in api.getMetadataByHost(host)
+        ]
+        response.append(
+            (
+                Host(hostname=host, metrics=metrics, metadata=metadatas)
+            ).to_dict()
+        )
 
     return response
 
@@ -71,8 +79,8 @@ def post_metric(hostname, payload):  # noqa: E501
     :param payload: Complex mertic payload
     :type payload: dict | bytes
 
-    :rtype: str
+    :rtype: InlineResponse201
     """
     if connexion.request.is_json:
         payload = Payload.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    return "do some magic!"

@@ -14,7 +14,7 @@ TIME_IND = 0
 VALUE_IND = 1
 
 
-def get_measurements(start=None, end=None, q=None):  # noqa: E501
+def get_measurements(start=None, end=None, q=None, limit=None, last=None):  # noqa: E501
     """Selected measurements
 
      # noqa: E501
@@ -25,6 +25,10 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
     :type end: str
     :param q: Filters out used metrics and hosts according to provided keys. String needs to match the following schema: &#x60;KEY1:VAL1,KEY2:VAL2;KEY3:VAL4...&#x60;. Comma is used to indicate &#x60;AND&#x60; operation while semicolon relates to &#x60;OR&#x60;. When &#x60;VAL&#x60; paramater is wrapped into slashes then regex mode is activated. For example when we query for &#x60;metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/&#x60; we should receive cpu metric measurements for hosts containing either nix or win as substring in &#x60;os&#x60; metadata. Note that &#x60;AND&#x60; operation has higher priority than &#x60;OR&#x60;. Allowed keys: &#x60;metric_id&#x60;, &#x60;description&#x60;, &#x60;complex&#x60; (metric parameters) and all available host metadata fields. When not provided: No filtering performed - all available metrics and hosts are taken
     :type q: str
+    :param limit: Number of maximal amount of measurements given as a result of the query
+    :type limit: 
+    :param last: If it is set as &#x60;TRUE&#x60; then the only last measurement meeting the criteria from &#x60;q&#x60; parameter is returned
+    :type last: bool
 
     :rtype: List[Measurement]
     """

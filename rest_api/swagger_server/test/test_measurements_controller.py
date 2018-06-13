@@ -20,7 +20,9 @@ class TestMeasurementsController(BaseTestCase):
         """
         query_string = [('start', '2013-10-20T19:20:30+01:00'),
                         ('end', '2013-10-20T19:20:30+01:00'),
-                        ('q', 'q_example')]
+                        ('q', 'q_example'),
+                        ('limit', 8.14),
+                        ('last', true)]
         response = self.client.open(
             '/measurements',
             method='GET',

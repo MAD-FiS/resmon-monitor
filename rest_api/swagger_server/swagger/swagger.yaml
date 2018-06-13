@@ -8,7 +8,7 @@ info:
     \ sign-in or sign-on action. Make sure monitor uses selected auth server. Monitor\
     \ should handle CORS with pre-flight, allowing query each path by OPTIONS to get\
     \ CORS headers.\n"
-  version: "0.4.2"
+  version: "0.5.1"
   title: "ResMon - distributed resources monitoring"
   contact:
     name: "MAD-Team"
@@ -21,42 +21,11 @@ tags:
 - name: "hosts"
 - name: "metrics"
 - name: "measurements"
-- name: "metadata"
 schemes:
 - "http"
 security:
 - APIKeyHeader: []
 paths:
-  /metadata:
-    get:
-      tags:
-      - "metadata"
-      summary: "List of all available hosts metadata"
-      operationId: "get_metadata"
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "Success"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/MetadataTag"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-              description: "It indicates whether the response can be shared with resources\
-                \ with the given origin"
-            Access-Control-Allow-Headers:
-              type: "string"
-              description: "It is used in response to a preflight request to indicate\
-                \ which HTTP headers can be used during the actual request"
-            Access-Control-Allow-Methods:
-              type: "string"
-              description: "It specifies the method or methods allowed when accessing\
-                \ the resource in response to a preflight request"
-      x-swagger-router-controller: "swagger_server.controllers.metadata_controller"
   /metrics:
     get:
       tags:
@@ -87,6 +56,10 @@ paths:
               type: "string"
               description: "It specifies the method or methods allowed when accessing\
                 \ the resource in response to a preflight request"
+        401:
+          description: "User is not authorized"
+          schema:
+            $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.metrics_controller"
   /measurements:
     get:
@@ -125,6 +98,18 @@ paths:
           \ No filtering performed - all available metrics and hosts are taken"
         required: false
         type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Number of maximal amount of measurements given as a result of\
+          \ the query"
+        required: false
+        type: "number"
+      - name: "last"
+        in: "query"
+        description: "If it is set as `TRUE` then the only last measurement meeting\
+          \ the criteria from `q` parameter is returned"
+        required: false
+        type: "boolean"
       responses:
         200:
           description: "Success"
@@ -148,6 +133,10 @@ paths:
                 \ the resource in response to a preflight request"
         400:
           description: "Bad request - error in extra parameters"
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: "User is not authorized"
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
@@ -199,6 +188,10 @@ paths:
           description: "Bad request - error in extra parameters"
           schema:
             $ref: "#/definitions/Error"
+        401:
+          description: "User is not authorized"
+          schema:
+            $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics:
     post:
@@ -222,7 +215,7 @@ paths:
         201:
           description: "metric_id of created complex metric"
           schema:
-            type: "string"
+            $ref: "#/definitions/inline_response_201"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -240,12 +233,16 @@ paths:
           description: "Incorrect metric data"
           schema:
             $ref: "#/definitions/Error"
-        403:
-          description: "If metric already exists, you can't change any field of it"
+        401:
+          description: "User is not authorized"
           schema:
             $ref: "#/definitions/Error"
         404:
           description: "Unknown hostname or metric passed as `parent_id`"
+          schema:
+            $ref: "#/definitions/Error"
+        409:
+          description: "If metric already exists, you can't change any field of it"
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
@@ -286,6 +283,10 @@ paths:
               type: "string"
               description: "It specifies the method or methods allowed when accessing\
                 \ the resource in response to a preflight request"
+        401:
+          description: "User is not authorized"
+          schema:
+            $ref: "#/definitions/Error"
         403:
           description: "You aren't a creator of complex metric"
           schema:
@@ -298,7 +299,7 @@ paths:
 securityDefinitions:
   APIKeyHeader:
     type: "apiKey"
-    name: "Anthorization"
+    name: "Authorization"
     in: "header"
 definitions:
   Point:
@@ -409,23 +410,6 @@ definitions:
       name: "name"
       id: "id"
       value: "value"
-  MetadataTag:
-    type: "object"
-    required:
-    - "id"
-    - "name"
-    properties:
-      id:
-        type: "string"
-        description: "Unique identifier / alias / slug"
-      name:
-        type: "string"
-        description: "Detailed information about this metadata e.g. what kind of values\
-          \ we should expect"
-    description: "Host meta information"
-    example:
-      name: "name"
-      id: "id"
   Host:
     type: "object"
     required:
@@ -480,8 +464,10 @@ definitions:
         id: "id"
   Error:
     type: "object"
+    required:
+    - "message"
     properties:
-      code:
+      message:
         type: "string"
   payload:
     type: "object"
@@ -502,3 +488,14 @@ definitions:
       interval:
         type: "integer"
         description: "Number of seconds between each new point in produced series"
+  inline_response_201:
+    properties:
+      id:
+        type: "string"
+        description: "ID of metric, need to follow this convention: `cpx_{parent_id}_{moving_window_duration}_{interval}`"
+      unit:
+        type: "string"
+        description: "Should be the same as in metric identified by parent_id parameter"
+    example:
+      unit: "unit"
+      id: "id"

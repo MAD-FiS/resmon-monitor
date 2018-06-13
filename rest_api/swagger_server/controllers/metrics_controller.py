@@ -2,6 +2,7 @@ import connexion
 import six
 import json
 
+from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.metric import Metric  # noqa: E501
 from swagger_server import util
 

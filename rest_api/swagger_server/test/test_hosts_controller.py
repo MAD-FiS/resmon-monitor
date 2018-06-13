@@ -7,6 +7,9 @@ from six import BytesIO
 
 from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.host import Host  # noqa: E501
+from swagger_server.models.inline_response201 import (
+    InlineResponse201
+)  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -20,25 +23,27 @@ class TestHostsController(BaseTestCase):
         Delete complex metric
         """
         response = self.client.open(
-            '/hosts/{hostname}/metrics/{metric_id}'.format(
-                metric_id='metric_id_example',
-                hostname='hostname_example'),
-            method='DELETE')
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+            "/hosts/{hostname}/metrics/{metric_id}".format(
+                metric_id="metric_id_example", hostname="hostname_example"
+            ),
+            method="DELETE",
+        )
+        self.assert200(
+            response, "Response body is : " + response.data.decode("utf-8")
+        )
 
     def test_get_hosts(self):
         """Test case for get_hosts
 
         Get list of hosts
         """
-        query_string = [('q', 'q_example')]
+        query_string = [("q", "q_example")]
         response = self.client.open(
-            '/hosts',
-            method='GET',
-            query_string=query_string)
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+            "/hosts", method="GET", query_string=query_string
+        )
+        self.assert200(
+            response, "Response body is : " + response.data.decode("utf-8")
+        )
 
     def test_post_metric(self):
         """Test case for post_metric
@@ -47,14 +52,17 @@ class TestHostsController(BaseTestCase):
         """
         payload = Payload()
         response = self.client.open(
-            '/hosts/{hostname}/metrics'.format(hostname='hostname_example'),
-            method='POST',
+            "/hosts/{hostname}/metrics".format(hostname="hostname_example"),
+            method="POST",
             data=json.dumps(payload),
-            content_type='application/json')
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+            content_type="application/json",
+        )
+        self.assert200(
+            response, "Response body is : " + response.data.decode("utf-8")
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import unittest
+
     unittest.main()
