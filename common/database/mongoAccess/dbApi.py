@@ -19,8 +19,9 @@ class dbApi:
     PASSW = ""
 
     def __init__(self):
-        self.db = mongo3.DB(self.USER, self.PASSW,
-                            self.IP, self.PORT, self.NAME)
+        self.db = mongo3.DB(
+            self.USER, self.PASSW, self.IP, self.PORT, self.NAME
+        )
 
     DATA_KEY = "data"
     SESSION_KEY = "session_id"
@@ -99,15 +100,16 @@ class dbApi:
         response = {}
         for entry in dataEntries:
             for metric in entry[self.METRICS_KEY]:
-                response.update({
-                    metric[self.METRIC_ID_KEY]: metric[self.DESCRIPTION_KEY]
-                    })
+                response.update(
+                    {metric[self.METRIC_ID_KEY]: metric[self.DESCRIPTION_KEY]}
+                )
 
         return response
 
     def getHostname(self, sessionId):
-        return self.findInMeta(
-            {self.SESSION_KEY: sessionId})[0][self.HOSTNAME_KEY]
+        return self.findInMeta({self.SESSION_KEY: sessionId})[0][
+            self.HOSTNAME_KEY
+        ]
 
     def getHostnameByMetric(self, metric):
         dataEntries = self.findInMeta()
@@ -124,9 +126,7 @@ class dbApi:
         dataEntries = self.findInMeta()
         hostnames = []
         for entry in dataEntries:
-            if expression.match(entry[self.HOSTNAME_KEY]):
-                hostnames.append(entry[self.HOSTNAME_KEY])
-
+            hostnames.append(entry[self.HOSTNAME_KEY])
         return list(set(hostnames))
 
     def getMetadataByHost(self, host):
@@ -135,8 +135,8 @@ class dbApi:
         for entry in metaEntries:
             for key in entry.keys():
                 if key not in self.STANDARD_FIELDS:
-                    metadata.append({"id": key,
-                                     "name": key,
-                                     "value": entry[key]})
+                    metadata.append(
+                        {"id": key, "name": key, "value": entry[key]}
+                    )
 
         return metadata
