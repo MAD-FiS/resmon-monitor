@@ -6,12 +6,12 @@ from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.host import Host  # noqa: E501
 from swagger_server.models.host import Metric  # noqa: E501
 from swagger_server.models.host import Metadata  # noqa: E501
+from swagger_server.models.inline_response201 import InlineResponse201  # noqa: E501
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server import util
 
 from mongoAccess import dbApi
 from .metrics_controller import get_metrics
-
 
 def delete_metric(metric_id, hostname):  # noqa: E501
     """Delete complex metric
@@ -71,7 +71,7 @@ def post_metric(hostname, payload):  # noqa: E501
     :param payload: Complex mertic payload
     :type payload: dict | bytes
 
-    :rtype: str
+    :rtype: InlineResponse201
     """
     if connexion.request.is_json:
         payload = Payload.from_dict(connexion.request.get_json())  # noqa: E501
