@@ -15,21 +15,21 @@ class Error(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, code: str=None):  # noqa: E501
+    def __init__(self, message: str=None):  # noqa: E501
         """Error - a model defined in Swagger
 
-        :param code: The code of this Error.  # noqa: E501
-        :type code: str
+        :param message: The message of this Error.  # noqa: E501
+        :type message: str
         """
         self.swagger_types = {
-            'code': str
+            'message': str
         }
 
         self.attribute_map = {
-            'code': 'code'
+            'message': 'message'
         }
 
-        self._code = code
+        self._message = message
 
     @classmethod
     def from_dict(cls, dikt) -> 'Error':
@@ -43,22 +43,24 @@ class Error(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def code(self) -> str:
-        """Gets the code of this Error.
+    def message(self) -> str:
+        """Gets the message of this Error.
 
 
-        :return: The code of this Error.
+        :return: The message of this Error.
         :rtype: str
         """
-        return self._code
+        return self._message
 
-    @code.setter
-    def code(self, code: str):
-        """Sets the code of this Error.
+    @message.setter
+    def message(self, message: str):
+        """Sets the message of this Error.
 
 
-        :param code: The code of this Error.
-        :type code: str
+        :param message: The message of this Error.
+        :type message: str
         """
+        if message is None:
+            raise ValueError("Invalid value for `message`, must not be `None`")  # noqa: E501
 
-        self._code = code
+        self._message = message
