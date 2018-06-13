@@ -11,6 +11,7 @@ from swagger_server import util
 
 from mongoAccess import dbApi
 from .metrics_controller import get_metrics
+from apiUtils import QueryResolver
 
 
 def delete_metric(metric_id, hostname):  # noqa: E501
@@ -41,7 +42,11 @@ def get_hosts(q=None):  # noqa: E501
 
     api = dbApi.dbApi()
     if q:
-        hosts = api.getHosts(query=q)
+        filters = QueryResolver.QueryResolver(q).getFilters()
+        conditions = dict()
+        for f in filters:
+            conditions.update(f)
+        hosts = api.getHosts(query=conditions)
     else:
         hosts = api.getHosts(query="")
 
