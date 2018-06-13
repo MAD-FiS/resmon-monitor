@@ -13,8 +13,8 @@ class ValidationError:
 
 
 class MetaValidator:
-    MANDATORY_FIELDS = ["SESSION_ID", "NAME",
-                        "AVAILABLE_FIELDS", "SESSION_START_DATE"]
+    MANDATORY_FIELDS = ["session_id", "hostname",
+                        "metrics", "session_start_date"]
 
     def __init__(self, metaRecord):
         self.metaRecord = metaRecord
@@ -48,14 +48,14 @@ def parse_request(environ, db):
     content = request_body.decode('utf-8')
 
     js = json.loads(content)
-    if js['TYPE'] == 'META':
-        db.insert(js, "metaCollection")
+    #if js['type'] == 'meta':
+    #    db.insert(js, "metaCollection")
 
-    elif js['TYPE'] == 'META2':
+    if js['type'] == 'meta':
         record = {}
-        for entry in js['DATA']:
+        for entry in js['data']:
             record.update(entry)
-
+        
         validationErrors = MetaValidator(record).getValidationErrors()
         print(validationErrors)
         if validationErrors:
@@ -63,13 +63,13 @@ def parse_request(environ, db):
             print(feedback)
             return feedback
         else:
-            db.insert(record, "meta2Collection")
+            db.insert(record, "metaCollection")
 
-    elif js['TYPE'] == 'DATA':
-        for value in js['DATA']:
+    elif js['type'] == 'data':
+        for value in js['data']:
             datetime_object = datetime.datetime.strptime(
-                value['DATE'].split(".")[0], '%Y-%m-%d %H:%M:%S')
-            value['DATE'] = datetime_object
+                value['date'].split(".")[0], '%Y-%m-%d %H:%M:%S')
+            value['date'] = datetime_object
             db.insert(value, "dataCollection")
 
     return ''
