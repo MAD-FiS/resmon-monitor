@@ -44,7 +44,11 @@ def get_measurements(start=None, end=None, q=None):  # noqa: E501
     if not q:
         filters.append(None)
     else:
-        filters = QueryResolver.QueryResolver(q).getFilters()
+        resolver = QueryResolver.QueryResolver(q)
+        if resolver.validateQuery() == 0:
+            return "Bad request", 400
+        else:
+            filters = resolver.getFilters()
 
     print("start: " + str(start))
     print("end: " + str(end))
