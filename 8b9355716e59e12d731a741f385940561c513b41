@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cd02c44_08c2caf2",
+        "filename": "rest_api/swagger_server/controllers/hosts_controller.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1013788
+      },
+      "writtenOn": "2018-06-13T17:57:16Z",
+      "side": 1,
+      "message": "Why need to copy dictionary? filters val is already a dictionary",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "8b9355716e59e12d731a741f385940561c513b41",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
