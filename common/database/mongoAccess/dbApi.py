@@ -129,12 +129,10 @@ class dbApi:
         return list(set(hostnames))
 
     def getHosts(self, query):
-        dataEntries = self.db.find(None, self.META2_COLL)
+        dataEntries = self.db.find(query, self.META2_COLL)
         hostnames = []
-        expression = re.compile(".*" + query + ".*")
         for entry in dataEntries:
-            if expression.match(entry["NAME"]):
-                hostnames.append(entry["NAME"])
+            hostnames.append(entry["NAME"])
 
         return list(set(hostnames))
 
