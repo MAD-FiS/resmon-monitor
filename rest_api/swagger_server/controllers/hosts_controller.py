@@ -85,6 +85,33 @@ def post_metric(hostname, payload):  # noqa: E501
 
     :rtype: InlineResponse201
     """
+    api = dbApi.dbApi()
     if connexion.request.is_json:
-        payload = Payload.from_dict(connexion.request.get_json())  # noqa: E501
-    return "do some magic!"
+        payload = Payload.from_dict(
+            connexion.request.get_json()
+        )  # noqa: E501
+
+    parent_id = payload["parent_id"]
+    moving_window = payload["moving_window_duration"]
+    interval = payload["interval"]
+    description = payload["description"]
+    metric_id = (
+        "cpx_"
+        + "parent_id"
+        + "_"
+        + str(moving_window)
+        + "_"
+        + str(interval)
+    )
+    
+    api.updateMetricInMetadata(hostname, metric_id, parent_id, description)
+    api.insertMeasDefinition(
+        hostname,
+        metric_id,
+        parent_id,
+        moving_window,
+        interval,
+        description,
+    )
+
+    return metric_id, 201
