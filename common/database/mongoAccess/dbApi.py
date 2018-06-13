@@ -123,10 +123,8 @@ class dbApi:
     def getHosts(self, query):
         dataEntries = self.findInMeta()
         hostnames = []
-        expression = re.compile(".*" + query + ".*")
         for entry in dataEntries:
-            if expression.match(entry[self.HOSTNAME_KEY]):
-                hostnames.append(entry[self.HOSTNAME_KEY])
+            hostnames.append(entry[self.HOSTNAME_KEY])
 
         return list(set(hostnames))
 
