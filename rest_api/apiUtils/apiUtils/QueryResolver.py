@@ -56,3 +56,38 @@ class QueryResolver:
             filtersList.append(self.getDbFilter(conjunctions))
 
         return filtersList
+
+    def validateQuery(self):
+        """Validate content of query """
+        possibleKey = ['metric_id', 'description', 'complex', 'hostname',
+                       'name', 'id', 'parent_id', 'unit',
+                       'moving_window_duration', 'interval', 'removable',
+                       'hosts', 'metric_parent_id', 'metric_description',
+                       'metric_parent_id', 'metric_unit', 'os', 'os_ver',
+                       'session_id', ]
+        errorCounter = 0
+        if self.query:
+            for orSplit in self.query.split(self.OR_SEPARATOR):
+                for andSplit in orSplit.split(self.AND_SEPARATOR):
+                    if andSplit.find(self.K_V_SEPARATOR) != -1:
+                        key, value = andSplit.split(self.K_V_SEPARATOR)
+                        if key not in possibleKey:
+                            errorCounter += 1
+                        if not value:
+                            errorCounter += 1
+                        first = value.find("/")
+                        if first != -1:
+                            second = value.find("/", first + 1)
+                            if second != -1:
+                                if (second - first) == 1:
+                                    errorCounter += 1
+                            else:
+                                errorCounter += 1
+                    else:
+                        errorCounter += 1
+        if errorCounter == 0:
+            validationResult = 1
+        else:
+            validationResult = 0
+
+        return validationResult
