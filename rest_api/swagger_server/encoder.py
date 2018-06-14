@@ -5,9 +5,11 @@ from swagger_server.models.base_model_ import Model
 
 
 class JSONEncoder(FlaskJSONEncoder):
+    """ Class for encode JSON"""
     include_nulls = False
 
     def default(self, o):
+        """Method to encode JSON"""
         if isinstance(o, Model):
             dikt = {}
             for attr, _ in six.iteritems(o.swagger_types):

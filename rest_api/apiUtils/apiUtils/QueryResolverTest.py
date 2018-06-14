@@ -6,7 +6,9 @@ import re
 
 
 class TestResolver(unittest.TestCase):
+    """Class for unittest of QueryResolver"""
     def test_resolverShouldReturnProperValues(self):
+        """Method for testing if resolver returns proper value"""
         query = "metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/"
 
         resolver = QueryResolver.QueryResolver(query)
@@ -19,7 +21,8 @@ class TestResolver(unittest.TestCase):
         self.assertEqual(filters[1],
                          {"metric_id": "cpu", "os": re.compile(".*win.*")})
 
-    def test_curl(self):
+    def test_queryContent(self):
+        """Method for testing query validation"""
         query1 = "metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/"
         resolver1 = QueryResolver.QueryResolver(query1)
         self.assertEqual(resolver1.validateQuery(), 1)
