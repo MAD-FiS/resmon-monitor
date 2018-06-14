@@ -1,8 +1,10 @@
 from rest_api.swagger_server.models.metric import Metric  # noqa: E501
 from rest_api.swagger_server import util
 from common.database.mongoAccess import dbApi
+from flask_jwt_extended import jwt_required
 
 
+@jwt_required
 def get_metrics():  # noqa: E501
     """List of metrics
 
