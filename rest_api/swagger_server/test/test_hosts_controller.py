@@ -5,13 +5,13 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.error import Error  # noqa: E501
-from swagger_server.models.host import Host  # noqa: E501
-from swagger_server.models.inline_response201 import (
+from rest_api.swagger_server.models.error import Error  # noqa: E501
+from rest_api.swagger_server.models.host import Host  # noqa: E501
+from rest_api.swagger_server.models.inline_response201 import (
     InlineResponse201
 )  # noqa: E501
-from swagger_server.models.payload import Payload  # noqa: E501
-from swagger_server.test import BaseTestCase
+from rest_api.swagger_server.models.payload import Payload  # noqa: E501
+from rest_api.swagger_server.test import BaseTestCase
 
 
 class TestHostsController(BaseTestCase):

@@ -54,7 +54,10 @@ def parse_request(environ, db):
     request_body = environ['wsgi.input'].read(request_body_size)
     content = request_body.decode('utf-8')
 
-    js = json.loads(content)
+    try:
+        js = json.loads(content)
+    except json.decoder.JSONDecodeError:
+        return 'Please send correct JSON data in your request'
 
     if js['type'] == 'meta':
         record = {}

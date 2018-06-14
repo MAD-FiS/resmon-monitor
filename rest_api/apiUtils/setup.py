@@ -1,4 +1,4 @@
 from setuptools import setup
 
-setup(name="apiUtils",
-      packages=["apiUtils"])
+if __name__ == '__main__':
+    setup(name="apiUtils", packages=["apiUtils"])
