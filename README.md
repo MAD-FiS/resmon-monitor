@@ -1,34 +1,50 @@
 # resmon-monitor
 Repository for a monitor component, which is part of resmon product.
 
-# Prerequsites
-Before you start there is need to install Docker CE. Full tutorial can be found at:
-https://docs.docker.com/install/
+# Usage
 
-# How to run application (with docker)
-
-1. Install docker container with mongoDB:
 ```bash
-sudo docker run --name mymongo -d mongo
-```
-Above command will download docker container with mongoDB and call it "myMongo".
-
-2. In root directory with monitor project run:
-```bash
-sudo docker build --file Dockerfile_user -t resmonimage .
-```
-Above command will download and build docker image with all dependencies, environmental configuration 
-and will copy application source inside image.
-
-3. Next you have to run container from previously built image :
-```bash
-sudo docker run -p 4000:81 -p 4001:82 --link mymongo -it resmonimage
+./resmon-monitor
 ```
 
-4. Finally, from container command line start apache2:
+#Instalation
+We provide single file `install-monitor.sh` which is used to install this application. It's enough that you just run it as following:
 ```bash
-apache2ctl start
+./install-monitor.sh [--quiet]
+```
+Later you have to accept unpacking files. It's automatically accepted if you choose option _--quiet_.
+Application will be installed in the same place where script `install-monitor.sh`
+
+#For developers
+
+You can run some scripts to make your developing process faster and more comfortable.
+All scripts can be executed in this way:
+```bash
+./scripts.sh SCRIPT_NAME
+```
+where `SCRIPT_NAME` can be as following:
+* `build` - it prepares file _install.sh_ to use it later for installing this application
+* `docgen` - it generates documentation and puts it into _./docs/_ directory
+* `runtest` - it runs all tests available for this project
+
+## Deployment on Docker
+You can develop this application on [Docker](https://docs.docker.com). 
+It can be used to testing it in a clear environment. 
+At start you can make yourself sure that the file `install.sh` is created by _build_ script.
+
+The required step is to run separate Docker container with MongoDB database. 
+You can do it by this command:
+```bash
+docker run --name resmon-monitor-db -d mongo
 ```
 
-At this stage you should be done with configuration.
-
+Then you can execute these two following commands:
+```bash
+docker build --file Dockerfile -t resmon-monitor .
+```
+and:
+```bash
+docker run -p 4000:81 -p 4001:82 --link resmon-monitor-db -it resmon-monitor
+```
+Then you can run there this application. REST API is available on port 4000 
+and sensor receiver is running on port 4001.
