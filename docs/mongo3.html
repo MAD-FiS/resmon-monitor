@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module mongo3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>mongo3</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/toruk/resmon-monitor/common/database/mongoAccess/mongo3.py">/home/toruk/resmon-monitor/common/database/mongoAccess/mongo3.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="pymongo.html">pymongo</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="mongo3.html#DB">DB</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DB">class <strong>DB</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;handling&nbsp;with&nbsp;MongoDB&nbsp;database<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="DB-__init__"><strong>__init__</strong></a>(self, user=None, pswd=None, host=None, port=None, base=None)</dt><dd><tt>Initialize&nbsp;class&nbsp;<a href="#DB">DB</a>&nbsp;with&nbsp;given&nbsp;options:<br>
+user&nbsp;-&nbsp;MongoDB&nbsp;user&nbsp;authorization&nbsp;(default:&nbsp;lucky_pomerange)<br>
+pswd&nbsp;-&nbsp;MongoDB&nbsp;password&nbsp;authorization&nbsp;(default:&nbsp;pass)<br>
+host&nbsp;-&nbsp;host&nbsp;on&nbsp;whith&nbsp;database&nbsp;exists<br>
+port&nbsp;-&nbsp;port&nbsp;number&nbsp;(default:&nbsp;27017)<br>
+base&nbsp;-&nbsp;MongoDB&nbsp;database&nbsp;name&nbsp;(default:&nbsp;myDatabase)</tt></dd></dl>
+
+<dl><dt><a name="DB-__str__"><strong>__str__</strong></a>(self, collName)</dt><dd><tt>Return&nbsp;String&nbsp;containing&nbsp;information&nbsp;about&nbsp;user,&nbsp;host,&nbsp;port,&nbsp;base,<br>
+collection,&nbsp;and&nbsp;database&nbsp;elements</tt></dd></dl>
+
+<dl><dt><a name="DB-find"><strong>find</strong></a>(self, filtr, collName)</dt><dd><tt>Method&nbsp;finds&nbsp;elements&nbsp;in&nbsp;base<br>
+filtr&nbsp;-&nbsp;array-lik&nbsp;{'k':v}</tt></dd></dl>
+
+<dl><dt><a name="DB-insert"><strong>insert</strong></a>(self, item, collName)</dt><dd><tt>Insert&nbsp;element&nbsp;inside&nbsp;collection<br>
+item&nbsp;-&nbsp;array-like&nbsp;{'k1':v1,'k2':v2,...}</tt></dd></dl>
+
+<dl><dt><a name="DB-remove"><strong>remove</strong></a>(self, filtr, collName)</dt><dd><tt>Remove&nbsp;element&nbsp;defined&nbsp;by&nbsp;filtr&nbsp;{'k':v}</tt></dd></dl>
+
+<dl><dt><a name="DB-removeCollection"><strong>removeCollection</strong></a>(self, collName)</dt><dd><tt>Delete&nbsp;all&nbsp;collection</tt></dd></dl>
+
+<dl><dt><a name="DB-remove_many"><strong>remove_many</strong></a>(self, filtr, collName)</dt><dd><tt>Remove&nbsp;all&nbsp;elements&nbsp;defined&nbsp;by&nbsp;filtr&nbsp;{'k':v}</tt></dd></dl>
+
+<dl><dt><a name="DB-select"><strong>select</strong></a>(self, collName)</dt><dd><tt>Method&nbsp;return&nbsp;all&nbsp;collection&nbsp;elements</tt></dd></dl>
+
+<dl><dt><a name="DB-update"><strong>update</strong></a>(self, filtr, item, collName)</dt><dd><tt>Update&nbsp;element&nbsp;in&nbsp;collection.<br>
+filtr&nbsp;is&nbsp;given&nbsp;as&nbsp;dict&nbsp;{"key":val}<br>
+item&nbsp;is&nbsp;array&nbsp;{"k1":v1,&nbsp;"k2":v2,...}</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

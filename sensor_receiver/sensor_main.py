@@ -5,6 +5,7 @@ import dateutil.parser
 
 
 class ValidationError:
+    """Class for validation error"""
     def __init__(self, error):
         self.error = error
 
@@ -13,6 +14,7 @@ class ValidationError:
 
 
 class MetaValidator:
+    """Class meta data validator"""
     MANDATORY_FIELDS = ["session_id", "hostname",
                         "metrics", "session_start_date"]
 
@@ -20,6 +22,7 @@ class MetaValidator:
         self.metaRecord = metaRecord
 
     def hasMandatoryFields(self):
+        """Method check if has mandatory fields"""
         validationErrors = list()
 
         for field in self.MANDATORY_FIELDS:
@@ -30,15 +33,19 @@ class MetaValidator:
         return validationErrors
 
     def hasMandatoryField(self, fieldName):
+        """Method check if fieldName is a mandatory field"""
         if fieldName not in self.metaRecord:
             return ValidationError(
                 "Metadata does not contain mandatory: " + fieldName)
 
     def getValidationErrors(self):
+        """Method to get validation errors"""
         return self.hasMandatoryFields()
 
 
 def parse_request(environ, db):
+    """ Method decode request from sensor and insert data to proper collection
+    in database"""
     try:
         request_body_size = int(environ.get('CONTENT_LENGTH', 0))
     except(ValueError):
@@ -73,6 +80,7 @@ def parse_request(environ, db):
 
 
 def app(environ, start_response):
+    """Main WSGI application"""
     status = '200 OK'
     response = dict()
 

@@ -54,12 +54,15 @@ class dbApi:
     ]
 
     def findInMeta(self, filtr=None):
+        """Find filter in meta collection"""
         return self.db.find(filtr, self.META_COLL)
 
     def findData(self, filtr):
+        """Find in data collection using filter"""
         return self.db.find(filtr, self.DATA_COLL)
 
     def getSessionIds(self, dataFilter=None):
+        """Get session id from meta using filter"""
         if dataFilter:
             metaEntries = self.findInMeta(dataFilter)
             return [entry[self.SESSION_KEY] for entry in metaEntries]
@@ -68,6 +71,7 @@ class dbApi:
             return [entry[self.SESSION_KEY] for entry in metaEntries]
 
     def getMetrics(self, sessionId, metricMatcher=None):
+        """ Get metrics from meta collection using session id"""
         records = self.findInMeta({self.SESSION_KEY: sessionId})
         metrics = [record[self.METRICS_KEY] for record in records][0]
         print(metrics)
@@ -88,6 +92,8 @@ class dbApi:
                 return [metricMatcher]
 
     def getMeasurements(self, sessionId, metricName, startTime, endTime):
+        """Get measurements from data collection precisize by session id,
+         metric name and time interval"""
         dataEntries = self.db.find(
             {
                 self.SESSION_KEY: sessionId,
@@ -103,9 +109,11 @@ class dbApi:
         return values
 
     def getAll(self):
+        """Get all record from database"""
         return self.db.select(self.DATA_COLL)
 
     def getAllMetrics(self):
+        """Get all metrics from meta collection"""
         dataEntries = self.findInMeta()
         response = {}
         for entry in dataEntries:
@@ -117,11 +125,14 @@ class dbApi:
         return response
 
     def getHostname(self, sessionId):
+        """Get name of host specified by session id"""
         return self.findInMeta({self.SESSION_KEY: sessionId})[0][
             self.HOSTNAME_KEY
         ]
 
+
     def getHostnameByMetric(self, metric):
+        """Get name of host specified by metric"""
         dataEntries = self.findInMeta()
         hostnames = []
         entries = {}
@@ -133,6 +144,7 @@ class dbApi:
         return list(set(hostnames))
 
     def getHosts(self, query):
+        """Get list of hosts from meta collection using query"""
         dataEntries = self.findInMeta()
         hostnames = []
         for entry in dataEntries:
@@ -140,6 +152,7 @@ class dbApi:
         return list(set(hostnames))
 
     def getMetadataByHost(self, host):
+        """Get metadata from meta colleciton specified by host"""
         metadata = list()
         metaEntries = self.findInMeta({self.HOSTNAME_KEY: host})
         for entry in metaEntries:
