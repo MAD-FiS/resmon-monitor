@@ -11,8 +11,8 @@ from rest_api.swagger_server.models.payload import Payload  # noqa: E501
 from rest_api.swagger_server import util
 
 from common.database.mongoAccess import dbApi
-from .metrics_controller import get_metrics
-from apiUtils import QueryResolver
+from rest_api.swagger_server.controllers.metrics_controller import get_metrics
+from rest_api.apiUtils.apiUtils import QueryResolver
 
 
 def delete_metric(metric_id, hostname):  # noqa: E501
