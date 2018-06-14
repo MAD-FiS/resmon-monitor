@@ -1,7 +1,6 @@
-from mongoAccess import mongo3
+from common.database.mongoAccess import mongo3
 import datetime
 import json
-import dateutil.parser
 
 
 class ValidationError:

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Run tests
-if [ -z ${RESMONAUTHENV+x} ]; then
-    source ./resmon-auth.env
+if [ -z ${RESMONMONITORENV+x} ]; then
+    source ./resmon-monitor.env
 fi
 
 python3 test/*.py

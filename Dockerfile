@@ -2,9 +2,11 @@ FROM debian:latest
 
 WORKDIR /app
 
-ADD . /app
+RUN apt-get update
 
-RUN ./install-monitor.sh --quiet
+ADD ./install-monitor.sh /app
+
+RUN /app/install-monitor.sh --quiet
 
 CMD /app/resmon-monitor && /bin/bash
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Generates python documentation. Move html files to docs dictionary
-if [ -z ${RESMONAUTHENV+x} ]; then
+if [ -z ${RESMONMONITORENV+x} ]; then
     source ./resmon-monitor.env
 fi
 
