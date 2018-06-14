@@ -29,7 +29,18 @@ def delete_metric(metric_id, hostname):  # noqa: E501
 
     :rtype: object
     """
-    return "do some magic!"
+    api = dbApi.dbApi()
+
+    ids = api.getSessionIds(
+        {api.HOSTNAME_KEY: hostname, api.METRIC_PATH: metric_id}
+    )
+    if len(ids) <= 0:
+        return "Uknown metric or hostname", 404
+
+    api.deleteComplexMetric(hostname, metric_id)
+    api.deleteMetric(hostname, metric_id)
+
+    return "Success", 200
 
 
 def get_hosts(q=None):  # noqa: E501
@@ -89,17 +100,45 @@ def post_metric(hostname, payload):  # noqa: E501
     if connexion.request.is_json:
         payload = Payload.from_dict(connexion.request.get_json())  # noqa: E501
 
-    parent_id = payload["parent_id"]
-    moving_window = payload["moving_window_duration"]
-    interval = payload["interval"]
-    description = payload["description"]
+    parent_id = payload.parent_id
+    moving_window = payload.moving_window_duration
+    interval = payload.interval
+
+    if interval <= 0:
+        return "Interval has to be greather than 0", 400
+
+    if moving_window <= 0:
+        return "Moving window has to be greater than 0", 400
+
+    description = payload.description
     metric_id = (
-        "cpx_" + "parent_id" + "_" + str(moving_window) + "_" + str(interval)
+        "cpx_"
+        + str(parent_id)
+        + "_"
+        + str(moving_window)
+        + "_"
+        + str(interval)
     )
 
-    api.updateMetricInMetadata(hostname, metric_id, parent_id, description)
+    metrics = api.getAllMetrics({dbApi.dbApi.HOSTNAME_KEY: hostname})
+    if metric_id in metrics:
+        return "Metric id already exists", 409
+
+    if parent_id not in metrics:
+        return "Unknown parent_id", 404
+
+    hostnames = api.getHosts(None)
+    if hostname not in hostnames:
+        return "Unknown hostname", 404
+
+    unit = api.updateMetricInMetadata(
+        hostname, metric_id, parent_id, description
+    )
+    if unit == "":
+        unit = "Unknown Unit"
+
     api.insertMeasDefinition(
         hostname, metric_id, parent_id, moving_window, interval, description
     )
-
-    return metric_id, 201
+    response = InlineResponse201(metric_id, unit)
+    return response.to_dict(), 201

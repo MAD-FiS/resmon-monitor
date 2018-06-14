@@ -23,9 +23,23 @@ def get_metrics():  # noqa: E501
     response = []
 
     for metric in metrics.keys():
+        interval = None
+        moving_window = None
         hosts = api.getHostnameByMetric(metric)
+
+        cpxDefinitions = api.getCpxDefinitions({api.METRIC_ID_KEY: metric})
+        for cpxDef in cpxDefinitions:
+            hosts.append(cpxDef[api.HOSTNAME_KEY])
+            interval = cpxDef[api.INTERVAL_KEY]
+            moving_window = cpxDef[api.MOVING_WINDOW_KEY]
+
         metric_object = Metric(
-            id=metric, description=metrics[metric], unit="%", hosts=hosts
+            id=metric,
+            interval=interval,
+            moving_window_duration=moving_window,
+            description=metrics[metric],
+            unit="%",
+            hosts=hosts,
         )
         response.append(metric_object.to_dict())
 

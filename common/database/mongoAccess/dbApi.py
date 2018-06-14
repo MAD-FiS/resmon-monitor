@@ -105,8 +105,8 @@ class dbApi:
     def getAll(self):
         return self.db.select(self.DATA_COLL)
 
-    def getAllMetrics(self):
-        dataEntries = self.findInMeta()
+    def getAllMetrics(self, filtr=None):
+        dataEntries = self.findInMeta(filtr)
         response = {}
         for entry in dataEntries:
             for metric in entry[self.METRICS_KEY]:
@@ -150,8 +150,8 @@ class dbApi:
                     )
         return metadata
 
-    def getCpxDefinitions(self):
-        return self.db.find(None, self.COMPLEX_COLL)
+    def getCpxDefinitions(self, filtr=None):
+        return self.db.find(filtr, self.COMPLEX_COLL)
 
     # TODO:Delete all this ugly arguments and
     # replace with MeasurementDefinition object
@@ -177,27 +177,34 @@ class dbApi:
     def updateMetricInMetadata(
         self, hostname, metric_id, parent_id, description
     ):
-        record = self.findInMeta(
+        records = self.findInMeta(
             {self.HOSTNAME_KEY: hostname, self.METRIC_PATH: parent_id}
         )
-        metrics = record[0][self.METRICS_KEY]
-        unit = ""
-        for metric in metrics:
-            if metric[self.METRIC_ID_KEY] == parent_id:
-                unit = metric[self.UNIT_KEY]
+        for record in records:
+            metrics = record[self.METRICS_KEY]
+            sessionId = record[self.SESSION_KEY]
+            unit = ""
+            for metric in metrics:
+                if metric[self.METRIC_ID_KEY] == parent_id:
+                    unit = metric[self.UNIT_KEY]
 
-        metricRecord = dict()
-        metricRecord[self.DESCRIPTION_KEY] = description
-        metricRecord[self.METRIC_ID_KEY] = metric_id
-        metricRecord[self.UNIT_KEY] = unit
+            metricRecord = dict()
+            metricRecord[self.DESCRIPTION_KEY] = description
+            metricRecord[self.METRIC_ID_KEY] = metric_id
+            metricRecord[self.UNIT_KEY] = unit
 
-        metrics.append(metricRecord)
+            metrics.append(metricRecord)
 
-        self.db.update(
-            {self.HOSTNAME_KEY: hostname, self.METRIC_PATH: parent_id},
-            {self.METRICS_KEY: metrics},
-            self.META_COLL,
-        )
+            self.db.update(
+                {
+                    self.HOSTNAME_KEY: hostname,
+                    self.METRIC_PATH: parent_id,
+                    self.SESSION_KEY: sessionId,
+                },
+                {self.METRICS_KEY: metrics},
+                self.META_COLL,
+            )
+        return unit
 
     # TODO:Delete all this ugly arguments and
     # replace with MeasurementDefinition object
@@ -236,3 +243,36 @@ class dbApi:
             measurementsEntries.append(dbEntry)
 
         self.db.insert(measurementsEntries, self.DATA_COLL)
+
+    def deleteComplexMetric(self, hostname, metric_id):
+        complexRecord = self.db.find(
+            {self.HOSTNAME_KEY: hostname, self.METRIC_ID_KEY: metric_id},
+            self.COMPLEX_COLL,
+        )
+        self.db.remove(
+            {self.HOSTNAME_KEY: hostname, self.METRIC_ID_KEY: metric_id},
+            self.COMPLEX_COLL,
+        )
+
+    def deleteMetric(self, hostname, metric_id):
+        records = self.findInMeta(
+            {self.HOSTNAME_KEY: hostname, self.METRIC_PATH: metric_id}
+        )
+        for record in records:
+            metrics = record[self.METRICS_KEY]
+            sessionId = record[self.SESSION_KEY]
+            for metric in metrics:
+                if metric[self.METRIC_ID_KEY] == metric_id:
+                    try:
+                        metrics.remove(metric)
+                    except ValueError:
+                        pass
+            self.db.update(
+                {
+                    self.HOSTNAME_KEY: hostname,
+                    self.METRIC_PATH: metric_id,
+                    self.SESSION_KEY: sessionId,
+                },
+                {self.METRICS_KEY: metrics},
+                self.META_COLL,
+            )
