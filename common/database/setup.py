@@ -1,4 +1,4 @@
 from setuptools import setup
 
-if __name__ == '__main__':
-    setup(name="mongoAccess", packages=["mongoAccess"])
+setup(name="mongoAccess",
+      packages=["mongoAccess"])

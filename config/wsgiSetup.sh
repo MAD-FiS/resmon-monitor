@@ -10,19 +10,19 @@ appPath="$(cd $scriptPath ; cd .. ; pwd -P )"
 function generateWsgiFile {
     local wsgiPointedMainFile=$1
     local wsgiFilename=$2
+    local appFilesDir=$3
 
     wsgiPath=$scriptPath'/'$wsgiFilename
 
 cat > $wsgiPath << EOL
 import sys
-import os
-sys.path.insert(0, '/app')
+sys.path.insert(0, '$appPath/$appFilesDir')
 from $wsgiPointedMainFile import app as application
 EOL
 }
 
 echo "Script path: $scriptPath"
 echo "App path: $appPath"
-generateWsgiFile $guiModuleMainFile $guiModuleWsgiFileName
-generateWsgiFile $sensorModuleMainFile $sensorModuleWsgiFileName
+generateWsgiFile $guiModuleMainFile $guiModuleWsgiFileName $guiModuleApplicationFiles
+generateWsgiFile $sensorModuleMainFile $sensorModuleWsgiFileName $sensorModuleApplicationFiles
 

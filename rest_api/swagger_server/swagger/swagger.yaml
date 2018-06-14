@@ -60,7 +60,7 @@ paths:
           description: "User is not authorized"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "rest_api.swagger_server.controllers.metrics_controller"
+      x-swagger-router-controller: "swagger_server.controllers.metrics_controller"
   /measurements:
     get:
       tags:
@@ -139,7 +139,7 @@ paths:
           description: "User is not authorized"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "rest_api.swagger_server.controllers.measurements_controller"
+      x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
   /hosts:
     get:
       tags:
@@ -192,7 +192,7 @@ paths:
           description: "User is not authorized"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "rest_api.swagger_server.controllers.hosts_controller"
+      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics:
     post:
       tags:
@@ -245,7 +245,7 @@ paths:
           description: "If metric already exists, you can't change any field of it"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "rest_api.swagger_server.controllers.hosts_controller"
+      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics/{metric_id}:
     delete:
       tags:
@@ -295,7 +295,7 @@ paths:
           description: "Unknown metric or hostname"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "rest_api.swagger_server.controllers.hosts_controller"
+      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
 securityDefinitions:
   APIKeyHeader:
     type: "apiKey"

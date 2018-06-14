@@ -1,11 +1,14 @@
+import connexion
+import six
 import datetime
 
-from rest_api.swagger_server.models.measurement import Measurement  # noqa: E501
-from rest_api.swagger_server.models.point import Point
-from rest_api.swagger_server import util
+from swagger_server.models.error import Error  # noqa: E501
+from swagger_server.models.measurement import Measurement  # noqa: E501
+from swagger_server.models.point import Point
+from swagger_server import util
 
-from common.database.mongoAccess import dbApi
-from rest_api.apiUtils.apiUtils import QueryResolver
+from mongoAccess import dbApi
+from apiUtils import QueryResolver
 
 TIME_IND = 0
 VALUE_IND = 1

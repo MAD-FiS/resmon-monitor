@@ -1,16 +1,18 @@
 import connexion
+import six
+import json
 
-from rest_api.swagger_server.models.error import Error  # noqa: E501
-from rest_api.swagger_server.models.host import Host  # noqa: E501
-from rest_api.swagger_server.models.host import Metric  # noqa: E501
-from rest_api.swagger_server.models.host import Metadata  # noqa: E501
-from rest_api.swagger_server.models.inline_response201 import (
+from swagger_server.models.error import Error  # noqa: E501
+from swagger_server.models.host import Host  # noqa: E501
+from swagger_server.models.host import Metric  # noqa: E501
+from swagger_server.models.host import Metadata  # noqa: E501
+from swagger_server.models.inline_response201 import (
     InlineResponse201
 )  # noqa: E501
-from rest_api.swagger_server.models.payload import Payload  # noqa: E501
-from rest_api.swagger_server import util
+from swagger_server.models.payload import Payload  # noqa: E501
+from swagger_server import util
 
-from common.database.mongoAccess import dbApi
+from mongoAccess import dbApi
 from .metrics_controller import get_metrics
 from apiUtils import QueryResolver
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import re
+import json
 from datetime import datetime
-from common.database.mongoAccess import mongo3
+from mongoAccess import mongo3
 
 
 class dbApi:
