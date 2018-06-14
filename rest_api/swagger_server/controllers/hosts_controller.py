@@ -19,6 +19,7 @@ from .metrics_controller import get_metrics
 from apiUtils import QueryResolver
 
 
+@jwt_required
 def delete_metric(metric_id, hostname):  # noqa: E501
     """Delete complex metric
 
@@ -43,6 +44,7 @@ def delete_metric(metric_id, hostname):  # noqa: E501
     api.deleteMetric(hostname, metric_id)
 
     return "Success", 200
+
 
 @jwt_required
 def get_hosts(q=None):  # noqa: E501
@@ -86,6 +88,7 @@ def get_hosts(q=None):  # noqa: E501
     return response
 
 
+@jwt_required
 def post_metric(hostname, payload):  # noqa: E501
     """Add complex metric
 
