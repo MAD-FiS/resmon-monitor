@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module hosts_controller</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>hosts_controller</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/toruk/resmon-monitor/rest_api/swagger_server/controllers/hosts_controller.py">/home/toruk/resmon-monitor/rest_api/swagger_server/controllers/hosts_controller.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="connexion.html">connexion</a><br>
+</td><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="six.html">six</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-delete_metric"><strong>delete_metric</strong></a>(metric_id, hostname)</dt><dd><tt>Delete&nbsp;complex&nbsp;metric<br>
+&nbsp;<br>
+&nbsp;#&nbsp;noqa:&nbsp;E501<br>
+&nbsp;<br>
+:param&nbsp;metric_id:&nbsp;Metric&nbsp;identyfier.&nbsp;It&nbsp;has&nbsp;the&nbsp;same&nbsp;form&nbsp;as&nbsp;&amp;#x60;metric_id&amp;#x60;&nbsp;field&nbsp;of&nbsp;&amp;#x60;Metric&amp;#x60;&nbsp;model<br>
+:type&nbsp;metric_id:&nbsp;str<br>
+:param&nbsp;hostname:&nbsp;Target&nbsp;host&nbsp;(domain&nbsp;name)<br>
+:type&nbsp;hostname:&nbsp;str<br>
+&nbsp;<br>
+:rtype:&nbsp;object</tt></dd></dl>
+ <dl><dt><a name="-get_hosts"><strong>get_hosts</strong></a>(q=None)</dt><dd><tt>Get&nbsp;list&nbsp;of&nbsp;hosts<br>
+&nbsp;<br>
+&nbsp;#&nbsp;noqa:&nbsp;E501<br>
+&nbsp;<br>
+:param&nbsp;q:&nbsp;Filters&nbsp;out&nbsp;used&nbsp;metrics&nbsp;and&nbsp;hosts&nbsp;according&nbsp;to&nbsp;provided&nbsp;keys.&nbsp;String&nbsp;needs&nbsp;to&nbsp;match&nbsp;the&nbsp;following&nbsp;schema:&nbsp;&amp;#x60;KEY1:VAL1,KEY2:VAL2;KEY3:VAL4...&amp;#x60;.&nbsp;Comma&nbsp;is&nbsp;used&nbsp;to&nbsp;indicate&nbsp;&amp;#x60;AND&amp;#x60;&nbsp;operation&nbsp;while&nbsp;semicolon&nbsp;relates&nbsp;to&nbsp;&amp;#x60;OR&amp;#x60;.&nbsp;When&nbsp;&amp;#x60;VAL&amp;#x60;&nbsp;paramater&nbsp;is&nbsp;wrapped&nbsp;into&nbsp;slashes&nbsp;then&nbsp;regex&nbsp;mode&nbsp;is&nbsp;activated.&nbsp;For&nbsp;example&nbsp;when&nbsp;we&nbsp;query&nbsp;for&nbsp;&amp;#x60;metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/&amp;#x60;&nbsp;we&nbsp;should&nbsp;receive&nbsp;cpu&nbsp;metric&nbsp;measurements&nbsp;for&nbsp;hosts&nbsp;containing&nbsp;either&nbsp;nix&nbsp;or&nbsp;win&nbsp;as&nbsp;substring&nbsp;in&nbsp;&amp;#x60;os&amp;#x60;&nbsp;metadata.&nbsp;Note&nbsp;that&nbsp;&amp;#x60;AND&amp;#x60;&nbsp;operation&nbsp;has&nbsp;higher&nbsp;priority&nbsp;than&nbsp;&amp;#x60;OR&amp;#x60;.&nbsp;Allowed&nbsp;keys:&nbsp;&amp;#x60;metric_id&amp;#x60;,&nbsp;&amp;#x60;description&amp;#x60;,&nbsp;&amp;#x60;complex&amp;#x60;&nbsp;(metric&nbsp;parameters)&nbsp;and&nbsp;all&nbsp;available&nbsp;host&nbsp;metadata&nbsp;fields.&nbsp;When&nbsp;not&nbsp;provided:&nbsp;No&nbsp;filtering&nbsp;performed&nbsp;-&nbsp;all&nbsp;available&nbsp;metrics&nbsp;and&nbsp;hosts&nbsp;are&nbsp;taken<br>
+:type&nbsp;q:&nbsp;str<br>
+&nbsp;<br>
+:rtype:&nbsp;List[Host]</tt></dd></dl>
+ <dl><dt><a name="-post_metric"><strong>post_metric</strong></a>(hostname, payload)</dt><dd><tt>Add&nbsp;complex&nbsp;metric<br>
+&nbsp;<br>
+&nbsp;#&nbsp;noqa:&nbsp;E501<br>
+&nbsp;<br>
+:param&nbsp;hostname:&nbsp;Target&nbsp;host&nbsp;(domain&nbsp;name)<br>
+:type&nbsp;hostname:&nbsp;str<br>
+:param&nbsp;payload:&nbsp;Complex&nbsp;mertic&nbsp;payload<br>
+:type&nbsp;payload:&nbsp;dict&nbsp;|&nbsp;bytes<br>
+&nbsp;<br>
+:rtype:&nbsp;InlineResponse201</tt></dd></dl>
+</td></tr></table>
+</body></html>
