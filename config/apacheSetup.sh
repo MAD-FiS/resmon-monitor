@@ -10,47 +10,6 @@ scriptPath="$( cd "$(dirname "$0")" ; pwd -P )"
 
 scriptDir=`dirname $scriptPath`
 
-#resetColor() {
-#    printf "\e[39m"
-#}
-#turnRed() {
-#    printf "\e[31m"
-#}
-#turnGreen() {
-#    printf "\e[32m"
-#}
-#printError() {
-#    local errorText=$1
-#    turnRed
-#    echo $errorText
-#    resetColor
-#}
-#printInfo() {
-#    turnGreen
-#    echo $1
-#    resetColor
-#}
-#terminate() {
-#    exit 1
-#}
-#checkDirExist() {
-#    local directoryPath=$1
-#    if [[ -d $directoryPath ]] ; then
-#        printInfo "Found directory: $directoryPath"
-#    else
-#        printError "Can't find mandatory directory: $directoryPath"
-#        terminate
-#    fi
-#}
-#checkFileExist() {
-#    local filePath=$1
-#    if [[ -f $filePath ]] ; then
-#        printInfo "Found file: $filePath"
-#    else
-#        printError "Can't find mandatory file: $filePath"
-#        terminate
-#    fi
-#}
 testConfig() {
     echo $guiModuleWsgiFileName
 }
@@ -187,29 +146,7 @@ createApacheConfiguration() {
     locateApacheFiles $apache2Binary
     appendApacheDirPermissions $apacheConfigFilePath
 
-    #PS3="Are you sure you want to append config lines to $apacheConfigFilePath: "
-    #select option in "Yes" "Exit"; do
-    #   turnRed
-    #   case $option in
-    #       "Yes" ) appendApacheDirPermissions $apacheConfigFilePath && break;;
-    #       "Exit" ) terminate;;
-    #   esac
-    #   resetColor
-    #done
-    #resetColor
     turnFilesBackup $apacheSitesConfigPath
-
-    #printInfo `ls -la $apacheSitesConfigPath`
-    #PS3="Are you sure you want to move files as backups in $apacheSitesConfigPath: "
-    #select option in "Yes" "Exit"; do
-    #   turnRed
-    #   case $option in
-    #       "Yes" ) turnFilesBackup $apacheSitesConfigPath && break;;
-    #       "Exit" ) terminate;;
-    #   esac
-    #   resetColor
-    #done
-    #resetColor 
 
     createApacheVirtualHostsConfig $apacheSitesConfigPath'/'$siteConfigFileName
     printInfo "Site-config file created"

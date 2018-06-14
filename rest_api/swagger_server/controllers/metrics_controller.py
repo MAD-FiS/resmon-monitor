@@ -1,12 +1,6 @@
-import connexion
-import six
-import json
-
-from swagger_server.models.error import Error  # noqa: E501
-from swagger_server.models.metric import Metric  # noqa: E501
-from swagger_server import util
-
-from mongoAccess import dbApi
+from rest_api.swagger_server.models.metric import Metric  # noqa: E501
+from rest_api.swagger_server import util
+from common.database.mongoAccess import dbApi
 
 
 def get_metrics():  # noqa: E501

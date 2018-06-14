@@ -3,7 +3,7 @@ import pprint
 import six
 import typing
 
-from swagger_server import util
+from rest_api.swagger_server import util
 
 T = typing.TypeVar('T')
 

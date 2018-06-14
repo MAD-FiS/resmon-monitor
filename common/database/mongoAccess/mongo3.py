@@ -18,8 +18,6 @@ class DB:
         self._host = host if host else "localhost"
         self._port = port
         self._base = base if base else "admin"
-        # self._collection_name =\
-        #    collection if collection else "testCollection"
 
         self.client = _pm.MongoClient(
             "mongodb://" + self._host + "/" + self._base,

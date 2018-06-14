@@ -1,20 +1,18 @@
 import connexion
-import six
-import json
 
-from swagger_server.models.error import Error  # noqa: E501
-from swagger_server.models.host import Host  # noqa: E501
-from swagger_server.models.host import Metric  # noqa: E501
-from swagger_server.models.host import Metadata  # noqa: E501
-from swagger_server.models.inline_response201 import (
+from rest_api.swagger_server.models.error import Error  # noqa: E501
+from rest_api.swagger_server.models.host import Host  # noqa: E501
+from rest_api.swagger_server.models.host import Metric  # noqa: E501
+from rest_api.swagger_server.models.host import Metadata  # noqa: E501
+from rest_api.swagger_server.models.inline_response201 import (
     InlineResponse201
 )  # noqa: E501
-from swagger_server.models.payload import Payload  # noqa: E501
-from swagger_server import util
+from rest_api.swagger_server.models.payload import Payload  # noqa: E501
+from rest_api.swagger_server import util
 
-from mongoAccess import dbApi
-from .metrics_controller import get_metrics
-from apiUtils import QueryResolver
+from common.database.mongoAccess import dbApi
+from rest_api.swagger_server.controllers.metrics_controller import get_metrics
+from rest_api.apiUtils.apiUtils import QueryResolver
 
 
 def delete_metric(metric_id, hostname):  # noqa: E501

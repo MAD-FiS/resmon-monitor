@@ -5,9 +5,9 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.error import Error  # noqa: E501
-from swagger_server.models.metric import Metric  # noqa: E501
-from swagger_server.test import BaseTestCase
+from rest_api.swagger_server.models.error import Error  # noqa: E501
+from rest_api.swagger_server.models.metric import Metric  # noqa: E501
+from rest_api.swagger_server.test import BaseTestCase
 
 
 class TestMetricsController(BaseTestCase):

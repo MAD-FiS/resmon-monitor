@@ -2,12 +2,7 @@
 
 from __future__ import absolute_import
 
-from flask import json
-from six import BytesIO
-
-from swagger_server.models.error import Error  # noqa: E501
-from swagger_server.models.measurement import Measurement  # noqa: E501
-from swagger_server.test import BaseTestCase
+from rest_api.swagger_server.test import BaseTestCase
 
 
 class TestMeasurementsController(BaseTestCase):
