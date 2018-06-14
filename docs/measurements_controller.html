@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module measurements_controller</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>measurements_controller</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/toruk/resmon-monitor/rest_api/swagger_server/controllers/measurements_controller.py">/home/toruk/resmon-monitor/rest_api/swagger_server/controllers/measurements_controller.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="connexion.html">connexion</a><br>
+</td><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top><a href="six.html">six</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-get_measurements"><strong>get_measurements</strong></a>(start=None, end=None, q=None, limit=None, last=None)</dt><dd><tt>Selected&nbsp;measurements<br>
+&nbsp;<br>
+&nbsp;#&nbsp;noqa:&nbsp;E501<br>
+&nbsp;<br>
+:param&nbsp;start:&nbsp;ISO&nbsp;8601&nbsp;datetime&nbsp;format&nbsp;with&nbsp;1s&nbsp;accuracy.&nbsp;Default&nbsp;value&nbsp;is&nbsp;current&nbsp;time&nbsp;subtracted&nbsp;by&nbsp;1&nbsp;day<br>
+:type&nbsp;start:&nbsp;str<br>
+:param&nbsp;end:&nbsp;ISO&nbsp;8601&nbsp;datetime&nbsp;format&nbsp;with&nbsp;1s&nbsp;accuracy.&nbsp;Default&nbsp;value&nbsp;is&nbsp;current&nbsp;time.<br>
+:type&nbsp;end:&nbsp;str<br>
+:param&nbsp;q:&nbsp;Filters&nbsp;out&nbsp;used&nbsp;metrics&nbsp;and&nbsp;hosts&nbsp;according&nbsp;to&nbsp;provided&nbsp;keys.&nbsp;String&nbsp;needs&nbsp;to&nbsp;match&nbsp;the&nbsp;following&nbsp;schema:&nbsp;&amp;#x60;KEY1:VAL1,KEY2:VAL2;KEY3:VAL4...&amp;#x60;.&nbsp;Comma&nbsp;is&nbsp;used&nbsp;to&nbsp;indicate&nbsp;&amp;#x60;AND&amp;#x60;&nbsp;operation&nbsp;while&nbsp;semicolon&nbsp;relates&nbsp;to&nbsp;&amp;#x60;OR&amp;#x60;.&nbsp;When&nbsp;&amp;#x60;VAL&amp;#x60;&nbsp;paramater&nbsp;is&nbsp;wrapped&nbsp;into&nbsp;slashes&nbsp;then&nbsp;regex&nbsp;mode&nbsp;is&nbsp;activated.&nbsp;For&nbsp;example&nbsp;when&nbsp;we&nbsp;query&nbsp;for&nbsp;&amp;#x60;metric_id:cpu,os:/.*nix.*/;metric_id:cpu,os:/.*win.*/&amp;#x60;&nbsp;we&nbsp;should&nbsp;receive&nbsp;cpu&nbsp;metric&nbsp;measurements&nbsp;for&nbsp;hosts&nbsp;containing&nbsp;either&nbsp;nix&nbsp;or&nbsp;win&nbsp;as&nbsp;substring&nbsp;in&nbsp;&amp;#x60;os&amp;#x60;&nbsp;metadata.&nbsp;Note&nbsp;that&nbsp;&amp;#x60;AND&amp;#x60;&nbsp;operation&nbsp;has&nbsp;higher&nbsp;priority&nbsp;than&nbsp;&amp;#x60;OR&amp;#x60;.&nbsp;Allowed&nbsp;keys:&nbsp;&amp;#x60;metric_id&amp;#x60;,&nbsp;&amp;#x60;description&amp;#x60;,&nbsp;&amp;#x60;complex&amp;#x60;&nbsp;(metric&nbsp;parameters)&nbsp;and&nbsp;all&nbsp;available&nbsp;host&nbsp;metadata&nbsp;fields.&nbsp;When&nbsp;not&nbsp;provided:&nbsp;No&nbsp;filtering&nbsp;performed&nbsp;-&nbsp;all&nbsp;available&nbsp;metrics&nbsp;and&nbsp;hosts&nbsp;are&nbsp;taken<br>
+:type&nbsp;q:&nbsp;str<br>
+:param&nbsp;limit:&nbsp;Number&nbsp;of&nbsp;maximal&nbsp;amount&nbsp;of&nbsp;measurements&nbsp;given&nbsp;as&nbsp;a&nbsp;result&nbsp;of&nbsp;the&nbsp;query<br>
+:type&nbsp;limit:&nbsp;<br>
+:param&nbsp;last:&nbsp;If&nbsp;it&nbsp;is&nbsp;set&nbsp;as&nbsp;&amp;#x60;TRUE&amp;#x60;&nbsp;then&nbsp;the&nbsp;only&nbsp;last&nbsp;measurement&nbsp;meeting&nbsp;the&nbsp;criteria&nbsp;from&nbsp;&amp;#x60;q&amp;#x60;&nbsp;parameter&nbsp;is&nbsp;returned<br>
+:type&nbsp;last:&nbsp;bool<br>
+&nbsp;<br>
+:rtype:&nbsp;List[Measurement]</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>TIME_IND</strong> = 0<br>
+<strong>VALUE_IND</strong> = 1</td></tr></table>
+</body></html>
