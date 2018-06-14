@@ -2,6 +2,8 @@ FROM debian:latest
 
 WORKDIR /app
 
+RUN apt-get update
+
 ADD . /app
 
 RUN ./install-monitor.sh --quiet
