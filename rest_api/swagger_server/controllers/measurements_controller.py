@@ -6,14 +6,14 @@ from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.measurement import Measurement  # noqa: E501
 from swagger_server.models.point import Point
 from swagger_server import util
-
+from flask_jwt_extended import jwt_required
 from mongoAccess import dbApi
 from apiUtils import QueryResolver
 
 TIME_IND = 0
 VALUE_IND = 1
 
-
+@jwt_required
 def get_measurements(start=None, end=None, q=None, limit=None, last=None):  # noqa: E501
     """Selected measurements
 
