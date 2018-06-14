@@ -64,7 +64,12 @@ class dbApi:
     def getSessionIds(self, dataFilter=None):
         """Get session id from meta using filter"""
         if dataFilter:
-            metaEntries = self.findInMeta(dataFilter)
+            dbFilter = dataFilter.copy()
+            if self.METRIC_ID_KEY in dbFilter:
+                dbFilter[self.METRIC_PATH] = dbFilter[self.METRIC_ID_KEY]
+                del dbFilter[self.METRIC_ID_KEY]
+
+            metaEntries = self.findInMeta(dbFilter)
             return [entry[self.SESSION_KEY] for entry in metaEntries]
         else:
             metaEntries = self.findInMeta()
