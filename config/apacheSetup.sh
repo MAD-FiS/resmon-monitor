@@ -69,6 +69,7 @@ echo "
     WSGIScriptAlias $guiModuleRoot $guiModuleWsgiPath
     WSGIDaemonProcess $guiModuleProcessName display-name=monitor_$guiModuleProcessName
     WSGIProcessGroup $guiModuleProcessName
+    WSGIPAssAuthorization On
 
     RewriteEngine On
     RewriteCond %{REQUEST_METHOD} OPTIONS

@@ -12,6 +12,8 @@ from swagger_server.models.inline_response201 import (
 from swagger_server.models.payload import Payload  # noqa: E501
 from swagger_server import util
 
+from flask_jwt_extended import jwt_required
+
 from mongoAccess import dbApi
 from .metrics_controller import get_metrics
 from apiUtils import QueryResolver
@@ -42,7 +44,7 @@ def delete_metric(metric_id, hostname):  # noqa: E501
 
     return "Success", 200
 
-
+@jwt_required
 def get_hosts(q=None):  # noqa: E501
     """Get list of hosts
 
