@@ -1,8 +1,8 @@
 import connexion
 import six
 
-from swagger_server.models.metadata_tag import MetadataTag  # noqa: E501
-from swagger_server import util
+from rest_api.swagger_server.models.metadata_tag import MetadataTag  # noqa: E501
+from rest_api.swagger_server import util
 
 
 def get_metadata():  # noqa: E501

@@ -1,7 +1,6 @@
-from mongoAccess import mongo3
+from common.database.mongoAccess import mongo3
 import datetime
 import json
-import dateutil.parser
 
 
 class ValidationError:
@@ -9,7 +8,7 @@ class ValidationError:
         self.error = error
 
     def __str__(self):
-        return '' + error + '. '
+        return '' + self.error + '. '
 
 
 class MetaValidator:
@@ -47,7 +46,11 @@ def parse_request(environ, db):
     request_body = environ['wsgi.input'].read(request_body_size)
     content = request_body.decode('utf-8')
 
-    js = json.loads(content)
+    try:
+        js = json.loads(content)
+    except json.decoder.JSONDecodeError:
+        return 'Please send correct JSON data in your request'
+
     if js['TYPE'] == 'META':
         db.insert(js, "metaCollection")
 

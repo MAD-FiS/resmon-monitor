@@ -56,7 +56,7 @@ paths:
               type: "string"
               description: "It specifies the method or methods allowed when accessing\
                 \ the resource in response to a preflight request"
-      x-swagger-router-controller: "swagger_server.controllers.metadata_controller"
+      x-swagger-router-controller: "rest_api.swagger_server.controllers.metadata_controller"
   /metrics:
     get:
       tags:
@@ -87,7 +87,7 @@ paths:
               type: "string"
               description: "It specifies the method or methods allowed when accessing\
                 \ the resource in response to a preflight request"
-      x-swagger-router-controller: "swagger_server.controllers.metrics_controller"
+      x-swagger-router-controller: "rest_api.swagger_server.controllers.metrics_controller"
   /measurements:
     get:
       tags:
@@ -150,7 +150,7 @@ paths:
           description: "Bad request - error in extra parameters"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "swagger_server.controllers.measurements_controller"
+      x-swagger-router-controller: "rest_api.swagger_server.controllers.measurements_controller"
   /hosts:
     get:
       tags:
@@ -199,7 +199,7 @@ paths:
           description: "Bad request - error in extra parameters"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+      x-swagger-router-controller: "rest_api.swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics:
     post:
       tags:
@@ -248,7 +248,7 @@ paths:
           description: "Unknown hostname or metric passed as `parent_id`"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+      x-swagger-router-controller: "rest_api.swagger_server.controllers.hosts_controller"
   /hosts/{hostname}/metrics/{metric_id}:
     delete:
       tags:
@@ -294,7 +294,7 @@ paths:
           description: "Unknown metric or hostname"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "swagger_server.controllers.hosts_controller"
+      x-swagger-router-controller: "rest_api.swagger_server.controllers.hosts_controller"
 securityDefinitions:
   APIKeyHeader:
     type: "apiKey"
