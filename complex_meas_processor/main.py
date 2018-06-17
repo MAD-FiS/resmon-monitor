@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from mongoAccess import dbApi
+from common.database.mongoAccess import dbApi
 from datetime import datetime
 from datetime import timedelta
-from CpxCalculator import CpxCalculator
-from MeasurementDef import MeasurementDef
+from complex_meas_processor.CpxCalculator import CpxCalculator
+from complex_meas_processor.MeasurementDef import MeasurementDef
 
 import time
 

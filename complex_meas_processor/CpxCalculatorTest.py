@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import MagicMock
 
 import datetime
-from CpxCalculator import CpxCalculator
-from MeasurementDef import MeasurementDef
+from complex_meas_processor.CpxCalculator import CpxCalculator
+from complex_meas_processor.MeasurementDef import MeasurementDef
 
 
 class TestCpxCalculatorTest(unittest.TestCase):

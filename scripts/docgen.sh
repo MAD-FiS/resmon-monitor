@@ -8,6 +8,17 @@ fi
 rm -rf ./docs
 mkdir ./docs/
 
-MODULES=`find -name '*.py' | sed -e 's/\//./g' | sed -e 's/\.\.//g' | sed -e 's/\.py//g' | awk '!/__init__/' | awk '!/__main__/'`
-pydoc3 -w $MODULES
-for f in ./*.html ; do mv "$f" ./docs/ ; done
+MODULES=`find -name '*.py' | sed -e 's/\//./g' | sed -e 's/\.\.//g' \
+    | sed -e 's/\.py//g' | sed 's|.__init__||' | awk '!/__main__/'`
+echo "$MODULES"
+#pydoc3 -w $MODULES
+OUT=`for f in $MODULES ; do \
+    pydoc3.6 -w $f; \
+    mv "$f.html" ./docs/ ; done`
+
+echo "$OUT"
+if [[ "$OUT" =~ "problem in" ]]; then
+    exit 1
+else
+    exit 0
+fi
