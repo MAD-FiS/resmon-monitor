@@ -1,4 +1,4 @@
-from mongoAccess import dbApi
+from common.database.mongoAccess import dbApi
 
 
 class MeasurementDef:
