@@ -37,7 +37,7 @@ class TestHostsController(BaseTestCase):
 
         Get list of hosts
         """
-        query_string = [("q", "q_example")]
+        query_string = [("q", "NAME:q_example")]
         response = self.client.open(
             "/hosts", method="GET", query_string=query_string
         )
