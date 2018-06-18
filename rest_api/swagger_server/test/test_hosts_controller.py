@@ -13,22 +13,40 @@ from rest_api.swagger_server.models.inline_response201 import (
 from rest_api.swagger_server.models.payload import Payload  # noqa: E501
 from rest_api.swagger_server.test import BaseTestCase
 
+from unittest.mock import patch
+
+
+authorizationToken = (
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9."
+    "eyJpYXQiOjE1MjkzNTk4MDIsIm5iZiI6MTUyO"
+    "TM1OTgwMiwianRpIjoiZTY4N2M5YzgtNDk3ZS"
+    "00MzRhLWI0MDItYTdmMmRhYzc3ZGQ4IiwiaWR"
+    "lbnRpdHkiOiJhc2QiLCJmcmVzaCI6ZmFsc2Us"
+    "InR5cGUiOiJhY2Nlc3MifQ.Us_sjA7wc90ltl"
+    "mlgEnz1FaotgMzVXoFAzkrJt56Tcw"
+)
+dbModulePath = (
+    "rest_api.swagger_server.controllers.hosts_controller.dbApi.dbApi."
+)
+
 
 class TestHostsController(BaseTestCase):
     """HostsController integration test stubs"""
 
-    def test_delete_metric(self):
+    @patch(dbModulePath + "getSessionIds")
+    def test_delete_metric(self, mock_getSessionIds):
         """Test case for delete_metric
 
         Delete complex metric
         """
-        response = self.client.open(
+        mock_getSessionIds.return_value = [1314042]
+        response = self.client.delete(
             "/hosts/{hostname}/metrics/{metric_id}".format(
                 metric_id="metric_id_example", hostname="hostname_example"
             ),
-            method="DELETE",
+            headers={"Authorization": "Bearer " + authorizationToken},
         )
-        self.assert404(
+        self.assert200(
             response, "Response body is : " + response.data.decode("utf-8")
         )
 
@@ -37,29 +55,61 @@ class TestHostsController(BaseTestCase):
 
         Get list of hosts
         """
-        query_string = [("q", "NAME:q_example")]
-        response = self.client.open(
-            "/hosts", method="GET", query_string=query_string
+        query_string = [("q", "os:q_example")]
+        response = self.client.get(
+            "/hosts",
+            query_string=query_string,
+            headers={"Authorization": "Bearer " + authorizationToken},
         )
         self.assert200(
             response, "Response body is : " + response.data.decode("utf-8")
         )
 
-    def test_post_metric(self):
+    @patch(dbModulePath + "updateMetricInMetadata")
+    @patch(dbModulePath + "getHosts")
+    @patch(dbModulePath + "getAllMetrics")
+    def test_post_metric(
+        self, mock_getAllMetrics, mock_getHosts, mock_updateMetricInMetadata
+    ):
         """Test case for post_metric
 
         Add complex metric
         """
-        payload = Payload(description="CPU usage in percentage", interval=5,
-                          moving_window_duration=5, parent_id="null")
-        response = self.client.open(
-            "/hosts/{hostname}/metrics".format(hostname="hostname_example"),
-            method="POST",
+        hostExistingInDb = "dummyHostname"
+        metricExistingInDb = "dummyMetric"
+        mock_getAllMetrics.return_value = [metricExistingInDb]
+        mock_getHosts.return_value = [hostExistingInDb]
+        mock_updateMetricInMetadata.return_value = "meters"
+        interval_value = 10
+        moving_window_value = 20
+        payload = Payload(
+            description="dummyDesc",
+            interval=interval_value,
+            moving_window_duration=moving_window_value,
+            parent_id=metricExistingInDb,
+        )
+        response = self.client.post(
+            "/hosts/{hostname}/metrics".format(hostname=hostExistingInDb),
+            headers={"Authorization": "Bearer " + authorizationToken},
             data=json.dumps(payload),
             content_type="application/json",
         )
-        self.assert404(
-            response, "Response body is : " + response.data.decode("utf-8")
+        self.assertStatus(
+            response,
+            201,
+            "Response body is : " + response.data.decode("utf-8"),
+        )
+        self.assertEqual(
+            json.loads(response.data),
+            {
+                "id": "cpx_"
+                + metricExistingInDb
+                + "_"
+                + str(moving_window_value)
+                + "_"
+                + str(interval_value),
+                "unit": "meters",
+            },
         )
 
 
