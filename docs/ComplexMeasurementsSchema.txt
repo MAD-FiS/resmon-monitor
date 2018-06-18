@@ -1,9 +1,0 @@
-{
-	"NAME":"myHostname",
-	"TAG":"metric_id",
-	"PARENT_ID": "Id of parent",
-	"WINDOW_WIDTH": 60,
-	"INTERVAL":20,
-	"LAST_CALCULATION":ISODate("2018-06-12T21:02:17Z"),
-	"DESCRIPTION":"Example dummy complex"
-}

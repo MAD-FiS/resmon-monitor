@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html><head><title>Python: module encoder</title>
+<html><head><title>Python: module rest_api.swagger_server.encoder</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head><body bgcolor="#f0f0f8">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
 <tr bgcolor="#7799ee">
 <td valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>encoder</strong></big></big></font></td
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="rest_api.html"><font color="#ffffff">rest_api</font></a>.<a href="rest_api.swagger_server.html"><font color="#ffffff">swagger_server</font></a>.encoder</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/toruk/resmon-monitor/rest_api/swagger_server/encoder.py">/home/toruk/resmon-monitor/rest_api/swagger_server/encoder.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/var/lib/jenkins/workspace/resmon_monitor_doc/rest_api/swagger_server/encoder.py">/var/lib/jenkins/workspace/resmon_monitor_doc/rest_api/swagger_server/encoder.py</a></font></td></tr></table>
     <p></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -29,7 +29,7 @@
 <dt><font face="helvetica, arial"><a href="connexion.apps.flask_app.html#FlaskJSONEncoder">connexion.apps.flask_app.FlaskJSONEncoder</a>(<a href="flask.json.html#JSONEncoder">flask.json.JSONEncoder</a>)
 </font></dt><dd>
 <dl>
-<dt><font face="helvetica, arial"><a href="encoder.html#JSONEncoder">JSONEncoder</a>
+<dt><font face="helvetica, arial"><a href="rest_api.swagger_server.encoder.html#JSONEncoder">JSONEncoder</a>
 </font></dt></dl>
 </dd>
 </dl>
@@ -43,10 +43,10 @@
 <td colspan=2><tt>Class&nbsp;for&nbsp;encode&nbsp;JSON<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
-<dd><a href="encoder.html#JSONEncoder">JSONEncoder</a></dd>
+<dd><a href="rest_api.swagger_server.encoder.html#JSONEncoder">JSONEncoder</a></dd>
 <dd><a href="connexion.apps.flask_app.html#FlaskJSONEncoder">connexion.apps.flask_app.FlaskJSONEncoder</a></dd>
 <dd><a href="flask.json.html#JSONEncoder">flask.json.JSONEncoder</a></dd>
-<dd><a href="simplejson.encoder.html#JSONEncoder">simplejson.encoder.JSONEncoder</a></dd>
+<dd><a href="json.encoder.html#JSONEncoder">json.encoder.JSONEncoder</a></dd>
 <dd><a href="builtins.html#object">builtins.object</a></dd>
 </dl>
 <hr>
@@ -58,16 +58,16 @@ Data and other attributes defined here:<br>
 <dl><dt><strong>include_nulls</strong> = False</dl>
 
 <hr>
-Methods inherited from <a href="simplejson.encoder.html#JSONEncoder">simplejson.encoder.JSONEncoder</a>:<br>
-<dl><dt><a name="JSONEncoder-__init__"><strong>__init__</strong></a>(self, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, sort_keys=False, indent=None, separators=None, encoding='utf-8', default=None, use_decimal=True, namedtuple_as_object=True, tuple_as_array=True, bigint_as_string=False, item_sort_key=None, for_json=False, ignore_nan=False, int_as_string_bitcount=None, iterable_as_array=False)</dt><dd><tt>Constructor&nbsp;for&nbsp;<a href="#JSONEncoder">JSONEncoder</a>,&nbsp;with&nbsp;sensible&nbsp;defaults.<br>
+Methods inherited from <a href="json.encoder.html#JSONEncoder">json.encoder.JSONEncoder</a>:<br>
+<dl><dt><a name="JSONEncoder-__init__"><strong>__init__</strong></a>(self, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, sort_keys=False, indent=None, separators=None, default=None)</dt><dd><tt>Constructor&nbsp;for&nbsp;<a href="#JSONEncoder">JSONEncoder</a>,&nbsp;with&nbsp;sensible&nbsp;defaults.<br>
 &nbsp;<br>
 If&nbsp;skipkeys&nbsp;is&nbsp;false,&nbsp;then&nbsp;it&nbsp;is&nbsp;a&nbsp;TypeError&nbsp;to&nbsp;attempt<br>
-encoding&nbsp;of&nbsp;keys&nbsp;that&nbsp;are&nbsp;not&nbsp;str,&nbsp;int,&nbsp;long,&nbsp;float&nbsp;or&nbsp;None.&nbsp;&nbsp;If<br>
+encoding&nbsp;of&nbsp;keys&nbsp;that&nbsp;are&nbsp;not&nbsp;str,&nbsp;int,&nbsp;float&nbsp;or&nbsp;None.&nbsp;&nbsp;If<br>
 skipkeys&nbsp;is&nbsp;True,&nbsp;such&nbsp;items&nbsp;are&nbsp;simply&nbsp;skipped.<br>
 &nbsp;<br>
 If&nbsp;ensure_ascii&nbsp;is&nbsp;true,&nbsp;the&nbsp;output&nbsp;is&nbsp;guaranteed&nbsp;to&nbsp;be&nbsp;str<br>
-objects&nbsp;with&nbsp;all&nbsp;incoming&nbsp;unicode&nbsp;characters&nbsp;escaped.&nbsp;&nbsp;If<br>
-ensure_ascii&nbsp;is&nbsp;false,&nbsp;the&nbsp;output&nbsp;will&nbsp;be&nbsp;unicode&nbsp;object.<br>
+objects&nbsp;with&nbsp;all&nbsp;incoming&nbsp;non-ASCII&nbsp;characters&nbsp;escaped.&nbsp;&nbsp;If<br>
+ensure_ascii&nbsp;is&nbsp;false,&nbsp;the&nbsp;output&nbsp;can&nbsp;contain&nbsp;non-ASCII&nbsp;characters.<br>
 &nbsp;<br>
 If&nbsp;check_circular&nbsp;is&nbsp;true,&nbsp;then&nbsp;lists,&nbsp;dicts,&nbsp;and&nbsp;custom&nbsp;encoded<br>
 objects&nbsp;will&nbsp;be&nbsp;checked&nbsp;for&nbsp;circular&nbsp;references&nbsp;during&nbsp;encoding&nbsp;to<br>
@@ -83,12 +83,10 @@ If&nbsp;sort_keys&nbsp;is&nbsp;true,&nbsp;then&nbsp;the&nbsp;output&nbsp;of&nbsp
 sorted&nbsp;by&nbsp;key;&nbsp;this&nbsp;is&nbsp;useful&nbsp;for&nbsp;regression&nbsp;tests&nbsp;to&nbsp;ensure<br>
 that&nbsp;JSON&nbsp;serializations&nbsp;can&nbsp;be&nbsp;compared&nbsp;on&nbsp;a&nbsp;day-to-day&nbsp;basis.<br>
 &nbsp;<br>
-If&nbsp;indent&nbsp;is&nbsp;a&nbsp;string,&nbsp;then&nbsp;JSON&nbsp;array&nbsp;elements&nbsp;and&nbsp;object&nbsp;members<br>
-will&nbsp;be&nbsp;pretty-printed&nbsp;with&nbsp;a&nbsp;newline&nbsp;followed&nbsp;by&nbsp;that&nbsp;string&nbsp;repeated<br>
-for&nbsp;each&nbsp;level&nbsp;of&nbsp;nesting.&nbsp;``None``&nbsp;(the&nbsp;default)&nbsp;selects&nbsp;the&nbsp;most&nbsp;compact<br>
-representation&nbsp;without&nbsp;any&nbsp;newlines.&nbsp;For&nbsp;backwards&nbsp;compatibility&nbsp;with<br>
-versions&nbsp;of&nbsp;simplejson&nbsp;earlier&nbsp;than&nbsp;2.1.0,&nbsp;an&nbsp;integer&nbsp;is&nbsp;also&nbsp;accepted<br>
-and&nbsp;is&nbsp;converted&nbsp;to&nbsp;a&nbsp;string&nbsp;with&nbsp;that&nbsp;many&nbsp;spaces.<br>
+If&nbsp;indent&nbsp;is&nbsp;a&nbsp;non-negative&nbsp;integer,&nbsp;then&nbsp;JSON&nbsp;array<br>
+elements&nbsp;and&nbsp;object&nbsp;members&nbsp;will&nbsp;be&nbsp;pretty-printed&nbsp;with&nbsp;that<br>
+indent&nbsp;level.&nbsp;&nbsp;An&nbsp;indent&nbsp;level&nbsp;of&nbsp;0&nbsp;will&nbsp;only&nbsp;insert&nbsp;newlines.<br>
+None&nbsp;is&nbsp;the&nbsp;most&nbsp;compact&nbsp;representation.<br>
 &nbsp;<br>
 If&nbsp;specified,&nbsp;separators&nbsp;should&nbsp;be&nbsp;an&nbsp;(item_separator,&nbsp;key_separator)<br>
 tuple.&nbsp;&nbsp;The&nbsp;default&nbsp;is&nbsp;(',&nbsp;',&nbsp;':&nbsp;')&nbsp;if&nbsp;*indent*&nbsp;is&nbsp;``None``&nbsp;and<br>
@@ -97,50 +95,11 @@ you&nbsp;should&nbsp;specify&nbsp;(',',&nbsp;':')&nbsp;to&nbsp;eliminate&nbsp;wh
 &nbsp;<br>
 If&nbsp;specified,&nbsp;default&nbsp;is&nbsp;a&nbsp;function&nbsp;that&nbsp;gets&nbsp;called&nbsp;for&nbsp;objects<br>
 that&nbsp;can't&nbsp;otherwise&nbsp;be&nbsp;serialized.&nbsp;&nbsp;It&nbsp;should&nbsp;return&nbsp;a&nbsp;JSON&nbsp;encodable<br>
-version&nbsp;of&nbsp;the&nbsp;object&nbsp;or&nbsp;raise&nbsp;a&nbsp;``TypeError``.<br>
-&nbsp;<br>
-If&nbsp;encoding&nbsp;is&nbsp;not&nbsp;None,&nbsp;then&nbsp;all&nbsp;input&nbsp;strings&nbsp;will&nbsp;be<br>
-transformed&nbsp;into&nbsp;unicode&nbsp;using&nbsp;that&nbsp;encoding&nbsp;prior&nbsp;to&nbsp;JSON-encoding.<br>
-The&nbsp;default&nbsp;is&nbsp;UTF-8.<br>
-&nbsp;<br>
-If&nbsp;use_decimal&nbsp;is&nbsp;true&nbsp;(default:&nbsp;``True``),&nbsp;``decimal.Decimal``&nbsp;will<br>
-be&nbsp;supported&nbsp;directly&nbsp;by&nbsp;the&nbsp;encoder.&nbsp;For&nbsp;the&nbsp;inverse,&nbsp;decode&nbsp;JSON<br>
-with&nbsp;``parse_float=decimal.Decimal``.<br>
-&nbsp;<br>
-If&nbsp;namedtuple_as_object&nbsp;is&nbsp;true&nbsp;(the&nbsp;default),&nbsp;objects&nbsp;with<br>
-``_asdict()``&nbsp;methods&nbsp;will&nbsp;be&nbsp;encoded&nbsp;as&nbsp;JSON&nbsp;objects.<br>
-&nbsp;<br>
-If&nbsp;tuple_as_array&nbsp;is&nbsp;true&nbsp;(the&nbsp;default),&nbsp;tuple&nbsp;(and&nbsp;subclasses)&nbsp;will<br>
-be&nbsp;encoded&nbsp;as&nbsp;JSON&nbsp;arrays.<br>
-&nbsp;<br>
-If&nbsp;*iterable_as_array*&nbsp;is&nbsp;true&nbsp;(default:&nbsp;``False``),<br>
-any&nbsp;object&nbsp;not&nbsp;in&nbsp;the&nbsp;above&nbsp;table&nbsp;that&nbsp;implements&nbsp;``__iter__()``<br>
-will&nbsp;be&nbsp;encoded&nbsp;as&nbsp;a&nbsp;JSON&nbsp;array.<br>
-&nbsp;<br>
-If&nbsp;bigint_as_string&nbsp;is&nbsp;true&nbsp;(not&nbsp;the&nbsp;default),&nbsp;ints&nbsp;2**53&nbsp;and&nbsp;higher<br>
-or&nbsp;lower&nbsp;than&nbsp;-2**53&nbsp;will&nbsp;be&nbsp;encoded&nbsp;as&nbsp;strings.&nbsp;This&nbsp;is&nbsp;to&nbsp;avoid&nbsp;the<br>
-rounding&nbsp;that&nbsp;happens&nbsp;in&nbsp;Javascript&nbsp;otherwise.<br>
-&nbsp;<br>
-If&nbsp;int_as_string_bitcount&nbsp;is&nbsp;a&nbsp;positive&nbsp;number&nbsp;(n),&nbsp;then&nbsp;int&nbsp;of&nbsp;size<br>
-greater&nbsp;than&nbsp;or&nbsp;equal&nbsp;to&nbsp;2**n&nbsp;or&nbsp;lower&nbsp;than&nbsp;or&nbsp;equal&nbsp;to&nbsp;-2**n&nbsp;will&nbsp;be<br>
-encoded&nbsp;as&nbsp;strings.<br>
-&nbsp;<br>
-If&nbsp;specified,&nbsp;item_sort_key&nbsp;is&nbsp;a&nbsp;callable&nbsp;used&nbsp;to&nbsp;sort&nbsp;the&nbsp;items&nbsp;in<br>
-each&nbsp;dictionary.&nbsp;This&nbsp;is&nbsp;useful&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;sort&nbsp;items&nbsp;other&nbsp;than<br>
-in&nbsp;alphabetical&nbsp;order&nbsp;by&nbsp;key.<br>
-&nbsp;<br>
-If&nbsp;for_json&nbsp;is&nbsp;true&nbsp;(not&nbsp;the&nbsp;default),&nbsp;objects&nbsp;with&nbsp;a&nbsp;``for_json()``<br>
-method&nbsp;will&nbsp;use&nbsp;the&nbsp;return&nbsp;value&nbsp;of&nbsp;that&nbsp;method&nbsp;for&nbsp;encoding&nbsp;as&nbsp;JSON<br>
-instead&nbsp;of&nbsp;the&nbsp;object.<br>
-&nbsp;<br>
-If&nbsp;*ignore_nan*&nbsp;is&nbsp;true&nbsp;(default:&nbsp;``False``),&nbsp;then&nbsp;out&nbsp;of&nbsp;range<br>
-:class:`float`&nbsp;values&nbsp;(``nan``,&nbsp;``inf``,&nbsp;``-inf``)&nbsp;will&nbsp;be&nbsp;serialized<br>
-as&nbsp;``null``&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;ECMA-262&nbsp;specification.&nbsp;If&nbsp;true,<br>
-this&nbsp;will&nbsp;override&nbsp;*allow_nan*.</tt></dd></dl>
+version&nbsp;of&nbsp;the&nbsp;object&nbsp;or&nbsp;raise&nbsp;a&nbsp;``TypeError``.</tt></dd></dl>
 
 <dl><dt><a name="JSONEncoder-encode"><strong>encode</strong></a>(self, o)</dt><dd><tt>Return&nbsp;a&nbsp;JSON&nbsp;string&nbsp;representation&nbsp;of&nbsp;a&nbsp;Python&nbsp;data&nbsp;structure.<br>
 &nbsp;<br>
-&gt;&gt;&gt;&nbsp;from&nbsp;simplejson&nbsp;import&nbsp;<a href="#JSONEncoder">JSONEncoder</a><br>
+&gt;&gt;&gt;&nbsp;from&nbsp;json.encoder&nbsp;import&nbsp;<a href="#JSONEncoder">JSONEncoder</a><br>
 &gt;&gt;&gt;&nbsp;<a href="#JSONEncoder">JSONEncoder</a>().<a href="#JSONEncoder-encode">encode</a>({"foo":&nbsp;["bar",&nbsp;"baz"]})<br>
 '{"foo":&nbsp;["bar",&nbsp;"baz"]}'</tt></dd></dl>
 
@@ -153,7 +112,7 @@ For&nbsp;example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysocket.write(chunk)</tt></dd></dl>
 
 <hr>
-Data descriptors inherited from <a href="simplejson.encoder.html#JSONEncoder">simplejson.encoder.JSONEncoder</a>:<br>
+Data descriptors inherited from <a href="json.encoder.html#JSONEncoder">json.encoder.JSONEncoder</a>:<br>
 <dl><dt><strong>__dict__</strong></dt>
 <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
@@ -161,7 +120,7 @@ Data descriptors inherited from <a href="simplejson.encoder.html#JSONEncoder">si
 <dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr>
-Data and other attributes inherited from <a href="simplejson.encoder.html#JSONEncoder">simplejson.encoder.JSONEncoder</a>:<br>
+Data and other attributes inherited from <a href="json.encoder.html#JSONEncoder">json.encoder.JSONEncoder</a>:<br>
 <dl><dt><strong>item_separator</strong> = ', '</dl>
 
 <dl><dt><strong>key_separator</strong> = ': '</dl>
