@@ -31,9 +31,13 @@ class QueryResolver:
         dbFilter = {}
 
         for condition in conditionsList:
-            key, value = condition.split(self.K_V_SEPARATOR)
 
-            regex = self.IS_REG.match(value)
+            regex = None
+            value = None
+            key = None
+            if condition.find(self.K_V_SEPARATOR) != -1:
+                key, value = condition.split(self.K_V_SEPARATOR)
+                regex = self.IS_REG.match(value)
             if regex:
                 regexStr = regex.group()[self.FROM_L_SLASH: self.TO_R_SLASH]
                 dbFilter[key] = re.compile(regexStr)
