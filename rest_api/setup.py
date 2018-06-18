@@ -36,6 +36,7 @@ if __name__ == '__main__':
         header with &#x60;Bearer [TOKEN]&#x60; value on each request. You will
         receive token from auth server on successful sign-in or sign-on action.
         Make sure monitor uses selected auth server. Monitor should handle CORS
-        with pre-flight, allowing query each path by OPTIONS to get CORS headers.
+        with pre-flight, allowing query each path by OPTIONS to get CORS
+        headers.
         """,
     )
