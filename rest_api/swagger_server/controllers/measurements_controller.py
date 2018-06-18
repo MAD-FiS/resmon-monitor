@@ -1,6 +1,9 @@
+from flask_jwt_extended import jwt_required
 import datetime
 
-from rest_api.swagger_server.models.measurement import Measurement  # noqa: E501
+from rest_api.swagger_server.models.measurement import (
+    Measurement
+)  # noqa: E501
 from rest_api.swagger_server.models.point import Point
 from rest_api.swagger_server import util
 
@@ -11,7 +14,10 @@ TIME_IND = 0
 VALUE_IND = 1
 
 
-def get_measurements(start=None, end=None, q=None, limit=None, last=None):  # noqa: E501
+@jwt_required
+def get_measurements(
+    start=None, end=None, q=None, limit=None, last=None
+):  # noqa: E501
     """Selected measurements
 
      # noqa: E501
