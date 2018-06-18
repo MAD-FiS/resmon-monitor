@@ -8,7 +8,8 @@ Repository for a monitor component, which is part of resmon product.
 ```
 
 #Instalation
-We provide single file `install-monitor.sh` which is used to install this application. It's enough that you just run it as following:
+For normal users we provide single file `install-monitor.sh` which is used to install this application.
+If you have already downloaded that file, it's enough that you just run it as following:
 ```bash
 ./install-monitor.sh [--quiet]
 ```
@@ -17,6 +18,12 @@ Application will be installed in the same place where script `install-monitor.sh
 
 #For developers
 
+You have to clone this repository. Then you cna work with it and develop the application.
+If you want to run it for testing, it needs to create script `install-monitor.sh` 
+with the newest version of code. You can use for it scripts in a way 
+which is described below.
+
+## Scripts
 You can run some scripts to make your developing process faster and more comfortable.
 All scripts can be executed in this way:
 ```bash
