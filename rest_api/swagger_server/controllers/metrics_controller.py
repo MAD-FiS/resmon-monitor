@@ -31,8 +31,8 @@ def get_metrics():  # noqa: E501
             id=metric,
             interval=interval,
             moving_window_duration=moving_window,
-            description=metrics[metric],
-            unit="%",
+            description=metrics[metric][0],
+            unit=metrics[metric][1],
             hosts=hosts,
         )
         response.append(metric_object.to_dict())

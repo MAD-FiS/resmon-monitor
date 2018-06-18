@@ -123,7 +123,7 @@ class dbApi:
         for entry in dataEntries:
             for metric in entry[self.METRICS_KEY]:
                 response.update(
-                    {metric[self.METRIC_ID_KEY]: metric[self.DESCRIPTION_KEY]}
+                    {metric[self.METRIC_ID_KEY]: [metric[self.DESCRIPTION_KEY], metric[self.UNIT_KEY]]}
                 )
 
         return response
