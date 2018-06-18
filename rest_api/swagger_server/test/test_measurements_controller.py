@@ -13,15 +13,10 @@ class TestMeasurementsController(BaseTestCase):
 
         Selected measurements
         """
-        query_string = [('start', '2013-10-20T19:20:30+01:00'),
-                        ('end', '2013-10-20T19:20:30+01:00'),
-                        ('q', 'q_example'),
-                        ('limit', 8.14),
-                        ('last', true)]
-        response = self.client.open(
-            '/measurements',
-            method='GET',
-            query_string=query_string)
+        query_string = [('start', '2010-05-10'),
+                        ('end', '2018-08-10'),
+                        ('q', 'os:/.*a.*/')]
+        response = self.client.open('/measurements', method='GET', query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

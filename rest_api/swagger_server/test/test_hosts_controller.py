@@ -28,7 +28,7 @@ class TestHostsController(BaseTestCase):
             ),
             method="DELETE",
         )
-        self.assert200(
+        self.assert404(
             response, "Response body is : " + response.data.decode("utf-8")
         )
 
@@ -37,7 +37,7 @@ class TestHostsController(BaseTestCase):
 
         Get list of hosts
         """
-        query_string = [("q", "q_example")]
+        query_string = [("q", "NAME:q_example")]
         response = self.client.open(
             "/hosts", method="GET", query_string=query_string
         )
@@ -50,14 +50,14 @@ class TestHostsController(BaseTestCase):
 
         Add complex metric
         """
-        payload = Payload()
+        payload = Payload(description="CPU usage in percentage",interval = 5, moving_window_duration=5,parent_id="null")
         response = self.client.open(
             "/hosts/{hostname}/metrics".format(hostname="hostname_example"),
             method="POST",
             data=json.dumps(payload),
             content_type="application/json",
         )
-        self.assert200(
+        self.assert404(
             response, "Response body is : " + response.data.decode("utf-8")
         )
 
