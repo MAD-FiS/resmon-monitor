@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
 
-service apache2 status >> /dev/null
-if $? -eq 0; then
-    service apache2 graceful
-else
-    service apache2 start
+source ./resmon-monitor.env
+
+CPL_PROC_PID=`cat ./config/cpl_proc.pid`
+PROCESS_NAME=`ps -p $CPL_PROC_PID -o comm= 2> /dev/null`
+if [ -n "$PROCESS_NAME" ]; then
+    kill $CPL_PROC_PID
+    cat /dev/null > ./config/cpl_proc.pid
+fi
+
+if [[ "$1" != '--stop' ]]; then
+    service apache2 status >> /dev/null
+    if $? -eq 0; then
+        service apache2 graceful
+    else
+        service apache2 start
+    fi
+    ./complex_meas_processor/main.py & echo -n $! > ./config/cpl_proc.pid
 fi

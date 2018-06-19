@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 from common.database.mongoAccess import dbApi
 from datetime import datetime
 from datetime import timedelta
