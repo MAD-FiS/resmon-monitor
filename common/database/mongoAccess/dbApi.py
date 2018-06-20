@@ -17,7 +17,8 @@ class dbApi:
     PORT = None
     USER = None
     PASSW = None
-    CONFIG_FILE = "../../../config/db.conf.json"
+    # CONFIG_FILE = "../../../config/db.conf.json"
+    CONFIG_FILE = "/app/data/db.conf.json"
 
     def __init__(self):
         try:

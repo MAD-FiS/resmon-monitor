@@ -9,6 +9,8 @@ as being used in project/install root directory.
 
 # Usage
 
+This application is dedicated to be used only on Linux operating system.
+
 ```bash
 ./resmon-monitor [--stop]
 ```
@@ -32,7 +34,7 @@ The file has following fields:
 | user       | string | Username which is used for authorization |
 | password   | string | Password which is used for authorization |
 
-# Instalation
+# Installation
 
 For normal users we provide single file `install-monitor.sh` which is used to install this application.
 If you have already downloaded that file, it's enough that you just run it as following:
@@ -114,3 +116,4 @@ docker run -p 4000:81 -p 4001:82 --link resmon-monitor-db -it resmon-monitor
 ```
 Then you can run there this application. REST API is available on port 4000 
 and sensor receiver is running on port 4001.
+https://github.com/MAD-FiS/resmon-auth/blob/master/guide.pdf
