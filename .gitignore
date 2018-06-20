@@ -110,3 +110,5 @@ ENV/
 
 # IDE
 .idea/
+
+docs/
