@@ -3,6 +3,7 @@ import connexion
 import sys
 
 from flask_jwt_extended import JWTManager
+from rest_api.environment import ROOT_DIR
 
 
 def app(environ, start_fn):
@@ -16,15 +17,15 @@ def app(environ, start_fn):
     )
 
     try:
-        with open("/app/jwt.key") as f:
+        with open(ROOT_DIR + "/data/jwt.key") as f:
             key = f.read().rstrip()
     except FileNotFoundError:
         print(
-            'File with authorization key "jwt.key" not found',
+            'File with authorization key "./data/jwt.key" not found',
             "Monitor is unable to start",
         )
         sys.exit(
-            'File with authorization key "jwt.key" not found.'
+            'File with authorization key "./data/jwt.key" not found.'
             "Monitor is unable to start"
         )
 
