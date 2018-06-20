@@ -4,8 +4,9 @@ Repository for a monitor component, which is part of resmon product.
 # Usage
 
 ```bash
-./resmon-monitor
+./resmon-monitor [--stop]
 ```
+The optional parameter `--stop` is used if you want to stop monitor services instead of running it.
 
 #Instalation
 For normal users we provide single file `install-monitor.sh` which is used to install this application.
