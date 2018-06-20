@@ -3,6 +3,7 @@
 import re
 from datetime import datetime
 from common.database.mongoAccess import mongo3
+import json
 
 
 class dbApi:
@@ -12,12 +13,19 @@ class dbApi:
     META_COLL = "metaCollection"
     COMPLEX_COLL = "complexMeasurements"
     NAME = "monitorDatabase"
-    IP = "172.17.0.2"
-    PORT = 27017
-    USER = ""
-    PASSW = ""
+    IP = None
+    PORT = None
+    USER = None
+    PASSW = None
+    CONFIG_FILE = "../../../config/db.conf.json"
 
     def __init__(self):
+        try:
+            self._loadConfig()
+        except OSError:
+            print("Database configuration file can not be found")
+            exit(1)
+
         self.db = mongo3.DB(
             self.USER, self.PASSW, self.IP, self.PORT, self.NAME
         )
@@ -51,6 +59,15 @@ class dbApi:
         "descriptions",
         "_id",
     ]
+
+    def _loadConfig(self):
+        f = open(self.CONFIG_FILE, 'r')
+        config = json.loads(f.read())
+        f.close()
+        self.IP = config['address']
+        self.PORT = config['port']
+        self.USER = config['user']
+        self.PASSW = config['password']
 
     def findInMeta(self, filtr=None):
         """Find filter in meta collection"""
