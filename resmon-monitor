@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-source ./resmon-monitor.env
+if [ -z ${RESMONMONITORENV+x} ]; then
+    source ./data/resmon-monitor.env
+fi
 
-CPL_PROC_PID=`cat ./config/cpl_proc.pid`
+CPL_PROC_PID=`cat ./data/cpl_proc.pid`
 PROCESS_NAME=`ps -p $CPL_PROC_PID -o comm= 2> /dev/null`
 if [ -n "$PROCESS_NAME" ]; then
     kill $CPL_PROC_PID
@@ -11,7 +13,7 @@ fi
 
 if [[ "$1" != '--stop' ]]; then
     service apache2 status >> /dev/null
-    if $? -eq 0; then
+    if [ $? -eq 0 ]; then
         service apache2 graceful
     else
         service apache2 start
