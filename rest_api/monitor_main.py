@@ -17,7 +17,7 @@ def app(environ, start_fn):
 
     try:
         with open("/app/jwt.key") as f:
-            key = f.readline().rstrip()
+            key = f.read().rstrip()
     except FileNotFoundError:
         print(
             'File with authorization key "jwt.key" not found',
