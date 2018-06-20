@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a723603_67091e38",
+        "filename": "rest_api/swagger_server/test/__init__.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-06-20T11:10:57Z",
+      "side": 1,
+      "message": "Czemu to jest tutaj na sztywno wprowadzone? :O",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "f3cb3daecf8aa2f92a5e1da16daf5d1694ed6c50",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
