@@ -8,6 +8,11 @@ Repository for a monitor component, which is part of resmon product.
 ```
 The optional parameter `--stop` is used if you want to stop monitor services instead of running it.
 
+**Info!** Key file has to be the same as in monitors 
+which use this authorization server to confirm identity of users.
+You have to generate key and to make sure that both this server and monitor 
+use the same version of file.
+
 #Instalation
 For normal users we provide single file `install-monitor.sh` which is used to install this application.
 If you have already downloaded that file, it's enough that you just run it as following:
