@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cfc4dd40_f287f28a",
+        "filename": "rest_api/monitor_main.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1013778
+      },
+      "writtenOn": "2018-06-20T11:16:36Z",
+      "side": 1,
+      "message": "czemu tu wczytujesz jedną linię? :O nie lepiej jest f.read() ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 28,
+        "endLine": 20,
+        "endChar": 31
+      },
+      "revId": "f3cb3daecf8aa2f92a5e1da16daf5d1694ed6c50",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a723603_67091e38",
         "filename": "rest_api/swagger_server/test/__init__.py",
         "patchSetId": 6
