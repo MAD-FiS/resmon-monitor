@@ -6,7 +6,7 @@ RUN apt-get update
 
 ADD ./install-monitor.sh /app
 
-RUN /app/install-monitor.sh --quiet
+RUN /app/install-monitor.sh --config /app/data/db.conf.json --quiet
 
 CMD /app/resmon-monitor && /bin/bash
 
