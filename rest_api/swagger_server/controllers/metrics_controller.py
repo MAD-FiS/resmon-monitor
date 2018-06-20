@@ -22,13 +22,20 @@ def get_metrics():  # noqa: E501
     for metric in metrics.keys():
         interval = None
         moving_window = None
+        parent_id = None
         hosts = api.getHostnameByMetric(metric)
 
-        cpxDefinitions = api.getCpxDefinitions({api.METRIC_ID_KEY: metric})
-        for cpxDef in cpxDefinitions:
+        print("getCpxDefinitions, metric: ", metric)
+
+        cpxDef = api.getCpxDefinitions({api.METRIC_ID_KEY: metric}) 
+
+        if cpxDef:
+            print("cpxDef not none")
             hosts.append(cpxDef[api.HOSTNAME_KEY])
             interval = cpxDef[api.INTERVAL_KEY]
             moving_window = cpxDef[api.MOVING_WINDOW_KEY]
+            parent_id = cpxDef[api.PARENT_ID_KEY]
+            print(parent_id)
 
         metric_object = Metric(
             id=metric,
@@ -37,6 +44,7 @@ def get_metrics():  # noqa: E501
             description=metrics[metric][0],
             unit=metrics[metric][1],
             hosts=hosts,
+            parent_id=parent_id
         )
         response.append(metric_object.to_dict())
 
