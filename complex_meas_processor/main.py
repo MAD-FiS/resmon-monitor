@@ -51,6 +51,7 @@ def run():
                 measDef.interval,
                 measDef.description,
                 measDef.lastCalcTime,
+                measDef.owner
             )
         time.sleep(60)
 

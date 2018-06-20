@@ -11,6 +11,7 @@ class MeasurementDef:
         interval,
         lastCalc,
         description,
+        owner,
     ):
         self.hostname = hostname
         self.metric_id = metric_id
@@ -19,6 +20,7 @@ class MeasurementDef:
         self.interval = interval
         self.lastCalcTime = lastCalc
         self.description = description
+        self.owner = owner
 
     def getFilter(self):
         measFilter = dict()
@@ -35,6 +37,10 @@ class MeasurementDef:
         interval = cpx[dbApi.dbApi.INTERVAL_KEY]
         lastCalcTime = cpx[dbApi.dbApi.LAST_CALC_KEY]
         description = cpx[dbApi.dbApi.DESCRIPTION_KEY]
+        owner = "-"
+        if dbApi.dbApi.OWNER_KEY in cpx:
+            owner = cpx[dbApi.dbApi.OWNER_KEY]
+
         return cls(
             hostname,
             metric_id,
@@ -43,4 +49,5 @@ class MeasurementDef:
             interval,
             lastCalcTime,
             description,
+            owner,
         )
