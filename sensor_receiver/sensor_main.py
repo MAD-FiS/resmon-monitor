@@ -1,6 +1,7 @@
 from common.database.mongoAccess import mongo3
 import datetime
 import json
+import dateutil.parser
 
 
 class ValidationError:
@@ -73,8 +74,9 @@ def parse_request(environ, db):
 
     elif js['type'] == 'data':
         for value in js['data']:
-            datetime_object = datetime.datetime.strptime(
-                value['date'].split(".")[0], '%Y-%m-%d %H:%M:%S')
+            # datetime_object = datetime.datetime.strptime(
+            #    value['date'].split(".")[0], '%Y-%m-%d %H:%M:%S')
+            datetime_object = dateutil.parser.parse(value['date'])
             value['date'] = datetime_object
             db.insert(value, "dataCollection")
 
