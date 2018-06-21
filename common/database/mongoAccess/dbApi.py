@@ -3,6 +3,7 @@
 import re
 from datetime import datetime
 from common.database.mongoAccess import mongo3
+from common.environment import ROOT_DIR
 import json
 
 
@@ -17,7 +18,7 @@ class dbApi:
     PORT = None
     USER = None
     PASSW = None
-    CONFIG_FILE = "../../../config/db.conf.json"
+    CONFIG_FILE = ROOT_DIR + "/data/db.conf.json"
 
     def __init__(self):
         try:
