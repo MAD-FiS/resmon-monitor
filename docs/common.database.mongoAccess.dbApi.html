@@ -75,12 +75,12 @@ metric&nbsp;name&nbsp;and&nbsp;time&nbsp;interval</tt></dd></dl>
 
 <dl><dt><a name="dbApi-getSessionIds"><strong>getSessionIds</strong></a>(self, dataFilter=None)</dt><dd><tt>Get&nbsp;session&nbsp;id&nbsp;from&nbsp;meta&nbsp;using&nbsp;filter</tt></dd></dl>
 
-<dl><dt><a name="dbApi-insertMeasDefinition"><strong>insertMeasDefinition</strong></a>(self, hostname, metric_id, parent_id, moving_window, interval, description)</dt><dd><tt>#&nbsp;TODO:Delete&nbsp;all&nbsp;this&nbsp;ugly&nbsp;arguments&nbsp;and<br>
+<dl><dt><a name="dbApi-insertMeasDefinition"><strong>insertMeasDefinition</strong></a>(self, hostname, metric_id, parent_id, moving_window, interval, description, owner)</dt><dd><tt>#&nbsp;TODO:Delete&nbsp;all&nbsp;this&nbsp;ugly&nbsp;arguments&nbsp;and<br>
 #&nbsp;replace&nbsp;with&nbsp;MeasurementDefinition&nbsp;<a href="builtins.html#object">object</a></tt></dd></dl>
 
 <dl><dt><a name="dbApi-insertMeasurements"><strong>insertMeasurements</strong></a>(self, sessionId, metric_id, measurements)</dt></dl>
 
-<dl><dt><a name="dbApi-updateMeasDefinition"><strong>updateMeasDefinition</strong></a>(self, hostname, metric_id, parent_id, moving_window, interval, description, lastCalcTime)</dt><dd><tt>#&nbsp;TODO:Delete&nbsp;all&nbsp;this&nbsp;ugly&nbsp;arguments&nbsp;and<br>
+<dl><dt><a name="dbApi-updateMeasDefinition"><strong>updateMeasDefinition</strong></a>(self, hostname, metric_id, parent_id, moving_window, interval, description, lastCalcTime, owner)</dt><dd><tt>#&nbsp;TODO:Delete&nbsp;all&nbsp;this&nbsp;ugly&nbsp;arguments&nbsp;and<br>
 #&nbsp;replace&nbsp;with&nbsp;MeasurementDefinition&nbsp;<a href="builtins.html#object">object</a></tt></dd></dl>
 
 <dl><dt><a name="dbApi-updateMetricInMetadata"><strong>updateMetricInMetadata</strong></a>(self, hostname, metric_id, parent_id, description)</dt></dl>
@@ -126,6 +126,8 @@ Data and other attributes defined here:<br>
 <dl><dt><strong>MOVING_WINDOW_KEY</strong> = 'moving_window'</dl>
 
 <dl><dt><strong>NAME</strong> = 'monitorDatabase'</dl>
+
+<dl><dt><strong>OWNER_KEY</strong> = 'owner'</dl>
 
 <dl><dt><strong>PARENT_ID_KEY</strong> = 'parent_id'</dl>
 
