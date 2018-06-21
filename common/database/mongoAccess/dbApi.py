@@ -41,6 +41,7 @@ class dbApi:
     LAST_CALC_KEY = "last_calculation"
     DESCRIPTION_KEY = "description"
     UNIT_KEY = "unit"
+    OWNER_KEY = "owner"
 
     STANDARD_FIELDS = [
         "metrics",
@@ -168,7 +169,20 @@ class dbApi:
         return metadata
 
     def getCpxDefinitions(self, filtr=None):
-        return self.db.find(filtr, self.COMPLEX_COLL)
+        cpxDefs = list(self.db.find(filtr, self.COMPLEX_COLL))
+        for cpx in cpxDefs:
+            print(cpx)
+        print("len cpx: ", len(cpxDefs))
+        if not filtr:
+            return cpxDefs
+        else:
+            if len(cpxDefs) > 1:
+                print('ERROR, Metric id should be unique!')
+                return cpxDefs[0]
+            elif len(cpxDefs) == 0:
+                return None
+            else:
+                return cpxDefs[0]
 
     # TODO:Delete all this ugly arguments and
     # replace with MeasurementDefinition object
@@ -180,6 +194,7 @@ class dbApi:
         moving_window,
         interval,
         description,
+        owner
     ):
         doc = dict()
         doc[self.HOSTNAME_KEY] = hostname
@@ -189,6 +204,7 @@ class dbApi:
         doc[self.INTERVAL_KEY] = interval
         doc[self.DESCRIPTION_KEY] = description
         doc[self.LAST_CALC_KEY] = datetime.now()
+        doc[self.OWNER_KEY] = owner
         self.db.insert(doc, self.COMPLEX_COLL)
 
     def updateMetricInMetadata(
@@ -234,6 +250,7 @@ class dbApi:
         interval,
         description,
         lastCalcTime,
+        owner
     ):
         doc = dict()
         doc[self.HOSTNAME_KEY] = hostname
@@ -246,6 +263,7 @@ class dbApi:
         doc[self.INTERVAL_KEY] = interval
         doc[self.DESCRIPTION_KEY] = description
         doc[self.LAST_CALC_KEY] = lastCalcTime
+        doc[self.OWNER_KEY] = owner
 
         self.db.update(updateFilter, doc, self.COMPLEX_COLL)
 

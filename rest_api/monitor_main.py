@@ -28,10 +28,7 @@ def app(environ, start_fn):
             "Monitor is unable to start"
         )
 
-    # connApp.app.config["JWT_SECRET_KEY"] = key
-    connApp.app.config['JWT_SECRET_KEY'] = \
-        'eea637dfa8c5da0db6740b4b5708ee7aecc1d5f9f830d1ce7ab9df480bace474d8db8484b84ee'\
-        '4b16e8fbb490e0ac519caaec508379622abe051ba2a9dcda431'
+    connApp.app.config["JWT_SECRET_KEY"] = key
     jwt = JWTManager(connApp.app)
 
     return connApp.app(environ, start_fn)

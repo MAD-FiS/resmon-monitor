@@ -33,13 +33,15 @@ dbModulePath = (
 class TestHostsController(BaseTestCase):
     """HostsController integration test stubs"""
 
+    @patch(dbModulePath + "getCpxDefinitions")
     @patch(dbModulePath + "getSessionIds")
-    def test_delete_metric(self, mock_getSessionIds):
+    def test_delete_metric(self, mock_getSessionIds, mock_getCpxDefinitions):
         """Test case for delete_metric
 
         Delete complex metric
         """
         mock_getSessionIds.return_value = [1314042]
+        mock_getCpxDefinitions.return_value = {"owner": "asd"}
         response = self.client.delete(
             "/hosts/{hostname}/metrics/{metric_id}".format(
                 metric_id="metric_id_example", hostname="hostname_example"
@@ -50,11 +52,13 @@ class TestHostsController(BaseTestCase):
             response, "Response body is : " + response.data.decode("utf-8")
         )
 
-    def test_get_hosts(self):
+    @patch(dbModulePath + "getCpxDefinitions")
+    def test_get_hosts(self, mock_getCpxDefinitions):
         """Test case for get_hosts
 
         Get list of hosts
         """
+        mock_getCpxDefinitions = {"owner": "asd"}
         query_string = [("q", "os:q_example")]
         response = self.client.get(
             "/hosts",

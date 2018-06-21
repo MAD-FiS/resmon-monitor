@@ -14,7 +14,7 @@ from common.database.mongoAccess import dbApi
 from rest_api.swagger_server.controllers.metrics_controller import get_metrics
 from rest_api.apiUtils.apiUtils import QueryResolver
 
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 @jwt_required
@@ -38,8 +38,15 @@ def delete_metric(metric_id, hostname):  # noqa: E501
     if len(ids) <= 0:
         return "Uknown metric or hostname", 404
 
-    api.deleteComplexMetric(hostname, metric_id)
-    api.deleteMetric(hostname, metric_id)
+    cpxDef = api.getCpxDefinitions({api.METRIC_ID_KEY: metric_id})
+    if cpxDef:
+        if cpxDef[api.OWNER_KEY] == get_jwt_identity():
+            api.deleteComplexMetric(hostname, metric_id)
+            api.deleteMetric(hostname, metric_id)
+        else:
+            return "You aren't creator of complex metric", 403
+    else:
+        return "Uknown metric, hostname or internal problem", 404
 
     return "Success", 200
 
@@ -70,6 +77,11 @@ def get_hosts(q=None):  # noqa: E501
         metrics = get_metrics()
         metric_objects = []
         for metric in metrics:
+            cpxDef = api.getCpxDefinitions({api.METRIC_ID_KEY: metric["id"]})
+            if cpxDef:
+                currentUser = get_jwt_identity()
+                isRemovableByCurrentUser = cpxDef[api.OWNER_KEY] == currentUser
+                metric["removable"] = isRemovableByCurrentUser
             metric_objects.append(Metric.from_dict(metric))
         metrics = []
         metrics = [m for m in metric_objects if host in m.hosts]
@@ -142,7 +154,13 @@ def post_metric(hostname, payload):  # noqa: E501
         unit = "Unknown Unit"
 
     api.insertMeasDefinition(
-        hostname, metric_id, parent_id, moving_window, interval, description
+        hostname,
+        metric_id,
+        parent_id,
+        moving_window,
+        interval,
+        description,
+        get_jwt_identity(),
     )
     response = InlineResponse201(metric_id, unit)
     return response.to_dict(), 201
